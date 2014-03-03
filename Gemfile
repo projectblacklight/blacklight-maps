@@ -8,7 +8,7 @@ gem 'leaflet-sidebar-rails', git: 'https://github.com/mejackreed/leaflet-sidebar
 
 # Specify your gem's dependencies in blacklight-maps.gemspec
 gemspec
-gem 'engine_cart', path: '/Users/cabeer/Projects/engine_cart'
+gem 'engine_cart', git: 'https://github.com/cbeer/engine_cart'
 
 file = File.expand_path("Gemfile", ENV['ENGINE_CART_DESTINATION'] || ENV['RAILS_ROOT'] || File.expand_path("../spec/internal", __FILE__))
 if File.exists?(file)
