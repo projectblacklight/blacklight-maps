@@ -25,6 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec-rails"
   spec.add_development_dependency "jettywrapper"
-  spec.add_development_dependency "engine_cart", "~> 0.3.0"
+  spec.add_development_dependency "engine_cart", "~> 0.3.2"
   spec.add_development_dependency "capybara"
+  spec.add_development_dependency "poltergeist", ">= 1.5.0"
 end

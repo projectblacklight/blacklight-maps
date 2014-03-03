@@ -7,29 +7,23 @@ require 'rspec/core/rake_task'
 require 'engine_cart/rake_task'
 
 require 'jettywrapper'
-require 'blacklight'
 
 task default: :ci
+
+RSpec::Core::RakeTask.new(:spec)
 
 desc "Load fixtures"
 task :fixtures => ['engine_cart:generate'] do
   EngineCart.within_test_app do
-    system "rake solr:seed RAILS_ENV=test"
-    abort "Error running fixtures" unless $?.success?
+    system "rake blacklight_maps:solr:seed RAILS_ENV=test"
   end
 end
 
 desc "Execute Continuous Integration build"
-task :ci => ['jetty:clean', 'engine_cart:generate'] do
+task :ci => ['engine_cart:generate', 'jetty:clean', 'blacklight_maps:configure_jetty'] do
 
   require 'jettywrapper'
-  jetty_params = {
-    :jetty_home => File.expand_path(File.dirname(__FILE__) + '/jetty'),
-    :quiet => false,
-    :jetty_port => 8888,
-    :solr_home => File.expand_path(File.dirname(__FILE__) + '/jetty/solr'),
-    :startup_wait => 30
-  }
+  jetty_params = Jettywrapper.load_config('test')
 
   error = Jettywrapper.wrap(jetty_params) do
     Rake::Task['fixtures'].invoke
@@ -39,11 +33,11 @@ task :ci => ['jetty:clean', 'engine_cart:generate'] do
 end
 
 
-namespace :solr do
-  desc "Put sample data into solr"
-  task :seed do
-    docs = YAML::load(File.open(File.expand_path('..', 'spec', 'fixtures', 'sample_solr_documents.yml', __FILE__)))
-    Blacklight.solr.add docs
-    Blacklight.solr.commit
+namespace :blacklight_maps do
+  desc "Copies the default SOLR config for the bundled Testing Server"
+  task :configure_jetty do
+    FileList['solr_conf/conf/*'].each do |f|  
+      cp("#{f}", 'jetty/solr/blacklight-core/conf/', :verbose => true)
+    end
   end
 end
