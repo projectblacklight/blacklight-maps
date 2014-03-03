@@ -4,7 +4,7 @@ gem 'leaflet-rails'
 
 gem 'leaflet-markercluster-rails', git: 'https://github.com/mejackreed/leaflet-markercluster-rails.git'
 
-gem 'leaflet-sidebar-rails', git: 'https://github.com/mejackreed/leaflet-sidebar-rails.git'
+gem 'leaflet-sidebar-rails', '0.0.0', git: 'https://github.com/mejackreed/leaflet-sidebar-rails.git'
 
 # Specify your gem's dependencies in blacklight-maps.gemspec
 gemspec

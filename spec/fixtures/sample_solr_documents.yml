@@ -249,6 +249,8 @@
   language_facet:
   - Persian
   timestamp: '2014-02-03T18:42:53.056Z'
+  subject_geom_facet:
+  - Iran|[32.427908, 53.688046]
 - author_t:
   - Yoshida, Hajime,
   - "吉田一"
@@ -330,6 +332,8 @@
   language_facet:
   - Japanese
   timestamp: '2014-02-03T18:42:53.056Z'
+  subject_geom_facet:
+  - Japan|[36.204824, 138.252924]
 - lc_1letter_facet:
   - D - World History
   author_t:
@@ -399,6 +403,8 @@
   language_facet:
   - Russian
   timestamp: '2014-02-03T18:42:53.056Z'
+  subject_geom_facet:
+  - Kazakhstan|[48.019573, 66.923684]
 - lc_1letter_facet:
   - K - Law
   author_t:
@@ -560,6 +566,8 @@
   language_facet:
   - Korean
   timestamp: '2014-02-03T18:42:53.056Z'
+  subject_geom_facet:
+  - Korea|[35.907757, 127.766922]
 - lc_1letter_facet:
   - P - Language & Literature
   author_t:
@@ -689,6 +697,8 @@
   language_facet:
   - Urdu
   timestamp: '2014-02-03T18:42:53.056Z'
+  subject_geom_facet:
+  - Pakistan|[30.375321, 69.34511599999999]
 - lc_1letter_facet:
   - M - Music
   author_t:
@@ -942,6 +952,8 @@
   language_facet:
   - Persian
   timestamp: '2014-02-03T18:42:53.056Z'
+  subject_geom_facet:
+  - Islamic countries|
 - lc_1letter_facet:
   - M - Music
   author_t:
@@ -1084,6 +1096,8 @@
   language_facet:
   - Korean
   timestamp: '2014-02-03T18:42:53.056Z'
+  subject_geom_facet:
+  - Korea (North)|[35.907757, 127.766922]
 - subtitle_display: ṿe-hu perush yafeh u-menupeh ʻal Shulḥan ʻarukh Oraḥ ḥayim
     asher ḥiber Yosef Ḳaro ... ʻim ḥidushe dinim she-hishmiṭ ha-gaʼon ... ṿe-himtsiʼam
     ... Mosheh Iserlish
@@ -1342,6 +1356,9 @@
   language_facet:
   - Korean
   timestamp: '2014-02-03T18:42:53.056Z'
+  subject_geom_facet:
+  - Seoul (Korea)|[37.566535, 126.9779692]
+  - Korea (South)|[35.907757, 127.766922]
 - subtitle_display: dar khiradvarzī-i siyāsī va huvīyat-i mā Īrānīyān
   author_vern_display: "‏رجايى، فرهنگ ."
   subject_addl_t:
@@ -1450,6 +1467,8 @@
   language_facet:
   - Persian
   timestamp: '2014-02-03T18:42:53.056Z'
+  subject_geom_facet:
+  - Iran|[32.427908, 53.688046]
 - lc_1letter_facet:
   - P - Language & Literature
   author_t:
@@ -1695,6 +1714,8 @@
   language_facet:
   - Tibetan
   timestamp: '2014-02-03T18:42:53.056Z'
+  subject_geom_facet:
+  - Bon-brgya (China)|
 - subtitle_display: min jald al-dhāt ilá ṣidq al-sharḥ
   author_vern_display: "أبو الخير، علي عبد الحميد"
   subject_addl_t:
@@ -1956,6 +1977,8 @@
   language_facet:
   - Hebrew
   timestamp: '2014-02-03T18:42:53.056Z'
+  subject_geom_facet:
+  - Israel|[31.046051, 34.851612]
 - lc_1letter_facet:
   - E - History of the Americas (General)
   author_t:
@@ -2064,6 +2087,9 @@
   subtitle_t:
   - 'a Native American elder has her say : an oral history /'
   timestamp: '2014-02-03T18:42:53.056Z'
+  subject_geom_facet:
+  - New Jersey|[40.0583238, -74.4056612]
+  - Bridgeton|[39.427337, -75.2340768]
 - lc_1letter_facet:
   - B - Philosophy, Psychology, Religion
   author_t:
@@ -2249,6 +2275,8 @@
   - English
   - Tibetan
   timestamp: '2014-02-03T18:42:53.056Z'
+  subject_geom_facet:
+  - India|[20.593684, 78.96288]
 - lc_1letter_facet:
   - B - Philosophy, Psychology, Religion
   author_t:
@@ -2406,6 +2434,8 @@
   language_facet:
   - Tibetan
   timestamp: '2014-02-03T18:42:53.056Z'
+  subject_geom_facet:
+  - Tibet (China)|[29.646923, 91.117212]
 - marc_display: "<?xml version=\"1.0\" encoding=\"UTF-8\"?><collection xmlns=\"http://www.loc.gov/MARC21/slim\"><record><leader>01127cam
     a22002895a 4500</leader><controlfield tag=\"001\">  2008308478</controlfield><controlfield
     tag=\"003\">DLC</controlfield><controlfield tag=\"005\">20090123131001.0</controlfield><controlfield
@@ -2480,6 +2510,10 @@
   language_facet:
   - Tibetan
   timestamp: '2014-02-03T18:42:53.056Z'
+  subject_geom_facet:
+  - China|[35.86166, 104.195397]
+  - Tibet|[29.646923, 91.117212]
+  - India|[20.593684, 78.96288]
 - author_vern_display: "吉田一, 1934-"
   subject_addl_t:
   - 20th century History and criticism
@@ -2585,6 +2619,8 @@
   language_facet:
   - Japanese
   timestamp: '2014-02-03T18:42:53.056Z'
+  subject_geom_facet:
+  - Japan|[36.204824, 138.252924]
 - author_vern_display: "林行止"
   subject_addl_t:
   - 1990-
@@ -2689,3 +2725,7 @@
   language_facet:
   - Chinese
   timestamp: '2014-02-03T18:42:53.056Z'
+  subject_geom_facet:
+  - Economic history|[41.3137481, -72.9231485]
+  - World politics|[38.910504, -77.03605999999999]
+  - Hong Kong (China)|[22.396428, 114.109497]
