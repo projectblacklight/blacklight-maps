@@ -17,3 +17,4 @@ test/version_tmp
 tmp
 spec/internal
 jetty
+.DS_Store

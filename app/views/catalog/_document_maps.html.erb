@@ -1,4 +1,6 @@
-<% # container for all documents in index view -%>
+<% # container for all documents in map view -%>
 <div id="documents" class="map">
-<!-- map goes here -->
+  <%= show_map_div() %>
+  <div id="leaflet-sidebar"></div>
+  <%= javascript_tag "var docs = #{send_needed_map_fields};" %>
 </div>

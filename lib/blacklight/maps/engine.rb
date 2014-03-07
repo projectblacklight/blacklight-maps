@@ -1,9 +1,21 @@
 require 'blacklight'
+require 'leaflet-rails'
+require 'leaflet-markercluster-rails'
+require 'leaflet-sidebar-rails'
+
 
 module Blacklight
   module Maps
     class Engine < Rails::Engine
-      Blacklight::Configuration.default_values[:view].maps.lat_lng_field = "zzz_pt"
+
+      # Set some default configurations
+      Blacklight::Configuration.default_values[:view].maps.lat_lng_field = "geoloc"
+      Blacklight::Configuration.default_values[:view].maps.placename_field = "subject_geo_facet"
+      
+      # Add our helpers
+      initializer 'blacklight-maps.helpers' do |app|
+        ActionView::Base.send :include, BlacklightMapsHelper
+      end
 
       # This makes our rake tasks visible.
       rake_tasks do

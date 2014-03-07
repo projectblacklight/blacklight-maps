@@ -1,7 +1,19 @@
-#documents.map {
-
-}
+/*
+*= require leaflet
+*= require leaflet.markercluster
+*= require leaflet.markercluster.default
+*= require L.Control.Sidebar.css
+*/
 
 .view-icon-maps {
-  &:before { content: "\e062"; } 
+  &:before { content: "\e135"; } 
+}
+
+#map{
+  height: 550px;
+}
+
+.sidebar-thumb{
+  height: 64px;
+  width: 64px;
 }
