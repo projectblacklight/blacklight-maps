@@ -8,37 +8,17 @@ describe "Map view", :js => true do
   end
 
   it "should contain map div" do
-    expect(page).to have_selector("#map")
+    expect(page).to have_selector("#blacklight-map")
   end
 
   it "should contain leaflet-sidebar div" do
-    expect(page).to have_selector("#leaflet-sidebar")
+    expect(page).to have_selector("#blacklight-map-sidebar")
   end
 
   describe "Data attributes" do
 
-    it "should have lat lng field" do
-      expect(page).to have_selector("#map[data-latlngfield=geoloc]") 
-    end
-
     it "maxzoom should be 8" do
-      expect(page).to have_selector("#map[data-maxzoom='8']")
-    end
- 
-    it "should have placename field" do
-      expect(page).to have_selector("#map[data-placefield=subject_geo_facet]") 
-    end
-
-    it "should have title field" do
-      expect(page).to have_selector("#map[data-titlefield=title_display]")
-    end
-
-    it "should have id field" do
-      expect(page).to have_selector("#map[data-docid=id]")
-    end
-
-    it "should have doc path field" do
-      expect(page).to have_selector("#map[data-docurl]")
+      expect(page).to have_selector("#blacklight-map[data-maxzoom='8']")
     end
 
   end
@@ -55,6 +35,10 @@ describe "Map view", :js => true do
 
     it "should have 4 markers" do
       expect(find("div.marker-cluster")).to have_content(4)
+    end
+
+    it "should display tile layer attribution" do
+      expect(find("div.leaflet-control-container")).to have_content('OpenStreetMap contributors, CC-BY-SA')
     end
 
     describe "Click Marker cluster" do
@@ -78,13 +62,12 @@ describe "Map view", :js => true do
             expect(page).to have_content("Dharamsala, Distt. Kangra, H.P.")
           end
 
-      end
+        end
 
       end
 
     end
 
-   
     #TODO more tests
   end
 

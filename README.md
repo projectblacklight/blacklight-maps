@@ -25,34 +25,30 @@ Or install it yourself as:
 
 Blacklight-Maps adds a map view capability for a results set that contains geospatial coordinates (latitude/longitude).
 
-Blacklight-Maps requires that your SOLR index includes lat/lon coordinates located in a field that relates to a placename.  For example: 
+For now, Blacklight-Maps requires that your SOLR index includes a field containing placenames with latitude and longitude coordinates delimited by `|`.  This field can be multivalued.
 
-A document could have the following placenames:
+A document requires the following field:
 ```  
-  subject_geo_facet:
-    - China
-    - Tibet
-    - India
+  placename_coords:
+    - China|35.86166|104.195397
+    - Tibet|29.646923|91.117212
+    - India|20.593684|78.96288
 ```
-These placenames are already geocoded and given as an array in the same order:
-```    
-  geoloc:
-    - "[35.86166, 104.195397]"
-    - "[29.646923, 91.117212]"
-    - "[20.593684, 78.96288]"
-```
+
+Note: We are looking at implementing support for additional fields.
 
 ### Configuration
 
 #### Required
-Blacklight-Maps expects you to provide several things:
+Blacklight-Maps expects you to provide:
 
-- a field to map the placename array (`subject_geo_facet` in the example above)
-- a field to map to the latitude/longitude array (`geoloc` in the example above)
+- a field to map the placename coordinates (`placename_coords` in the example above)
 
 #### Optional
 
-- a field that the document thumbnail url resides
+- the maxZoom [property of the map](http://leafletjs.com/reference.html#map-maxzoom)
+- a [tileLayer url](http://leafletjs.com/reference.html#tilelayer-l.tilelayer) to change the basemap
+- an [attribution string](http://leafletjs.com/reference.html#tilelayer-attribution) to describe the basemap layer
 
 
 All of these options can easily be configured in `CatalogController.rb` in the `config` block.
@@ -67,9 +63,10 @@ All of these options can easily be configured in `CatalogController.rb` in the `
       :fl   => '*'
     }
 
-    config.view.maps.placename_field = "subject_geographic_ssim"
-    config.view.maps.thumbnail_field = "thumbnail_url_ssm"
-    config.view.maps.lat_lng_field = "subject_geographic_coords"
+    ## Default values
+    config.view.maps.placename_coords_field = "placename_coords"
+    config.view.maps.tileurl = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    config.view.maps.attribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
 ...
 
 ```

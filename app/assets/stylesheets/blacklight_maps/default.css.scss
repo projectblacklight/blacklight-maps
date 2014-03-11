@@ -9,11 +9,16 @@
   &:before { content: "\e135"; } 
 }
 
-#map{
+#blacklight-map{
   height: 550px;
 }
 
 .sidebar-thumb{
   height: 64px;
   width: 64px;
+}
+
+.sidebar-list{
+  padding-left: 0;
+  list-style: none;
 }

@@ -528,7 +528,7 @@
    <field name="format" type="string" indexed="true" stored="true"/>
 
    <!-- addition -->
-   <field name="geoloc" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="placename_coords" type="string" indexed="true" stored="true" multiValued="true"/>
 
    <!-- Dynamic field definitions.  If a field name is not found, dynamicFields
         will be used if the name matches any of the patterns.

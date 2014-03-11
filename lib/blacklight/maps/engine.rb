@@ -9,9 +9,11 @@ module Blacklight
     class Engine < Rails::Engine
 
       # Set some default configurations
-      Blacklight::Configuration.default_values[:view].maps.lat_lng_field = "geoloc"
-      Blacklight::Configuration.default_values[:view].maps.placename_field = "subject_geo_facet"
-      
+      Blacklight::Configuration.default_values[:view].maps.placename_coord_field = "placename_coords"
+      Blacklight::Configuration.default_values[:view].maps.tileurl = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      Blacklight::Configuration.default_values[:view].maps.mapattribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+      Blacklight::Configuration.default_values[:view].maps.maxzoom = 8
+
       # Add our helpers
       initializer 'blacklight-maps.helpers' do |app|
         ActionView::Base.send :include, BlacklightMapsHelper

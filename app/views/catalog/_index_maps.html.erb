@@ -1,0 +1,9 @@
+<% # the way each document will be viewed in the sidebar list -%>
+<li class='media'>
+  <%= render_thumbnail_tag document, {class: 'sidebar-thumb media-object'}, {class: 'pull-left'} %>
+  <div class='media-body'>
+    <h4 class='media-heading'>
+      <%= link_to_document document, :label=>document_show_link_field(document) %>
+    </h4>
+  </div>
+</li>

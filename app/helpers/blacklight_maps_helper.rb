@@ -1,44 +1,36 @@
 module BlacklightMapsHelper
     
     def show_map_div
-      data_attributes = {:latlngfield => blacklight_config.view.maps.lat_lng_field.to_s,
-          :maxzoom => 8, :titlefield => blacklight_config.index.title_field,
-          :placefield => blacklight_config.view.maps.placename_field, 
-          :docurl => doc_url_path,
-          :docid => SolrDocument.unique_key.to_s
+      data_attributes = {
+          :maxzoom => blacklight_config.view.maps.maxzoom,
+          :tileurl => blacklight_config.view.maps.tileurl
+          
         }
 
-      if has_thumbnail_field_defined?
-        data_attributes[:thumbfield] = blacklight_config.view.maps.thumbnail_field
-      end
-
-      content_tag(:div, "", :id => "map",
-        :data => data_attributes
+      content_tag(:div, "", id: "blacklight-map",
+        data: data_attributes
       )
     end
 
-    def has_thumbnail_field_defined?
-      blacklight_config.view.maps.thumbnail_field.present?
+    def serialize_geojson
+      geojson_docs = {type: "FeatureCollection", features: []}
+      @response.docs.each_with_index do |doc, counter|
+        if doc[blacklight_config.view.maps.placename_coord_field]
+          doc[blacklight_config.view.maps.placename_coord_field].each do |loc|
+            values = loc.split('|')
+            feature = {type: "Feature", geometry: {type: "Point",
+                        coordinates: [values[2].to_f, values[1].to_f]},
+                        properties: {placename: values[0],
+                          html: render_leaflet_sidebar_partial(doc)}}
+            geojson_docs[:features].push feature
+          end
+        end
+      end
+      return geojson_docs.to_json
     end
 
-    def doc_url_path
-      path = url_for_document(SolrDocument).to_s.gsub("SolrDocument", "")
-      if path.length < 1
-        path = '/catalog/'
-      end
-      return path
+    def render_leaflet_sidebar_partial(doc)
+      render partial: 'catalog/index_maps', locals: {document: SolrDocument.new(doc)}
     end
 
-    def send_needed_map_fields
-      returned_fields = [SolrDocument.unique_key, blacklight_config.view.maps.lat_lng_field,
-        blacklight_config.index.title_field, blacklight_config.view.maps.placename_field]
-      if has_thumbnail_field_defined?
-        returned_fields.push blacklight_config.view.maps.thumbnail_field
-      end  
-      returned_docs = []
-      @response.docs.each do |doc|
-        returned_docs.push doc.select {|k,v| returned_fields.include?(k)}
-      end
-      return returned_docs.to_json
-    end  
 end
