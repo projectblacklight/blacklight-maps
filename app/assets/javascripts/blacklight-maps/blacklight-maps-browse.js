@@ -37,9 +37,7 @@ Blacklight.onLoad(function() {
     onEachFeature: function(feature, layer){
       layer.defaultOptions.title = feature.properties.placename;
       layer.on('click', function(e){
-        if (sidebar.isVisible()){
-            sidebar.hide();
-        }
+        hideSidebar();
         var placenames = {};
         placenames[feature.properties.placename] = [feature.properties.html];
         offsetMap(e);
@@ -59,14 +57,12 @@ Blacklight.onLoad(function() {
   markers.on('clusterclick', function(e){
       
     //hide sidebar if it is visible
-    if (sidebar.isVisible()){
-      sidebar.hide();
-    }
+    hideSidebar();
 
     //if map is at the lowest zoom level
     if (map.getZoom() === Blacklight.mapOptions.maxzoom){
 
-      var placenames = generatePlacenamesObject(e.layer._markers);
+      var placenames = generatePlacenamesObject(e.layer.getAllChildMarkers());
       
 
       offsetMap(e);
@@ -80,22 +76,7 @@ Blacklight.onLoad(function() {
   });
 
   //Add click listener to map
-  map.on('click', function(e){
-
-    //hide the sidebar if it is visible
-    if (sidebar.isVisible()){
-      sidebar.hide();
-    }
-  });
-
-  //drag listener on map
-  map.on('drag', function(e){
-
-    //hide the sidebar if it is visible
-    if (sidebar.isVisible()){
-      sidebar.hide();
-    }
-  });
+  map.on('click drag', hideSidebar);
 
 });
 
@@ -103,6 +84,12 @@ Blacklight.mapOptions = {
   tileurl : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   mapattribution : 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
 };
+
+function hideSidebar(){
+  if (sidebar.isVisible()){
+    sidebar.hide();
+  }
+}
 
 function buildList(placenames){
   var html = "";
