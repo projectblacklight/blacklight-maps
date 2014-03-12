@@ -5,7 +5,14 @@ EngineCart.load_application!
 
 require 'capybara/poltergeist'
 Capybara.javascript_driver = :poltergeist
-Capybara.default_wait_time = 5
+
+Capybara.register_driver :poltergeist do |app|
+  options = {}
+
+  options[:timeout] = 120 if RUBY_PLATFORM == "java"
+
+  Capybara::Poltergeist::Driver.new(app, options)
+end
 
 if ENV["COVERAGE"] or ENV["CI"]
   require 'simplecov'

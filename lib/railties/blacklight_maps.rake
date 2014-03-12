@@ -1,3 +1,6 @@
+require 'rails/generators'
+require 'generators/blacklight_maps/install_generator'
+
 namespace :blacklight_maps do
   namespace :solr do
     desc "Put sample data into solr"
