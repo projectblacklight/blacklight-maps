@@ -133,5 +133,9 @@ function generatePlacenamesObject(markers){
 function offsetMap(e){
   mapWidth = $('#blacklight-map').width();
   mapHeight = $('#blacklight-map').height();
-  map.panBy([(e.originalEvent.layerX - (mapWidth/4)), (e.originalEvent.layerY - (mapHeight/2))]);
+  if (!e.latlng.equals(map.getCenter())){
+    map.panBy([(e.originalEvent.layerX - (mapWidth/4)), (e.originalEvent.layerY - (mapHeight/2))]);
+  }else{
+    map.panBy([(mapWidth/4), 0]);
+  }
 }
