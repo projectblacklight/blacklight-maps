@@ -16,6 +16,7 @@
 
     // Display the map
     this.each(function() {
+      options.id = this.id;
 
       // Setup Leaflet map
       map = L.map(this.id).setView([0,0], 2);
@@ -45,12 +46,9 @@
         onEachFeature: function(feature, layer){
           layer.defaultOptions.title = feature.properties.placename;
           layer.on('click', function(e){
-            hideSidebar();
             var placenames = {};
             placenames[feature.properties.placename] = [feature.properties.html];
-            offsetMap(e);
-            $('#' + options.sidebar).html(buildList(placenames));
-            sidebar.show();
+            setupSidebarDisplay(e,placenames);
           });
         }
       });
@@ -64,22 +62,11 @@
       // Listeners for marker cluster clicks
       markers.on('clusterclick', function(e){
 
-        //hide sidebar if it is visible
-        hideSidebar();
-
         //if map is at the lowest zoom level
         if (map.getZoom() === options.maxzoom){
 
           var placenames = generatePlacenamesObject(e.layer.getAllChildMarkers());
-
-
-          offsetMap(e);
-
-          //Update sidebar div with new html
-          $('#' + options.sidebar).html(buildList(placenames));
-
-          //Show the sidebar!
-          sidebar.show();
+          setupSidebarDisplay(e,placenames);
         }
       });
 
@@ -87,6 +74,17 @@
       map.on('click drag', hideSidebar);
 
     });
+
+    function setupSidebarDisplay(e, placenames){
+      hideSidebar();
+      offsetMap(e);
+
+      // Update sidebar div with new html
+      $('#' + options.sidebar).html(buildList(placenames));
+
+      // Show the sidebar
+      sidebar.show();
+    }
 
     // Hides sidebar if it is visible
     function hideSidebar(){
@@ -123,8 +121,8 @@
 
     // Move the map so that it centers the clicked cluster TODO account for various size screens
     function offsetMap(e){
-      var mapWidth = $('#blacklight-map').width();
-      var mapHeight = $('#blacklight-map').height();
+      var mapWidth = $('#' + options.id).width();
+      var mapHeight = $('#' + options.id).height();
       if (!e.latlng.equals(map.getCenter())){
         map.panBy([(e.originalEvent.layerX - (mapWidth/4)), (e.originalEvent.layerY - (mapHeight/2))]);
       }else{
