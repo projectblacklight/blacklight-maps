@@ -3,16 +3,15 @@ require 'leaflet-rails'
 require 'leaflet-markercluster-rails'
 require 'leaflet-sidebar-rails'
 
-
 module Blacklight
   module Maps
     class Engine < Rails::Engine
-
       # Set some default configurations
-      Blacklight::Configuration.default_values[:view].maps.placename_coord_field = "placename_coords"
+      Blacklight::Configuration.default_values[:view].maps.placename_coord_field = 'placename_coords'
       Blacklight::Configuration.default_values[:view].maps.tileurl = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       Blacklight::Configuration.default_values[:view].maps.mapattribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
       Blacklight::Configuration.default_values[:view].maps.maxzoom = 8
+      Blacklight::Configuration.default_values[:view].maps.placename_coord_delimeter = '-|-'
 
       # Add our helpers
       initializer 'blacklight-maps.helpers' do |app|
