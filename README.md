@@ -25,7 +25,7 @@ Or install it yourself as:
 
 Blacklight-Maps adds a map view capability for a results set that contains geospatial coordinates (latitude/longitude).
 
-For now, Blacklight-Maps requires that your SOLR index includes a field containing placenames with latitude and longitude coordinates delimited by `-|-`. The delimiter can be configured in `CatalogController.rb`.  This field can be multivalued.
+For now, Blacklight-Maps requires that your SOLR index includes a field containing placenames with latitude and longitude coordinates delimited by `-|-`. The delimiter can be configured in `app/controllers/catalog_controller.rb`.  This field can be multivalued.
 
 A document requires the following field:
 ```  

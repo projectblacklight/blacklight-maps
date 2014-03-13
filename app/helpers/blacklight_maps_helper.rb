@@ -7,10 +7,7 @@ module BlacklightMapsHelper
 
       }
 
-    content_tag(:div, '',
-                id: 'blacklight-map',
-                data: data_attributes
-    )
+    tag('div', id: 'blacklight-map', data: data_attributes)
   end
 
   def serialize_geojson
