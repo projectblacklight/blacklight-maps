@@ -24,7 +24,7 @@ describe "Map view", :js => true do
   end
 
   describe "Marker clusters" do
-    
+
     it "should have marker cluster div" do
       expect(page).to have_selector("div.marker-cluster")
     end
@@ -43,7 +43,7 @@ describe "Map view", :js => true do
 
     describe "Click Marker cluster" do
       before { find("div.marker-cluster").click }
-      
+
       it "should have three marker clusters" do
         expect(page).to have_selector('div.marker-cluster', count: 3)
       end

@@ -14,7 +14,7 @@ module BlacklightMapsHelper
     geojson_docs = { type: 'FeatureCollection', features: [] }
     @response.docs.each_with_index do |doc, counter|
       if doc[blacklight_config.view.maps.placename_coord_field]
-        doc[blacklight_config.view.maps.placename_coord_field].each do |loc|
+        doc[blacklight_config.view.maps.placename_coord_field].uniq.each do |loc|
           values = loc.split(blacklight_config.view.maps.placename_coord_delimeter)
           feature = { type: 'Feature',
                       geometry: {
@@ -27,7 +27,6 @@ module BlacklightMapsHelper
         end
       end
     end
-
     geojson_docs.to_json
   end
 
