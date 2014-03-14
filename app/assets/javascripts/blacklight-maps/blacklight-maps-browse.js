@@ -1,7 +1,7 @@
 ;(function( $ ) {
 
   $.fn.blacklight_leaflet_map = function(geojson_docs, arg_opts) {
-    var map, sidebar, markers, geoJsonLayer;
+    var map, sidebar, markers, geoJsonLayer, currentLayer;
 
     // Configure default options and those passed via the constructor options
     var options = $.extend({
@@ -78,12 +78,18 @@
     function setupSidebarDisplay(e, placenames){
       hideSidebar();
       offsetMap(e);
+      if (currentLayer !== e.layer || !("layer" in e)){
+        // Update sidebar div with new html
+        $('#' + options.sidebar).html(buildList(placenames));
 
-      // Update sidebar div with new html
-      $('#' + options.sidebar).html(buildList(placenames));
+        // Scroll sidebar div to top
+        $('#' + options.sidebar).scrollTop(0);
+        currentLayer = e.layer;
+      }
 
       // Show the sidebar
       sidebar.show();
+
     }
 
     // Hides sidebar if it is visible
