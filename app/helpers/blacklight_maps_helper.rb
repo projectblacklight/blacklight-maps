@@ -5,7 +5,8 @@ module BlacklightMapsHelper
   def blacklight_map_tag id, tag_options = {}, &block
     default_data = {
       maxzoom: blacklight_config.view.maps.maxzoom,
-      tileurl: blacklight_config.view.maps.tileurl
+      tileurl: blacklight_config.view.maps.tileurl,
+      type: blacklight_config.view.maps.type
     }
 
     options = {id: id, data: default_data}.deep_merge(tag_options)
@@ -17,26 +18,8 @@ module BlacklightMapsHelper
   end
 
   def serialize_geojson
-    geojson_docs = { type: 'FeatureCollection', features: [] }
-    @response.docs.each_with_index do |doc, counter|
-      if doc[blacklight_config.view.maps.placename_coord_field]
-        doc[blacklight_config.view.maps.placename_coord_field].uniq.each do |loc|
-          values = loc.split(blacklight_config.view.maps.placename_coord_delimeter)
-          feature = { type: 'Feature',
-                      geometry: {
-                        type: 'Point',
-                        coordinates: [values[2].to_f, values[1].to_f] },
-                      properties: {
-                        placename: values[0],
-                        html: render_leaflet_sidebar_partial(doc) } }
-          geojson_docs[:features].push feature
-        end
-      end
-    end
-    geojson_docs.to_json
-  end
-
-  def render_leaflet_sidebar_partial(doc)
-    render partial: 'catalog/index_maps', locals: { document: SolrDocument.new(doc) }
+    export = BlacklightMaps::GeojsonExport.new(controller,
+                                               @response.docs)
+    export.to_geojson
   end
 end
