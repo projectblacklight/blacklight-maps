@@ -5,7 +5,6 @@
 
     // Configure default options and those passed via the constructor options
     var options = $.extend({
-      datatype : "placename_coordinates",
       tileurl : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       mapattribution : 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
       sidebar: 'blacklight-map-sidebar'
@@ -44,10 +43,10 @@
 
       geoJsonLayer = L.geoJson(geojson_docs, {
         onEachFeature: function(feature, layer){
-          layer.defaultOptions.title = feature.properties.placename;
+          layer.defaultOptions.title = getMapTitle(options.type, feature.properties.name);
           layer.on('click', function(e){
             var placenames = {};
-            placenames[feature.properties.placename] = [feature.properties.html];
+            placenames[layer.defaultOptions.title] = [feature.properties.html];
             setupSidebarDisplay(e,placenames);
           });
         }
@@ -61,6 +60,7 @@
 
       // Listeners for marker cluster clicks
       markers.on('clusterclick', function(e){
+        hideSidebar();
 
         //if map is at the lowest zoom level
         if (map.getZoom() === options.maxzoom){
@@ -117,10 +117,10 @@
     function generatePlacenamesObject(markers){
       var placenames = {};
       $.each(markers, function(i,val){
-        if (!(val.feature.properties.placename in placenames)){
-          placenames[val.feature.properties.placename] = [];
+        if (!(val.defaultOptions.title in placenames)){
+          placenames[val.defaultOptions.title] = [];
         }
-        placenames[val.feature.properties.placename].push(val.feature.properties.html);
+        placenames[val.defaultOptions.title].push(val.feature.properties.html);
       });
       return placenames;
     }
@@ -137,5 +137,16 @@
     }
 
   };
+
+  function getMapTitle(type, featureName){
+    switch(type){
+    case 'bbox':
+      return 'Results';
+    case 'placename_coord':
+      return featureName;
+    default:
+      return 'Results';
+    }
+  }
 
 }( jQuery ));

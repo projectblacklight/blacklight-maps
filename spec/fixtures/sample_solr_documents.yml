@@ -253,6 +253,7 @@
   timestamp: '2014-02-03T18:42:53.056Z'
   placename_coords:
   - Iran-|-32.427908-|-53.688046
+  place_bbox: 44.0318907 25.0594286 63.3333366 39.7816755
 - author_t:
   - Yoshida, Hajime,
   - "吉田一"
@@ -336,6 +337,7 @@
   timestamp: '2014-02-03T18:42:53.056Z'
   placename_coords:
   - Japan-|-36.204824-|-138.252924
+  place_bbox: 122.9338302 24.0460446 153.9874305 45.5227719
 - lc_1letter_facet:
   - D - World History
   author_t:
@@ -407,6 +409,7 @@
   timestamp: '2014-02-03T18:42:53.056Z'
   placename_coords:
   - Kazakhstan-|-48.019573-|-66.923684
+  place_bbox: 46.4936719 40.568584 87.315415 55.441984
 - lc_1letter_facet:
   - K - Law
   author_t:
@@ -571,6 +574,7 @@
   timestamp: '2014-02-03T18:42:53.056Z'
   placename_coords:
   - Korea-|-35.907757-|-127.766922
+  place_bbox: 124.608139 33.1061096 130.9232178 38.6169312
 - lc_1letter_facet:
   - P - Language & Literature
   author_t:
@@ -703,6 +707,7 @@
   timestamp: '2014-02-03T18:42:53.056Z'
   placename_coords:
   - Pakistan-|-30.375321-|-69.34511599999999
+  place_bbox: 60.872972 23.6946945 77.8334694 37.084107
 - lc_1letter_facet:
   - M - Music
   author_t:
@@ -1104,6 +1109,7 @@
   timestamp: '2014-02-03T18:42:53.056Z'
   placename_coords:
   - Korea (North)-|-35.907757-|-127.766922
+  place_bbox: 124.608139 33.1061096 130.9232178 38.6169312
 - subtitle_display: ṿe-hu perush yafeh u-menupeh ʻal Shulḥan ʻarukh Oraḥ ḥayim
     asher ḥiber Yosef Ḳaro ... ʻim ḥidushe dinim she-hishmiṭ ha-gaʼon ... ṿe-himtsiʼam
     ... Mosheh Iserlish
@@ -1366,6 +1372,7 @@
   placename_coords:
   - Seoul (Korea)-|-37.566535-|-126.9779692
   - Korea (South)-|-35.907757-|-127.766922
+  place_bbox: 124.608139 33.1061096 130.9232178 38.6169312
 - subtitle_display: dar khiradvarzī-i siyāsī va huvīyat-i mā Īrānīyān
   author_vern_display: "‏رجايى، فرهنگ ."
   subject_addl_t:
@@ -1476,6 +1483,7 @@
   timestamp: '2014-02-03T18:42:53.056Z'
   placename_coords:
   - Iran-|-32.427908-|-53.688046
+  place_bbox: 44.0318907 25.0594286 63.3333366 39.7816755
 - lc_1letter_facet:
   - P - Language & Literature
   author_t:
@@ -1988,6 +1996,7 @@
   timestamp: '2014-02-03T18:42:53.056Z'
   placename_coords:
   - Israel-|-31.046051-|-34.851612
+  place_bbox: 34.267387 29.47969999999999 35.896244 33.33280500000001
 - lc_1letter_facet:
   - E - History of the Americas (General)
   author_t:
@@ -2099,6 +2108,7 @@
   placename_coords:
   - New Jersey-|-40.0583238-|--74.4056612
   - Bridgeton-|-39.427337-|--75.2340768
+  place_bbox: "-75.25303300000002 39.4027581 -75.20384 39.455303"
 - lc_1letter_facet:
   - B - Philosophy, Psychology, Religion
   author_t:
@@ -2287,6 +2297,7 @@
   timestamp: '2014-02-03T18:42:53.056Z'
   placename_coords:
   - India-|-20.593684-|-78.96288
+  place_bbox: 68.162386 6.7535159 97.395555 35.5044752
 - lc_1letter_facet:
   - B - Philosophy, Psychology, Religion
   author_t:
@@ -2447,6 +2458,7 @@
   timestamp: '2014-02-03T18:42:53.056Z'
   placename_coords:
   - Tibet (China)-|-29.646923-|-91.117212
+  place_bbox: 78.3955448 26.8548157 99.116241 36.4833345
 - marc_display: "<?xml version=\"1.0\" encoding=\"UTF-8\"?><collection xmlns=\"http://www.loc.gov/MARC21/slim\"><record><leader>01127cam
     a22002895a 4500</leader><controlfield tag=\"001\">  2008308478</controlfield><controlfield
     tag=\"003\">DLC</controlfield><controlfield tag=\"005\">20090123131001.0</controlfield><controlfield
@@ -2526,6 +2538,7 @@
   - Tibet-|-29.646923-|-91.117212
   - India-|-20.593684-|-78.96288
   - India-|-20.593684-|-78.96288
+  place_bbox: 68.162386 6.7535159 97.395555 35.5044752
 - author_vern_display: "吉田一, 1934-"
   subject_addl_t:
   - 20th century History and criticism
@@ -2633,6 +2646,7 @@
   timestamp: '2014-02-03T18:42:53.056Z'
   placename_coords:
   - Japan-|-36.204824-|-138.252924
+  place_bbox: 122.9338302 24.0460446 153.9874305 45.5227719
 - author_vern_display: "林行止"
   subject_addl_t:
   - 1990-
@@ -2741,3 +2755,4 @@
   - Economic history-|-41.3137481-|--72.9231485
   - World politics-|-38.910504-|--77.03605999999999
   - Hong Kong (China)-|-22.396428-|-114.109497
+  place_bbox: 113.835078 22.1533884 114.4069561 22.561968

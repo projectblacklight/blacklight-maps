@@ -25,9 +25,15 @@ Or install it yourself as:
 
 Blacklight-Maps adds a map view capability for a results set that contains geospatial coordinates (latitude/longitude).
 
-For now, Blacklight-Maps requires that your SOLR index includes a field containing placenames with latitude and longitude coordinates delimited by `-|-`. The delimiter can be configured in `app/controllers/catalog_controller.rb`.  This field can be multivalued.
+For now, Blacklight-Maps requires that your Solr index include one of the following two types of fields:
 
-A document requires the following field:
+1. A `location_rpt` field that contains a bounding box for the document.  For more on `location_rpt` see [Solr help](https://cwiki.apache.org/confluence/display/solr/Spatial+Search)
+```
+  place_bbox: 44.0318907 25.0594286 63.3333366 39.7816755
+              # minX minY maxX maxY
+```
+
+2. A field containing placenames with latitude and longitude coordinates delimited by `-|-`. The delimiter can be configured in `app/controllers/catalog_controller.rb`.  This field can be multivalued.
 ```  
   placename_coords:
     - China-|-35.86166-|-104.195397
@@ -42,14 +48,15 @@ Note: We are looking at implementing support for additional fields.
 #### Required
 Blacklight-Maps expects you to provide:
 
-- a field to map the placename coordinates (`placename_coords` in the example above)
+- the type of location field you are using, `placename_coord` or `bbox` (`bbox` is default)
+- a field to map the placename coordinates or bbox field
 
 #### Optional
 
 - the maxZoom [property of the map](http://leafletjs.com/reference.html#map-maxzoom)
 - a [tileLayer url](http://leafletjs.com/reference.html#tilelayer-l.tilelayer) to change the basemap
 - an [attribution string](http://leafletjs.com/reference.html#tilelayer-attribution) to describe the basemap layer
-- a custom delimiter field
+- a custom delimiter field (used to delimit placename_coord values)
 
 All of these options can easily be configured in `CatalogController.rb` in the `config` block.
 
@@ -64,6 +71,8 @@ All of these options can easily be configured in `CatalogController.rb` in the `
     }
 
     ## Default values
+    config.view.maps.type = "bbox"
+    config.view.maps.bbox_field = "place_bbox"
     config.view.maps.placename_coord_field = "placename_coords"
     config.view.maps.tileurl = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     config.view.maps.attribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
