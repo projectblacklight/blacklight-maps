@@ -1372,7 +1372,9 @@
   placename_coords:
   - Seoul (Korea)-|-37.566535-|-126.9779692
   - Korea (South)-|-35.907757-|-127.766922
-  place_bbox: 124.608139 33.1061096 130.9232178 38.6169312
+  place_bbox:
+  - 126.7645827 37.4259627 127.18359 37.7017495
+  - 124.608139 33.1061096 130.9232178 38.6169312
 - subtitle_display: dar khiradvarzī-i siyāsī va huvīyat-i mā Īrānīyān
   author_vern_display: "‏رجايى، فرهنگ ."
   subject_addl_t:

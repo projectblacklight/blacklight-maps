@@ -19,7 +19,7 @@ describe "BlacklightMaps::GeojsonExport" do
     @request = ActionDispatch::TestRequest.new
     @controller.request = @request
     @response = ActionDispatch::TestResponse.new
-    @response.stub(:docs) {[{ "published_display"=>["Dharamsala, Distt. Kangra, H.P."], "pub_date"=>["2007"], "format"=>"Book", "title_display"=>"Ses yon", "material_type_display"=>["xii, 419 p."], "id"=>"2008308478", "subject_geo_facet"=>["China", "Tibet", "India"], "subject_topic_facet"=>["Education and state", "Tibetans", "Tibetan language", "Teaching"], "language_facet"=>["Tibetan"], "placename_coords"=>["China-|-35.86166-|-104.195397", "Tibet-|-29.646923-|-91.117212", "India-|-20.593684-|-78.96288"], "place_bbox"=>"68.162386 6.7535159 97.395555 35.5044752", "score"=>0.0026767207 }]}
+    @response.stub(:docs) {[{ "published_display"=>["Dharamsala, Distt. Kangra, H.P."], "pub_date"=>["2007"], "format"=>"Book", "title_display"=>"Ses yon", "material_type_display"=>["xii, 419 p."], "id"=>"2008308478", "subject_geo_facet"=>["China", "Tibet", "India"], "subject_topic_facet"=>["Education and state", "Tibetans", "Tibetan language", "Teaching"], "language_facet"=>["Tibetan"], "placename_coords"=>["China-|-35.86166-|-104.195397", "Tibet-|-29.646923-|-91.117212", "India-|-20.593684-|-78.96288"], "place_bbox"=>["68.162386 6.7535159 97.395555 35.5044752"], "score"=>0.0026767207 }]}
   end
 
   subject {BlacklightMaps::GeojsonExport.new(@controller, @response.docs)}
