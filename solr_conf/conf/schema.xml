@@ -578,7 +578,7 @@
    <dynamicField name="*_unstem_search" type="text_general" indexed="true" stored="false" multiValued="true" />
    <dynamicField name="*spell" type="textSpell" indexed="true" stored="false" multiValued="true" />
 
-   <dynamicField name="*_pt"     type="location"     stored="true" indexed="true"/>
+   <dynamicField name="*_pt"     type="location_rpt"     stored="true" indexed="true" multiValued="true"/>
    <dynamicField name="*_bbox"   type="location_rpt" stored="true" indexed="true" multiValued="true"/>
 
    <!-- uncomment the following to ignore any fields that don't already match an existing

@@ -213,7 +213,8 @@
          url_fulltext_display,
          url_suppl_display,
          placename_coords,
-         place_bbox
+         place_bbox,
+         center_pt
        </str>
 
        <str name="facet">true</str>
