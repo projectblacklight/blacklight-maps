@@ -49,6 +49,8 @@ module BlacklightMaps
         build_placename_coord_features
       when 'bbox'
         build_bbox_features
+      else
+        Rails.logger.error("Your Solr field type was not configured with a recognized type, '#{type}' is not yet supported")
       end
     end
 
