@@ -27,7 +27,7 @@ Blacklight-Maps adds a map view capability for a results set that contains geosp
 
 For now, Blacklight-Maps requires that your Solr index include one of the following two types of fields:
 
-1. A `location_rpt` field that contains a bounding box for the document.  For more on `location_rpt` see [Solr help](https://cwiki.apache.org/confluence/display/solr/Spatial+Search)
+1. A `location_rpt` field that contains a bounding box for the document.  For more on `location_rpt` see [Solr help](https://cwiki.apache.org/confluence/display/solr/Spatial+Search). This field can be multivalued.
 ```
   place_bbox: 44.0318907 25.0594286 63.3333366 39.7816755
               # minX minY maxX maxY

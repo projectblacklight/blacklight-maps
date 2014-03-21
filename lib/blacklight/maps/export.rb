@@ -73,10 +73,12 @@ module BlacklightMaps
       features = []
       @response_docs.each do |doc|
         next if doc[bbox_field].nil?
-        lnglat = Geometry::BoundingBox.from_lon_lat_string(doc[bbox_field]).find_center
-        features.push(
-          build_point_feature(lnglat[0], lnglat[1],
-                              html: render_leaflet_sidebar_partial(doc)))
+        doc[bbox_field].uniq.each do |loc|
+          lnglat = Geometry::BoundingBox.from_lon_lat_string(loc).find_center
+          features.push(
+            build_point_feature(lnglat[0], lnglat[1],
+                                html: render_leaflet_sidebar_partial(doc)))
+        end
       end
       features
     end

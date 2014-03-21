@@ -91,10 +91,10 @@ describe "Map View", js: true do
       end
     end
 
-    before { visit catalog_index_path :q => 'tibet', :view => 'maps' }
+    before { visit catalog_index_path :q => 'korea', :view => 'maps' }
 
-    it "should have 2 markers" do
-      expect(find("div.marker-cluster")).to have_content(2)
+    it "should have 4 markers" do
+      expect(find("div.marker-cluster")).to have_content(4)
     end
 
     describe "click marker cluster" do
