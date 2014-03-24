@@ -43,15 +43,34 @@ module BlacklightMaps
       blacklight_maps_config.bbox_field
     end
 
+    def center_point_field
+      blacklight_maps_config.center_point_field
+    end
+
     def build_geojson_features
       case type
       when 'placename_coord'
         build_placename_coord_features
       when 'bbox'
         build_bbox_features
+      when 'center_point'
+        build_center_point_features
       end
     end
 
+    def build_center_point_features
+      features = []
+      @response_docs.each do |doc|
+        next if doc[center_point_field].nil?
+        doc[center_point_field].uniq.each do |loc|
+          lnglat = Geometry::Point.from_lon_lat_string(loc)
+          features.push(
+            build_point_feature(lnglat.lng, lnglat.lat,
+                                html: render_leaflet_sidebar_partial(doc)))
+        end
+      end
+      features
+    end
     # Builds the features structure for placename_coord type documents
     def build_placename_coord_features
       features = []

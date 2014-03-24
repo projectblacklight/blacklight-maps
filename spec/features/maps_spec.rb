@@ -105,4 +105,28 @@ describe "Map View", js: true do
       end
     end
   end
+
+  describe "using center point" do
+    before do
+      CatalogController.blacklight_config = Blacklight::Configuration.new
+      CatalogController.configure_blacklight do |config|
+        config.view.maps.type = 'center_point'
+        config.view.maps.bbox_field = 'center_pt'
+      end
+    end
+
+    before { visit catalog_index_path :q => 'korea', :view => 'maps' }
+
+    it "should have 4 markers" do
+      expect(find("div.marker-cluster")).to have_content(4)
+    end
+
+    describe "click marker cluster" do
+      before { find("div.marker-cluster").click }
+
+      it "should split into 2 markers" do
+        expect(page).to have_selector('div.marker-cluster', count: 2)
+      end
+    end
+  end
 end

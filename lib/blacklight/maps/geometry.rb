@@ -3,9 +3,13 @@ module BlacklightMaps
   # Parent class of geospatial objects used in BlacklightMaps
   class Geometry
 
+    def self.from_lon_lat_string(points)
+      new(points.split(' '))
+    end
+
     # This class contains Bounding Box objects and methods for interacting with
     # them.
-    class BoundingBox
+    class BoundingBox < Geometry
 
       # points is an array containing longitude and latitude values which
       # relate to the southwest and northeast points of a bounding box
@@ -27,9 +31,25 @@ module BlacklightMaps
 
       # Creates a new bounding box from from a string of points
       # "-100 -50 100 50" (south west north east)
-      def self.from_lon_lat_string(points)
-        new(points.split(' '))
+      # def self.from_lon_lat_string(points)
+      #   new(points.split(' '))
+      # end
+    end
+
+    class Point < Geometry
+      def initialize(points)
+        @lng = points[0].to_f
+        @lat = points[1].to_f
+      end
+
+      def lng
+        @lng
+      end
+
+      def lat
+        @lat
       end
     end
+
   end
 end

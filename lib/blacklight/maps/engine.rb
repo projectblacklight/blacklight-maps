@@ -7,7 +7,8 @@ module Blacklight
   module Maps
     class Engine < Rails::Engine
       # Set some default configurations
-      Blacklight::Configuration.default_values[:view].maps.type = 'bbox'
+      Blacklight::Configuration.default_values[:view].maps.type = 'center_point'
+      Blacklight::Configuration.default_values[:view].maps.center_point_field = 'center_pt'
       Blacklight::Configuration.default_values[:view].maps.bbox_field = 'place_bbox'
       Blacklight::Configuration.default_values[:view].maps.placename_coord_field = 'placename_coords'
       Blacklight::Configuration.default_values[:view].maps.tileurl = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
