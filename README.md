@@ -20,6 +20,9 @@ And then execute:
 Or install it yourself as:
 
     $ gem install blacklight-maps
+    
+Run Blacklight-Maps generator
+    $ rails g blacklight_maps:install
 
 ## Usage
 
