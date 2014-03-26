@@ -34,12 +34,12 @@ describe BlacklightMapsHelper do
     context "with default values" do
       subject { helper.blacklight_map_tag('blacklight-map') }
       it { should have_selector "div#blacklight-map" }
-      it { should have_selector "div[data-maxzoom='8'][data-tileurl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png']" }
+      it { should have_selector "div[data-maxzoom='8'][data-tileurl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'][data-mapattribution='Map data &copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>']" }
     end
 
     context "with custom values" do
-      subject { helper.blacklight_map_tag('blacklight-map', data: {maxzoom: 6, tileurl: 'http://example.com/' }) }
-      it { should have_selector "div[data-maxzoom='6'][data-tileurl='http://example.com/']" }
+     subject { helper.blacklight_map_tag('blacklight-map', data: {maxzoom: 6, tileurl: 'http://example.com/', mapattribution: 'hello world' }) }
+     it { should have_selector "div[data-maxzoom='6'][data-tileurl='http://example.com/'][data-mapattribution='hello world']" }
     end
 
     context "when a block is provided" do
