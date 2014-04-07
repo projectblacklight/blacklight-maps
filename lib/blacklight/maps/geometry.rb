@@ -22,6 +22,10 @@ module BlacklightMaps
         center = []
         center[0] = (@west + @east) / 2
         center[1] = (@south + @north) / 2
+
+        # Handle bounding boxes that cross the dateline
+        center[0] -= 180 if @west > @east
+
         center
       end
 
