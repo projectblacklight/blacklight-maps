@@ -4,6 +4,7 @@ describe "BlacklightMaps::Geometry::BoundingBox" do
 
   let(:bbox) { BlacklightMaps::Geometry::BoundingBox.from_lon_lat_string('-100 -50 100 50') }
   let(:bbox_california) { BlacklightMaps::Geometry::BoundingBox.from_lon_lat_string('-124.4096196 32.5342321 -114.131211 42.0095169') }
+  let(:bbox_dateline) {BlacklightMaps::Geometry::BoundingBox.from_lon_lat_string('165 30 -172 -20') }
 
   it "should instantiate Geometry::BoundingBox" do
     expect(bbox.class).to eq(::BlacklightMaps::Geometry::BoundingBox)
@@ -15,5 +16,9 @@ describe "BlacklightMaps::Geometry::BoundingBox" do
 
   it "should return center of California bounding box" do
     expect(bbox_california.find_center).to eq([-119.2704153, 37.271874499999996])
+  end
+
+  it "should return correct dateline bounding box" do
+    expect(bbox_dateline.find_center).to eq([-183.5, 5])
   end
 end
