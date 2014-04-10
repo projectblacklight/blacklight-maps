@@ -21,4 +21,8 @@ describe "BlacklightMaps::Geometry::BoundingBox" do
   it "should return correct dateline bounding box" do
     expect(bbox_dateline.find_center).to eq([-183.5, 5])
   end
+
+  it "should return 2d array of latitude longitude" do
+    expect(bbox_dateline.to_latlng).to eq([[30, 165], [-20, -172]])
+  end
 end
