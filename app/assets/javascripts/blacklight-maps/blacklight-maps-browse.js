@@ -3,6 +3,9 @@
   $.fn.blacklight_leaflet_map = function(geojson_docs, arg_opts) {
     var map, sidebar, markers, geoJsonLayer, currentLayer;
 
+    // Update page links with number of mapped items
+    $('.page_links').append('<span class="badge">' + geojson_docs.features.length + '</span> mapped');
+
     // Configure default options and those passed via the constructor options
     var options = $.extend({
       tileurl : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',

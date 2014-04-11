@@ -97,6 +97,10 @@ describe "Map View", js: true do
       expect(find("div.marker-cluster")).to have_content(4)
     end
 
+    it "should display number mapped" do
+      expect(page).to have_content('4 mapped')
+    end
+
     describe "click marker cluster" do
       before { find("div.marker-cluster").click }
 
