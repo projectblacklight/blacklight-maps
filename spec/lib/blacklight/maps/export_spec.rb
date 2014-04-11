@@ -58,7 +58,7 @@ describe "BlacklightMaps::GeojsonExport" do
   end
 
   it "should render correct sidebar div" do
-    expect(subject.send(:render_leaflet_sidebar_partial, @response.docs[0])).to include('href="/catalog/2008308478">')
+    expect(subject.send(:render_leaflet_sidebar_partial, @response.docs[0])).to include('href="/catalog/2008308478')
   end
 
   it "should render feature collection as json" do
