@@ -18,3 +18,4 @@ tmp
 spec/internal
 jetty
 .DS_Store
+.idea/
