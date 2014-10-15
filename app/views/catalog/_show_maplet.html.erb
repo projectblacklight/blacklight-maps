@@ -1,0 +1,3 @@
+<% # map window for catalog#show view %>
+<%= blacklight_map_tag('blacklight-map_show') %>
+<%= javascript_tag "$('#blacklight-map_show').blacklight_leaflet_show_map(#{serialize_geojson});" %>

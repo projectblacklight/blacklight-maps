@@ -1,5 +1,11 @@
 en:
   blacklight:
+
+    maps:
+      leaflet:
+        facet_search: 'View more items from this location'
+
     search:
       view:
         maps: "Map"
+
