@@ -8,7 +8,7 @@ module Blacklight
     class Engine < Rails::Engine
       # Set some default configurations
       Blacklight::Configuration.default_values[:view].maps.geojson_field = 'geojson'
-      Blacklight::Configuration.default_values[:view].maps.geojson_field.placename_property = 'placename'
+      Blacklight::Configuration.default_values[:view].maps.placename_property = 'placename'
       Blacklight::Configuration.default_values[:view].maps.coordinates_field = 'coordinates'
       Blacklight::Configuration.default_values[:view].maps.search_mode = 'geo_facet'
       Blacklight::Configuration.default_values[:view].maps.geo_facet_field = 'geo_facet'

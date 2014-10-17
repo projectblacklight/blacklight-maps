@@ -9,9 +9,11 @@ module BlacklightMaps
     include BlacklightMaps
 
     # controller is a Blacklight CatalogController object passed by a helper
+    # action is the controller action
     # response_docs is an array of documents passed by a helper
-    def initialize(controller, response_docs)
+    def initialize(controller, action, response_docs)
       @controller = controller
+      @action = action
       @response_docs = response_docs
     end
 
@@ -27,22 +29,74 @@ module BlacklightMaps
       @controller.blacklight_config.view.maps
     end
 
-    def type
-      blacklight_maps_config.type
+    def geojson_field
+      blacklight_maps_config.geojson_field
     end
 
-    def placename_coord_field
-      blacklight_maps_config.placename_coord_field
+    def coordinates_field
+      blacklight_maps_config.coordinates_field
     end
 
-    def placename_coord_delimiter
-      blacklight_maps_config.placename_coord_delimiter
+    def build_geojson_features
+      features = []
+      @response_docs.each do |doc|
+        next if doc[geojson_field].nil? && doc[coordinates_field].nil?
+        if doc[geojson_field]
+          doc[geojson_field].uniq.each do |loc|
+            features.push(build_feature_from_geojson(loc))
+          end
+        elsif doc[coordinates_field]
+          doc[coordinates_field].uniq.each do |coords|
+            features.push(build_feature_from_coords(coords))
+          end
+        end
+
+      end
+      features
     end
 
-    def bbox_field
-      blacklight_maps_config.bbox_field
+    def build_feature_from_geojson(loc)
+      geojson_hash = JSON.parse(loc)
+      # turn bboxes into points for index view so we don't get weird mix of boxes and markers
+      if @action == "index" && geojson_hash["bbox"]
+        geojson_hash["geometry"]["coordinates"] = Geometry::BoundingBox.new(geojson_hash["bbox"]).find_center
+        geojson_hash["geometry"]["type"] = "Point"
+        geojson_hash.delete("bbox")
+      end
+      geojson_hash
     end
 
+    def build_feature_from_coords(coords)
+      geojson_hash = {type: 'Feature', geometry: {type: '', coordinates: []}}
+      if coords.scan(/[\s]/).length == 3 # bbox
+        if @action == "index"
+          geojson_hash[:geometry][:type] = "Point"
+          geojson_hash[:geometry][:coordinates] = Geometry::BoundingBox.from_lon_lat_string(coords_for_geojson).find_center
+        else
+          coords_array = coords.split(' ').map { |v| v.to_f }
+          geojson_hash[:bbox] = coords_array
+          geojson_hash[:geometry][:type] = "Polygon"
+          geojson_hash[:geometry][:coordinates] = [[[coords_array[0],coords_array[1]],
+                                                    [coords_array[2],coords_array[1]],
+                                                    [coords_array[2],coords_array[3]],
+                                                    [coords_array[0],coords_array[3]],
+                                                    [coords_array[0],coords_array[1]]]]
+        end
+      elsif coords.match(/^[-]?[\d]+[\.]?[\d]*[ ,][-]?[\d]+[\.]?[\d]*$/) # point
+        geojson_hash[:geometry][:type] = 'Point'
+        if coords.match(/,/)
+          coords_array = coords.split(',').reverse
+        else
+          coords_array = coords.split(' ')
+        end
+        geojson_hash[:geometry][:coordinates] = coords_array.map { |v| v.to_f }
+      else
+        Rails.logger.error("This coordinate format is not yet supported: '#{coords}'")
+      end
+      geojson_hash
+    end
+
+=begin
     def build_geojson_features
       case type
       when 'placename_coord'
@@ -91,6 +145,7 @@ module BlacklightMaps
                                    locals: { document: SolrDocument.new(doc) }
     end
 
+
     # Build the individual feature which is added to the FeatureCollection.
     # lng is the longitude of the feature
     # lat is the latitude of the feature
@@ -107,5 +162,6 @@ module BlacklightMaps
                   properties: properties }
       feature
     end
+=end
   end
 end

@@ -10,6 +10,8 @@
     var options = $.extend({
       tileurl : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       mapattribution : 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+      viewpoint: [0,0],
+      initialzoom: 2,
       sidebar: 'blacklight-map-sidebar'
     }, arg_opts );
 
@@ -21,12 +23,13 @@
       options.id = this.id;
 
       // Setup Leaflet map
-      map = L.map(this.id).setView([0,0], 2);
+      map = L.map(this.id).setView(options.viewpoint, options.initialzoom);
       L.tileLayer(options.tileurl, {
         attribution: options.mapattribution,
         maxZoom: options.maxzoom
       }).addTo(map);
 
+      /*
       // Initialize sidebar
       sidebar = L.control.sidebar(options.sidebar, {
         position: 'right',
@@ -35,35 +38,47 @@
 
       // Adds leaflet-sidebar control to map
       map.addControl(sidebar);
+      */
 
+      /*
       // Create a marker cluster object and set options
       markers = new L.MarkerClusterGroup({
         showCoverageOnHover: false,
-        spiderfyOnMaxZoom: false,
+        spiderfyOnMaxZoom: true,
         singleMarkerMode: true,
         animateAddingMarkers: true
       });
+      */
 
       geoJsonLayer = L.geoJson(geojson_docs, {
         onEachFeature: function(feature, layer){
+            if (feature.properties) {
+                layer.bindPopup(feature.properties.city);
+            } else {
+                layer.bindPopup("There is no data for this feature!");
+            }
+
+          /*
           layer.defaultOptions.title = getMapTitle(options.type, feature.properties.name);
           layer.on('click', function(e){
             var placenames = {};
             placenames[layer.defaultOptions.title] = [feature.properties.html];
             setupSidebarDisplay(e,placenames);
           });
+          */
+
         }
       });
 
       // Add GeoJSON layer to marker cluster object
-      markers.addLayer(geoJsonLayer);
+      // markers.addLayer(geoJsonLayer);
 
-      // Add marker cluster object to map
-      map.addLayer(markers);
+      // Add GeoJSON layer object to map
+      map.addLayer(geoJsonLayer);
 
       // Listeners for marker cluster clicks
       markers.on('clusterclick', function(e){
-        hideSidebar();
+        // hideSidebar();
 
         //if map is at the lowest zoom level
         if (map.getZoom() === options.maxzoom){
@@ -74,7 +89,7 @@
       });
 
       //Add click listener to map
-      map.on('click drag', hideSidebar);
+      // map.on('click drag', hideSidebar);
 
     });
 

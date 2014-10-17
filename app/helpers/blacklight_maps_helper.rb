@@ -29,6 +29,7 @@ module BlacklightMapsHelper
 
   def serialize_geojson
     export = BlacklightMaps::GeojsonExport.new(controller,
+                                               controller.action_name,
                                                @response.docs)
     export.to_geojson
   end
