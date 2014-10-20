@@ -4,7 +4,7 @@
     var map, sidebar, markers, geoJsonLayer, currentLayer;
 
     // Update page links with number of mapped items
-    $('.page_links').append('<span class="badge mapped-count">' + geojson_docs.features.length + '</span> mapped');
+    $(this.selector).before('<span class="badge mapped-count">' + geojson_docs.features.length + '</span> mapped');
 
     // Configure default options and those passed via the constructor options
     var options = $.extend({
@@ -52,10 +52,10 @@
 
       geoJsonLayer = L.geoJson(geojson_docs, {
         onEachFeature: function(feature, layer){
-            if (feature.properties) {
-                layer.bindPopup(feature.properties.city);
+            if (feature.properties.popup) {
+                layer.bindPopup(feature.properties.popup);
             } else {
-                layer.bindPopup("There is no data for this feature!");
+                layer.bindPopup("Sorry, there is no data for this location.");
             }
 
           /*

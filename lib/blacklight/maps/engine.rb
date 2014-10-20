@@ -10,11 +10,11 @@ module Blacklight
       Blacklight::Configuration.default_values[:view].maps.geojson_field = 'geojson'
       Blacklight::Configuration.default_values[:view].maps.placename_property = 'placename'
       Blacklight::Configuration.default_values[:view].maps.coordinates_field = 'coordinates'
-      Blacklight::Configuration.default_values[:view].maps.search_mode = 'geo_facet'
-      Blacklight::Configuration.default_values[:view].maps.geo_facet_field = 'geo_facet'
+      Blacklight::Configuration.default_values[:view].maps.search_mode = 'placename_facet' # or 'coordinates'
+      Blacklight::Configuration.default_values[:view].maps.placename_facet_field = 'placename_facet_fieldz'
       Blacklight::Configuration.default_values[:view].maps.tileurl = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       Blacklight::Configuration.default_values[:view].maps.mapattribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
-      Blacklight::Configuration.default_values[:view].maps.maxzoom = 8
+      Blacklight::Configuration.default_values[:view].maps.maxzoom = 18
 
       # Add our helpers
       initializer 'blacklight-maps.helpers' do |app|

@@ -37,6 +37,14 @@ module BlacklightMaps
       blacklight_maps_config.coordinates_field
     end
 
+    def search_mode
+      blacklight_maps_config.search_mode
+    end
+
+    def placename_property
+      blacklight_maps_config.placename_property
+    end
+
     def build_geojson_features
       features = []
       @response_docs.each do |doc|
@@ -63,15 +71,17 @@ module BlacklightMaps
         geojson_hash["geometry"]["type"] = "Point"
         geojson_hash.delete("bbox")
       end
+      geojson_hash["properties"] ||= {}
+      geojson_hash["properties"]["popup"] = render_leaflet_popup_content(geojson_hash)
       geojson_hash
     end
 
     def build_feature_from_coords(coords)
-      geojson_hash = {type: 'Feature', geometry: {type: '', coordinates: []}}
+      geojson_hash = {type: "Feature", geometry: {type: '', coordinates: []}}
       if coords.scan(/[\s]/).length == 3 # bbox
         if @action == "index"
           geojson_hash[:geometry][:type] = "Point"
-          geojson_hash[:geometry][:coordinates] = Geometry::BoundingBox.from_lon_lat_string(coords_for_geojson).find_center
+          geojson_hash[:geometry][:coordinates] = Geometry::BoundingBox.from_lon_lat_string(coords).find_center
         else
           coords_array = coords.split(' ').map { |v| v.to_f }
           geojson_hash[:bbox] = coords_array
@@ -93,7 +103,34 @@ module BlacklightMaps
       else
         Rails.logger.error("This coordinate format is not yet supported: '#{coords}'")
       end
+      geojson_hash[:properties] = {popup: render_leaflet_popup_content(geojson_hash.stringify_keys)}
       geojson_hash
+    end
+
+    # Render to string the partial for each individual doc
+    # for placename facet searching, render catalog/map_facet_search partial
+    # full geojson hash is passed to the partial for easier local customization
+    # for coordinate searches (or features with only coordinate data),
+    # TK
+    def render_leaflet_popup_content(geojson_hash)
+      if search_mode == 'placename_facet' && geojson_hash["properties"][placename_property]
+        @controller.render_to_string partial: 'catalog/map_facet_search',
+                                     locals: { placename: geojson_hash["properties"][placename_property], geojson_hash: geojson_hash }
+      else
+        puts "HEY, I FOUND A FEATURE WITH NO PLACENAME!"
+        render_coordinate_search_content(geojson_hash["bbox"].presence || geojson_hash["geometry"]["coordinates"])
+      end
+
+    end
+
+    # Render to string the partial for a geospatial coordinate search
+    def render_coordinate_search_content(coordinates)
+      puts "HEY I'M FIRING: render_coordinate_search_content"
+      if coordinates.length == 4 #bbox
+        "THIS IS A BBOX, DUDE"
+      else
+        "THIS IS A POINT, MAN"
+      end
     end
 
 =begin
@@ -137,12 +174,6 @@ module BlacklightMaps
         end
       end
       features
-    end
-
-    # Render to string the partial for each individual doc
-    def render_leaflet_sidebar_partial(doc)
-      @controller.render_to_string partial: 'catalog/index_maps',
-                                   locals: { document: SolrDocument.new(doc) }
     end
 
 
