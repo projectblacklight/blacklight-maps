@@ -77,33 +77,33 @@ module BlacklightMaps
     end
 
     def build_feature_from_coords(coords)
-      geojson_hash = {type: "Feature", geometry: {type: '', coordinates: []}}
+      geojson_hash = {"type" => "Feature", "geometry" => {}, "properties" => {}}
       if coords.scan(/[\s]/).length == 3 # bbox
         if @action == "index"
-          geojson_hash[:geometry][:type] = "Point"
-          geojson_hash[:geometry][:coordinates] = Geometry::BoundingBox.from_lon_lat_string(coords).find_center
+          geojson_hash["geometry"]["type"] = "Point"
+          geojson_hash["geometry"]["coordinates"] = Geometry::BoundingBox.from_lon_lat_string(coords).find_center
         else
           coords_array = coords.split(' ').map { |v| v.to_f }
-          geojson_hash[:bbox] = coords_array
-          geojson_hash[:geometry][:type] = "Polygon"
-          geojson_hash[:geometry][:coordinates] = [[[coords_array[0],coords_array[1]],
+          geojson_hash["bbox"] = coords_array
+          geojson_hash["geometry"]["type"] = "Polygon"
+          geojson_hash["geometry"]["coordinates"] = [[[coords_array[0],coords_array[1]],
                                                     [coords_array[2],coords_array[1]],
                                                     [coords_array[2],coords_array[3]],
                                                     [coords_array[0],coords_array[3]],
                                                     [coords_array[0],coords_array[1]]]]
         end
       elsif coords.match(/^[-]?[\d]+[\.]?[\d]*[ ,][-]?[\d]+[\.]?[\d]*$/) # point
-        geojson_hash[:geometry][:type] = 'Point'
+        geojson_hash["geometry"]["type"] = 'Point'
         if coords.match(/,/)
           coords_array = coords.split(',').reverse
         else
           coords_array = coords.split(' ')
         end
-        geojson_hash[:geometry][:coordinates] = coords_array.map { |v| v.to_f }
+        geojson_hash["geometry"]["coordinates"] = coords_array.map { |v| v.to_f }
       else
         Rails.logger.error("This coordinate format is not yet supported: '#{coords}'")
       end
-      geojson_hash[:properties] = {popup: render_leaflet_popup_content(geojson_hash.stringify_keys)}
+      geojson_hash["properties"] = {popup: render_leaflet_popup_content(geojson_hash.stringify_keys)}
       geojson_hash
     end
 
@@ -111,26 +111,16 @@ module BlacklightMaps
     # for placename facet searching, render catalog/map_facet_search partial
     # full geojson hash is passed to the partial for easier local customization
     # for coordinate searches (or features with only coordinate data),
-    # TK
+    # render catalog/map_coordinate_search partial
     def render_leaflet_popup_content(geojson_hash)
       if search_mode == 'placename_facet' && geojson_hash["properties"][placename_property]
         @controller.render_to_string partial: 'catalog/map_facet_search',
                                      locals: { placename: geojson_hash["properties"][placename_property], geojson_hash: geojson_hash }
       else
-        puts "HEY, I FOUND A FEATURE WITH NO PLACENAME!"
-        render_coordinate_search_content(geojson_hash["bbox"].presence || geojson_hash["geometry"]["coordinates"])
+        @controller.render_to_string partial: 'catalog/map_coordinate_search',
+                                     locals: { coordinates: geojson_hash["geometry"]["coordinates"] }
       end
 
-    end
-
-    # Render to string the partial for a geospatial coordinate search
-    def render_coordinate_search_content(coordinates)
-      puts "HEY I'M FIRING: render_coordinate_search_content"
-      if coordinates.length == 4 #bbox
-        "THIS IS A BBOX, DUDE"
-      else
-        "THIS IS A POINT, MAN"
-      end
     end
 
 =begin

@@ -19,12 +19,42 @@ module BlacklightMapsHelper
     end
   end
 
-  def link_to_geo_facet(field_value, field, displayvalue = nil)
-    new_params = {}
-    new_params[:action] = 'index'
-    new_params[:controller] = 'catalog'
-    new_params[:f] = {field => [field_value]}
-    link_to(displayvalue.presence || field_value, new_params)
+  def link_to_bbox_search bbox_coordinates
+    coords_for_search = bbox_coordinates.map { |v| v.to_s }
+    #CatalogController.solr_search_params_logic += [bbox_filter(solr_parameters,coords_for_search)]
+    link_to(t('blacklight.maps.leaflet.bbox_search'),
+            catalog_index_path(:q => "*:*"))
+  end
+
+  def bbox_filter solr_parameters, coords_for_search
+    solr_parameters[:fq] ||= []
+    solr_parameters[:fq] << "subject_bounding_box_geospatial:[#{coords_for_search[0]},#{coords_for_search[1]} TO #{coords_for_search[2]},#{coords_for_search[3]}]"
+  end
+
+  def link_to_placename_facet field_value, field, displayvalue = nil
+    link_to(displayvalue.presence || field_value,
+            catalog_index_path(:f => {field => [field_value]}))
+  end
+
+  def link_to_point_search point_coordinates
+    #CatalogController.solr_search_params_logic += [point_filter(solr_parameters,coords_for_search)]
+    link_to(t('blacklight.maps.leaflet.point_search'),
+            catalog_index_path(:q => "*:*", :fq => ["!geofilt sfield=#{blacklight_config.view.maps.coordinates_field}"]))
+  end
+
+  def point_filter solr_parameters, coords_for_search
+    solr_parameters[:fq] ||= []
+    solr_parameters[:fq] << "!geofilt sfield=#{blacklight_config.view.maps.coordinates_field}"
+    solr_parameters[:pt] = "#{coords_for_search[0]},#{coords_for_search[1]}"
+    solr_parameters[:d] = 0.01
+  end
+
+  def render_coordinate_search_link coordinates
+    if coordinates.length == 4
+      link_to_bbox_search(coordinates)
+    else
+      link_to_point_search(coordinates)
+    end
   end
 
   def serialize_geojson

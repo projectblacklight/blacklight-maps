@@ -1,5 +1,5 @@
 <% # content for the popup for a point feature - run a new search for this location -%>
 <h5 class="geo_facet_heading"><%= placename %></h5>
-<%= link_to_geo_facet(placename,
-                      blacklight_config.view.maps.placename_facet_field,
-                      t('blacklight.maps.leaflet.facet_search')) %>
+<%= link_to_placename_facet(placename,
+                            blacklight_config.view.maps.placename_facet_field,
+                            t('blacklight.maps.leaflet.facet_search')) %>
