@@ -103,7 +103,7 @@ module BlacklightMaps
       else
         Rails.logger.error("This coordinate format is not yet supported: '#{coords}'")
       end
-      geojson_hash["properties"] = {popup: render_leaflet_popup_content(geojson_hash.stringify_keys)}
+      geojson_hash["properties"] = { popup: render_leaflet_popup_content(geojson_hash.stringify_keys) }
       geojson_hash
     end
 
@@ -115,10 +115,11 @@ module BlacklightMaps
     def render_leaflet_popup_content(geojson_hash)
       if search_mode == 'placename_facet' && geojson_hash["properties"][placename_property]
         @controller.render_to_string partial: 'catalog/map_facet_search',
-                                     locals: { placename: geojson_hash["properties"][placename_property], geojson_hash: geojson_hash }
+                                     locals: { placename: geojson_hash["properties"][placename_property],
+                                               geojson_hash: geojson_hash }
       else
         @controller.render_to_string partial: 'catalog/map_coordinate_search',
-                                     locals: { coordinates: geojson_hash["geometry"]["coordinates"] }
+                                     locals: { coordinates: geojson_hash["bbox"].presence || geojson_hash["geometry"]["coordinates"] }
       end
 
     end
