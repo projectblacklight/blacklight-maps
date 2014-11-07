@@ -107,10 +107,10 @@ module BlacklightMaps
       geojson_hash
     end
 
-    # Render to string the partial for each individual doc
-    # for placename facet searching, render catalog/map_facet_search partial
+    # Render to string the partial for each individual doc.
+    # For placename facet searching, render catalog/map_facet_search partial,
     # full geojson hash is passed to the partial for easier local customization
-    # for coordinate searches (or features with only coordinate data),
+    # For coordinate searches (or features with only coordinate data),
     # render catalog/map_coordinate_search partial
     def render_leaflet_popup_content(geojson_hash)
       if search_mode == 'placename_facet' && geojson_hash["properties"][placename_property]

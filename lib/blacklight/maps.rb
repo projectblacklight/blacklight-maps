@@ -9,6 +9,7 @@ module Blacklight
 
     def self.inject!
       CatalogController.send(:include, BlacklightMaps::ControllerOverride)
+      RenderConstraintsHelper.send(:include, BlacklightMaps::RenderConstraintsOverride)
     end
 
   end
