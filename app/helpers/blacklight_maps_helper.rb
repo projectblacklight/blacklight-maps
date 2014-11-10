@@ -1,4 +1,5 @@
 module BlacklightMapsHelper
+
   # TODO move methods to BlacklightMaps::BlacklightMapsHelperBehavior # figure out why this doesn't work!
 
   # @param [String] id the html id
@@ -50,6 +51,33 @@ module BlacklightMapsHelper
                                                controller.action_name,
                                                @response.docs)
     export.to_geojson
+  end
+
+  # determine the best viewpoint for the map
+  def set_viewpoint(geojson_features)
+    geojson_docs = JSON.parse(geojson_features)["features"]
+    if geojson_docs.length > 1
+      longs, lats = [[],[]]
+      geojson_docs.each do |feature|
+        if feature["bbox"]
+          feature["bbox"].values_at(0,2).each {|long| longs << long }
+          feature["bbox"].values_at(1,3).each {|lat| lats << lat }
+        else
+          longs << feature["geometry"]["coordinates"][0]
+          lats << feature["geometry"]["coordinates"][1]
+        end
+      end
+      sorted_longs, sorted_lats = longs.sort, lats.sort
+      #uber_bbox = [sorted_longs.first, sorted_lats.first, sorted_longs.last, sorted_lats.last]
+      #viewpoint = BlacklightMaps::Geometry::BoundingBox.new(uber_bbox).find_center.reverse
+      viewpoint = [[sorted_lats.first,sorted_longs.first],[sorted_lats.last,sorted_longs.last]]
+
+    else
+      viewpoint = geojson_docs[0]["bbox"] ?
+          BlacklightMaps::Geometry::BoundingBox.new(geojson_docs[0]["bbox"]).find_center.reverse :
+          geojson_docs[0]["geometry"]["coordinates"].reverse
+    end
+    viewpoint
   end
 
 end

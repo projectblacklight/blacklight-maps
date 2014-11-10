@@ -1,3 +1,5 @@
 <% # map window for catalog#show view %>
-<%= blacklight_map_tag('blacklight-map_show') %>
-<%= javascript_tag "$('#blacklight-map_show').blacklight_leaflet_map(#{serialize_geojson});" %>
+<%= blacklight_map_tag('blacklight-map_show',
+                       {data:{viewpoint: set_viewpoint(geojson_features),
+                              initialzoom:blacklight_config.view.maps.show_initial_zoom}}) %>
+<%= javascript_tag "$('#blacklight-map_show').blacklight_leaflet_map(#{geojson_features});" %>

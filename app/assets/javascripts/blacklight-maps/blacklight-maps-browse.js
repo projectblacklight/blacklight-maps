@@ -23,7 +23,15 @@
       options.id = this.id;
 
       // Setup Leaflet map
-      map = L.map(this.id).setView(options.viewpoint, options.initialzoom);
+      map = L.map(this.id);
+
+      // set the viewpoint and zoom
+      if (options.viewpoint[0].constructor === Array) {
+          map.fitBounds(options.viewpoint, {padding:[50,50]});
+      } else {
+          map.setView(options.viewpoint, options.initialzoom);
+      }
+
       L.tileLayer(options.tileurl, {
         attribution: options.mapattribution,
         maxZoom: options.maxzoom
@@ -76,6 +84,7 @@
       // Add GeoJSON layer object to map
       map.addLayer(geoJsonLayer);
 
+      /*
       // Listeners for marker cluster clicks
       markers.on('clusterclick', function(e){
         // hideSidebar();
@@ -87,6 +96,7 @@
           setupSidebarDisplay(e,placenames);
         }
       });
+      */
 
       //Add click listener to map
       // map.on('click drag', hideSidebar);

@@ -8,6 +8,10 @@ en:
         point_search: 'View more items from this location'
 
     search:
+      filters:
+        coordinates:
+          bbox: 'Bounding Box'
+          point: 'Coordinates'
       view:
         maps: "Map"
 

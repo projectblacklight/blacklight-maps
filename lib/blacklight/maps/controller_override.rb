@@ -3,6 +3,7 @@ module BlacklightMaps
     extend ActiveSupport::Concern
     included do
       solr_search_params_logic << :add_spatial_search_to_solr
+      helper_method :has_search_parameters?
     end
 
     # add spatial search params to solr
@@ -17,6 +18,10 @@ module BlacklightMaps
           solr_parameters[:d] = 0.5
         end
       end
+    end
+
+    def has_search_parameters?
+      !params[:q].blank? or !params[:f].blank? or !params[:search_field].blank? or !params[:coordinates].blank?
     end
 
   end

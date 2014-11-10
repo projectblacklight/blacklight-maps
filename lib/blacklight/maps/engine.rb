@@ -15,6 +15,7 @@ module Blacklight
       Blacklight::Configuration.default_values[:view].maps.tileurl = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       Blacklight::Configuration.default_values[:view].maps.mapattribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
       Blacklight::Configuration.default_values[:view].maps.maxzoom = 18
+      Blacklight::Configuration.default_values[:view].maps.show_initial_zoom = 5
 
       # Add our helpers
       initializer 'blacklight-maps.helpers' do |app|
