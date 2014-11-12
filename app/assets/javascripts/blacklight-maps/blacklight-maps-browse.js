@@ -4,7 +4,7 @@
     var map, sidebar, markers, geoJsonLayer, currentLayer;
 
     // Update page links with number of mapped items
-    $(this.selector).before('<span class="badge mapped-count">' + geojson_docs.features.length + '</span> mapped');
+    $(this.selector).before('<span class="badge mapped-count">' + geojson_docs.features.length + '</span> location' + (geojson_docs.features.length > 1 ? 's' : '') + ' mapped:');
 
     // Configure default options and those passed via the constructor options
     var options = $.extend({
