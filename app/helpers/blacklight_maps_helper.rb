@@ -38,6 +38,22 @@ module BlacklightMapsHelper
                                coordinates:"#{point_coordinates[1]},#{point_coordinates[0]}"))
   end
 
+  # return the facet field containing geographic data
+  def map_facet_field
+    blacklight_config.view.maps.facet_mode == "coordinates" ?
+        blacklight_config.view.maps.coordinates_field :
+        blacklight_config.view.maps.geojson_field
+  end
+
+  # return an array of Blacklight::SolrResponse::Facets::FacetItem items
+  def map_facet_values
+    if @response.facet_by_field_name(map_facet_field)
+      @response.facet_by_field_name(map_facet_field).items
+    else
+      []
+    end
+  end
+
   def render_coordinate_search_link coordinates
     if coordinates.length == 4
       link_to_bbox_search(coordinates)
@@ -46,17 +62,21 @@ module BlacklightMapsHelper
     end
   end
 
-  def serialize_geojson
+  def serialize_geojson(documents)
     export = BlacklightMaps::GeojsonExport.new(controller,
                                                controller.action_name,
-                                               @response.docs)
+                                               documents)
     export.to_geojson
   end
 
   # determine the best viewpoint for the map
   def set_viewpoint(geojson_features)
     geojson_docs = JSON.parse(geojson_features)["features"]
-    if geojson_docs.length > 1
+    if geojson_docs.length == 1
+      viewpoint = geojson_docs[0]["bbox"] ?
+          BlacklightMaps::Geometry::BoundingBox.new(geojson_docs[0]["bbox"]).find_center.reverse :
+          geojson_docs[0]["geometry"]["coordinates"].reverse
+    elsif geojson_docs.length > 1
       longs, lats = [[],[]]
       geojson_docs.each do |feature|
         if feature["bbox"]
@@ -68,14 +88,9 @@ module BlacklightMapsHelper
         end
       end
       sorted_longs, sorted_lats = longs.sort, lats.sort
-      #uber_bbox = [sorted_longs.first, sorted_lats.first, sorted_longs.last, sorted_lats.last]
-      #viewpoint = BlacklightMaps::Geometry::BoundingBox.new(uber_bbox).find_center.reverse
       viewpoint = [[sorted_lats.first,sorted_longs.first],[sorted_lats.last,sorted_longs.last]]
-
     else
-      viewpoint = geojson_docs[0]["bbox"] ?
-          BlacklightMaps::Geometry::BoundingBox.new(geojson_docs[0]["bbox"]).find_center.reverse :
-          geojson_docs[0]["geometry"]["coordinates"].reverse
+      viewpoint = [0,0]
     end
     viewpoint
   end

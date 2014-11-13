@@ -2,5 +2,5 @@
 <div id="documents" class="map">
   <%= blacklight_map_tag('blacklight-map') %>
   <div id="blacklight-map-sidebar"></div>
-  <%= javascript_tag "$('#blacklight-map').blacklight_leaflet_map(#{serialize_geojson});" %>
+  <%= javascript_tag "$('#blacklight-map').blacklight_leaflet_map(#{serialize_geojson(map_facet_values)});" %>
 </div>

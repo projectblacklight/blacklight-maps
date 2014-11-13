@@ -8,9 +8,13 @@ module BlacklightMaps
   class GeojsonExport
     include BlacklightMaps
 
+    require 'geohash'
+
     # controller is a Blacklight CatalogController object passed by a helper
     # action is the controller action
-    # response_docs is an array of documents passed by a helper
+    # response_docs is passed by a helper, and is either:
+    #  - index view: an array of facet values
+    #  - show view: the document object
     def initialize(controller, action, response_docs)
       @controller = controller
       @action = action
@@ -41,26 +45,54 @@ module BlacklightMaps
       blacklight_maps_config.search_mode
     end
 
+    def facet_mode
+      blacklight_maps_config.facet_mode
+    end
+
     def placename_property
       blacklight_maps_config.placename_property
     end
 
     def build_geojson_features
       features = []
-      @response_docs.each do |doc|
-        next if doc[geojson_field].nil? && doc[coordinates_field].nil?
-        if doc[geojson_field]
-          doc[geojson_field].uniq.each do |loc|
-            features.push(build_feature_from_geojson(loc))
+      case @action
+        when "index"
+          @response_docs.each do |geofacet|
+            if facet_mode == "coordinates"
+              features.push(build_feature_from_geohash(geofacet.value))
+            else
+              features.push(build_feature_from_geojson(geofacet.value))
+            end
           end
-        elsif doc[coordinates_field]
-          doc[coordinates_field].uniq.each do |coords|
-            features.push(build_feature_from_coords(coords))
+        when "show"
+          doc = @response_docs
+          return if doc[geojson_field].nil? && doc[coordinates_field].nil?
+          if doc[geojson_field]
+            doc[geojson_field].uniq.each do |loc|
+              features.push(build_feature_from_geojson(loc))
+            end
+          elsif doc[coordinates_field]
+            doc[coordinates_field].uniq.each do |coords|
+              features.push(build_feature_from_coords(coords))
+            end
           end
-        end
-
       end
       features
+    end
+
+    def build_feature_from_geohash(geohash)
+      geojson_hash = {"type" => "Feature", "geometry" => {"type" => "Point"}, "properties" => {}}
+      coords = GeoHash.decode(geohash)
+      if coords[0].class == Float # point
+        #puts "GEOHASH = " + geohash + "; DECODED = " + coords.inspect
+        geojson_hash["geometry"]["coordinates"] = coords.reverse
+      elsif coords[0].class == Array # bbox
+        # TODO: figure out how Solr geohashes bboxes
+        #puts "GEOHASH = " + geohash + "; DECODED = " + coords.inspect
+        #geojson_hash["bbox"] = coords
+      end
+      geojson_hash["properties"]["popup"] = render_leaflet_popup_content(geojson_hash)
+      geojson_hash
     end
 
     def build_feature_from_geojson(loc)
@@ -93,7 +125,7 @@ module BlacklightMaps
                                                     [coords_array[0],coords_array[1]]]]
         end
       elsif coords.match(/^[-]?[\d]+[\.]?[\d]*[ ,][-]?[\d]+[\.]?[\d]*$/) # point
-        geojson_hash["geometry"]["type"] = 'Point'
+        geojson_hash["geometry"]["type"] = "Point"
         if coords.match(/,/)
           coords_array = coords.split(',').reverse
         else
