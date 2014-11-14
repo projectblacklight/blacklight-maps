@@ -8,7 +8,7 @@ module BlacklightMaps
   class GeojsonExport
     include BlacklightMaps
 
-    require 'geohash'
+    #require 'geohash'
 
     # controller is a Blacklight CatalogController object passed by a helper
     # action is the controller action
@@ -59,7 +59,8 @@ module BlacklightMaps
         when "index"
           @response_docs.each do |geofacet|
             if facet_mode == "coordinates"
-              features.push(build_feature_from_geohash(geofacet.value))
+              #features.push(build_feature_from_geohash(geofacet.value))
+              features.push(build_feature_from_coords(geofacet.value))
             else
               features.push(build_feature_from_geojson(geofacet.value))
             end
@@ -79,7 +80,8 @@ module BlacklightMaps
       end
       features
     end
-
+=begin
+    # don't need if location_rpt can't be faceted properly
     def build_feature_from_geohash(geohash)
       geojson_hash = {"type" => "Feature", "geometry" => {"type" => "Point"}, "properties" => {}}
       coords = GeoHash.decode(geohash)
@@ -94,7 +96,7 @@ module BlacklightMaps
       geojson_hash["properties"]["popup"] = render_leaflet_popup_content(geojson_hash)
       geojson_hash
     end
-
+=end
     def build_feature_from_geojson(loc)
       geojson_hash = JSON.parse(loc)
       # turn bboxes into points for index view so we don't get weird mix of boxes and markers

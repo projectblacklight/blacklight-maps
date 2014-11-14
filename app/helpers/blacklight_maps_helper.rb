@@ -41,7 +41,7 @@ module BlacklightMapsHelper
   # return the facet field containing geographic data
   def map_facet_field
     blacklight_config.view.maps.facet_mode == "coordinates" ?
-        blacklight_config.view.maps.coordinates_field :
+        blacklight_config.view.maps.coordinates_facet_field :
         blacklight_config.view.maps.geojson_field
   end
 
@@ -60,6 +60,11 @@ module BlacklightMapsHelper
     else
       link_to_point_search(coordinates)
     end
+  end
+
+  def render_index_map
+    render :partial => 'catalog/index_map',
+           :locals => {:geojson_features => serialize_geojson(map_facet_values)}
   end
 
   def serialize_geojson(documents)
