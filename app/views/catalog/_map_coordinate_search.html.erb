@@ -1,3 +1,5 @@
 <% # content for the popup for a point or bbox feature - run a new coordinate search for this location -%>
-<h5 class="geo_facet_heading"><%= coordinates.reverse %></h5>
+<h5 class="geo_facet_heading">
+  <%= coordinates.reverse %> <%= content_tag(:small, pluralize(hits,"item")) if hits %>
+</h5>
 <%= render_coordinate_search_link(coordinates) %>

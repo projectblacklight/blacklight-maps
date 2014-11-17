@@ -59,8 +59,7 @@ module BlacklightMaps
         when "index"
           @response_docs.each do |geofacet|
             if facet_mode == "coordinates"
-              #features.push(build_feature_from_geohash(geofacet.value))
-              features.push(build_feature_from_coords(geofacet.value))
+              features.push(build_feature_from_coords(geofacet.value, geofacet.hits))
             else
               features.push(build_feature_from_geojson(geofacet.value))
             end
@@ -110,7 +109,7 @@ module BlacklightMaps
       geojson_hash
     end
 
-    def build_feature_from_coords(coords)
+    def build_feature_from_coords(coords, hits=nil)
       geojson_hash = {"type" => "Feature", "geometry" => {}, "properties" => {}}
       if coords.scan(/[\s]/).length == 3 # bbox
         if @action == "index"
@@ -137,7 +136,7 @@ module BlacklightMaps
       else
         Rails.logger.error("This coordinate format is not yet supported: '#{coords}'")
       end
-      geojson_hash["properties"] = { popup: render_leaflet_popup_content(geojson_hash.stringify_keys) }
+      geojson_hash["properties"] = { popup: render_leaflet_popup_content(geojson_hash.stringify_keys, hits) }
       geojson_hash
     end
 
@@ -146,14 +145,18 @@ module BlacklightMaps
     # full geojson hash is passed to the partial for easier local customization
     # For coordinate searches (or features with only coordinate data),
     # render catalog/map_coordinate_search partial
-    def render_leaflet_popup_content(geojson_hash)
+    def render_leaflet_popup_content(geojson_hash, hits=nil)
       if search_mode == 'placename_facet' && geojson_hash["properties"][placename_property]
         @controller.render_to_string partial: 'catalog/map_facet_search',
                                      locals: { placename: geojson_hash["properties"][placename_property],
-                                               geojson_hash: geojson_hash }
+                                               geojson_hash: geojson_hash,
+                                               hits: hits
+                                     }
       else
         @controller.render_to_string partial: 'catalog/map_coordinate_search',
-                                     locals: { coordinates: geojson_hash["bbox"].presence || geojson_hash["geometry"]["coordinates"] }
+                                     locals: { coordinates: geojson_hash["bbox"].presence || geojson_hash["geometry"]["coordinates"],
+                                               hits: hits
+                                     }
       end
 
     end
