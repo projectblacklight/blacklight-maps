@@ -28,14 +28,16 @@ module BlacklightMapsHelper
   end
 
   def link_to_placename_facet field_value, field, displayvalue = nil
-    link_to(displayvalue.presence || field_value,
-            catalog_index_path(:f => {field => [field_value]}))
+    new_params = params.except(:view, :id, :spatial_search_type, :coordinates)
+    new_params = add_facet_params(field, field_value) unless new_params[:f] && new_params[:f][field].include?(field_value)
+    link_to(displayvalue.presence || field_value, catalog_index_path(new_params))
   end
 
   def link_to_point_search point_coordinates
-    link_to(t('blacklight.maps.leaflet.point_search'),
-            catalog_index_path(spatial_search_type:"point",
-                               coordinates:"#{point_coordinates[1]},#{point_coordinates[0]}"))
+    new_params = params.except(:controller, :action, :view, :id, :spatial_search_type, :coordinates)
+    new_params[:spatial_search_type] = "point"
+    new_params[:coordinates] = "#{point_coordinates[1]},#{point_coordinates[0]}"
+    link_to(t('blacklight.maps.leaflet.point_search'), catalog_index_path(new_params))
   end
 
   # return the facet field containing geographic data

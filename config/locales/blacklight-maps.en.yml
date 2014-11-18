@@ -4,8 +4,8 @@ en:
     maps:
       leaflet:
         bbox_search: 'View items that intersect with this bounding box'
-        facet_search: 'View more items from this location'
-        point_search: 'View more items from this location'
+        facet_search: 'View items from this location'
+        point_search: 'View items from this location'
 
     search:
       filters:

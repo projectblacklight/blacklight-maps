@@ -61,7 +61,7 @@ module BlacklightMaps
             if facet_mode == "coordinates"
               features.push(build_feature_from_coords(geofacet.value, geofacet.hits))
             else
-              features.push(build_feature_from_geojson(geofacet.value))
+              features.push(build_feature_from_geojson(geofacet.value, geofacet.hits))
             end
           end
         when "show"
@@ -96,7 +96,7 @@ module BlacklightMaps
       geojson_hash
     end
 =end
-    def build_feature_from_geojson(loc)
+    def build_feature_from_geojson(loc, hits = nil)
       geojson_hash = JSON.parse(loc)
       # turn bboxes into points for index view so we don't get weird mix of boxes and markers
       if @action == "index" && geojson_hash["bbox"]
@@ -105,11 +105,11 @@ module BlacklightMaps
         geojson_hash.delete("bbox")
       end
       geojson_hash["properties"] ||= {}
-      geojson_hash["properties"]["popup"] = render_leaflet_popup_content(geojson_hash)
+      geojson_hash["properties"]["popup"] = render_leaflet_popup_content(geojson_hash, hits)
       geojson_hash
     end
 
-    def build_feature_from_coords(coords, hits=nil)
+    def build_feature_from_coords(coords, hits = nil)
       geojson_hash = {"type" => "Feature", "geometry" => {}, "properties" => {}}
       if coords.scan(/[\s]/).length == 3 # bbox
         if @action == "index"
