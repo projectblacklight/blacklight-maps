@@ -7,8 +7,18 @@
   &:before { content: "\e135"; } 
 }
 
-#blacklight-map{
+#documents #blacklight-map {
   height: 550px;
+  margin-top:10px;
+
+  & ~ div.record-padding {
+
+    #pagination_links {
+      display: none;
+    }
+
+  }
+
 }
 
 .badge.mapped-count {

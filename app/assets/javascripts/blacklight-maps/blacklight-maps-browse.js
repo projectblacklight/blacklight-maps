@@ -3,8 +3,14 @@
   $.fn.blacklight_leaflet_map = function(geojson_docs, arg_opts) {
     var map, sidebar, markers, geoJsonLayer, currentLayer;
 
-    // Update page links with number of mapped items
-    $(this.selector).before('<span class="badge mapped-count">' + geojson_docs.features.length + '</span> location' + (geojson_docs.features.length > 1 ? 's' : '') + ' mapped:');
+    // Update page links with number of mapped items, disable sort, per_page, pagination
+    var mapped_items = '<span class="badge mapped-count">' + geojson_docs.features.length + '</span> location' + (geojson_docs.features.length > 1 ? 's' : '') + ' mapped'
+    if ($('#sortAndPerPage').length) {
+        $('.page_links').html(mapped_items);
+        $('#sortAndPerPage').find('.dropdown-toggle').attr('disabled','disabled');
+    } else {
+        $(this.selector).before(mapped_items);
+    }
 
     // Configure default options and those passed via the constructor options
     var options = $.extend({

@@ -28,9 +28,13 @@ module BlacklightMapsHelper
   end
 
   def link_to_placename_facet field_value, field, displayvalue = nil
-    new_params = params.except(:view, :id, :spatial_search_type, :coordinates)
-    new_params = add_facet_params(field, field_value) unless new_params[:f] && new_params[:f][field].include?(field_value)
-    link_to(displayvalue.presence || field_value, catalog_index_path(new_params))
+    if params[:f] && params[:f][field] && params[:f][field].include?(field_value)
+      new_params = params
+    else
+      new_params = add_facet_params(field, field_value)
+    end
+    link_to(displayvalue.presence || field_value,
+            catalog_index_path(new_params.except(:view, :id, :spatial_search_type, :coordinates)))
   end
 
   def link_to_point_search point_coordinates
