@@ -148,15 +148,11 @@ module BlacklightMaps
     def render_leaflet_popup_content(geojson_hash, hits=nil)
       if search_mode == 'placename_facet' && geojson_hash["properties"][placename_property]
         @controller.render_to_string partial: 'catalog/map_facet_search',
-                                     locals: { placename: geojson_hash["properties"][placename_property],
-                                               geojson_hash: geojson_hash,
-                                               hits: hits
-                                     }
+                                     locals: { geojson_hash: geojson_hash, hits: hits }
       else
         @controller.render_to_string partial: 'catalog/map_coordinate_search',
                                      locals: { coordinates: geojson_hash["bbox"].presence || geojson_hash["geometry"]["coordinates"],
-                                               hits: hits
-                                     }
+                                               hits: hits }
       end
 
     end
