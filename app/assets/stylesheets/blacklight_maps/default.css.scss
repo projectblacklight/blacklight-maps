@@ -7,7 +7,7 @@
   &:before { content: "\e135"; } 
 }
 
-#documents #blacklight-map {
+#documents #blacklight-index-map {
   height: 550px;
   margin-top:10px;
 
@@ -20,6 +20,11 @@
   }
 
 }
+
+#document #blacklight-show-map {
+  height: 300px;
+}
+
 
 .badge.mapped-count {
   margin-left: 8px;
