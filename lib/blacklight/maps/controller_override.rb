@@ -6,6 +6,14 @@ module BlacklightMaps
       helper_method :has_search_parameters?
     end
 
+    def map
+      (@response, @document_list) = get_search_results
+      params[:view] = 'maps'
+      respond_to do |format|
+        format.html
+      end
+    end
+
     # add spatial search params to solr
     def add_spatial_search_to_solr(solr_parameters, user_parameters)
       if user_parameters[:spatial_search_type] && user_parameters[:coordinates]
@@ -20,6 +28,7 @@ module BlacklightMaps
       end
     end
 
+    # updated to look for spatial query params
     def has_search_parameters?
       !params[:q].blank? or !params[:f].blank? or !params[:search_field].blank? or !params[:coordinates].blank?
     end

@@ -56,7 +56,7 @@ module BlacklightMaps
     def build_geojson_features
       features = []
       case @action
-        when "index"
+        when ("index" || "map")
           @response_docs.each do |geofacet|
             if facet_mode == "coordinates"
               features.push(build_feature_from_coords(geofacet.value, geofacet.hits))

@@ -57,7 +57,7 @@
 
       // Create a marker cluster object and set options
       markers = new L.MarkerClusterGroup({
-        singleMarkerMode: true
+        //singleMarkerMode: true
       });
 
 
