@@ -56,7 +56,7 @@ module BlacklightMaps
     def build_geojson_features
       features = []
       case @action
-        when ("index" || "map")
+        when "index", "map"
           @response_docs.each do |geofacet|
             if facet_mode == "coordinates"
               features.push(build_feature_from_coords(geofacet.value, geofacet.hits))
@@ -96,10 +96,11 @@ module BlacklightMaps
       geojson_hash
     end
 =end
+    # turn bboxes into points for index view so we don't get weird mix of boxes and markers
     def build_feature_from_geojson(loc, hits = nil)
       geojson_hash = JSON.parse(loc)
-      # turn bboxes into points for index view so we don't get weird mix of boxes and markers
-      if @action == "index" && geojson_hash["bbox"]
+
+      if @action != "show" && geojson_hash["bbox"]
         geojson_hash["geometry"]["coordinates"] = Geometry::BoundingBox.new(geojson_hash["bbox"]).find_center
         geojson_hash["geometry"]["type"] = "Point"
         geojson_hash.delete("bbox")
@@ -109,10 +110,11 @@ module BlacklightMaps
       geojson_hash
     end
 
+    # turn bboxes into points for index view so we don't get weird mix of boxes and markers
     def build_feature_from_coords(coords, hits = nil)
       geojson_hash = {"type" => "Feature", "geometry" => {}, "properties" => {}}
       if coords.scan(/[\s]/).length == 3 # bbox
-        if @action == "index"
+        if @action != "show"
           geojson_hash["geometry"]["type"] = "Point"
           geojson_hash["geometry"]["coordinates"] = Geometry::BoundingBox.from_lon_lat_string(coords).find_center
         else

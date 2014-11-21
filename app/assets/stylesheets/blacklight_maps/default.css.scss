@@ -2,6 +2,22 @@
 @import 'leaflet.markercluster';
 @import 'leaflet.markercluster.default';
 
+body.blacklight-catalog-map {
+
+  #map_leader_text {
+    margin-bottom: 10px;
+  }
+
+  #sortAndPerPage {
+
+    #sort-dropdown, #per_page-dropdown {
+      display:none;
+    }
+
+  }
+
+}
+
 .view-icon-maps {
   &:before { content: "\e135"; } 
 }

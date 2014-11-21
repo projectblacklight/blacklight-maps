@@ -6,6 +6,8 @@ en:
         bbox_search: 'View items that intersect with this bounding box'
         facet_search: 'View items from this location'
         point_search: 'View items from this location'
+      title: 'Map'
+      leader: 'Click on a marker to search for items from that location.'
 
     search:
       filters:
