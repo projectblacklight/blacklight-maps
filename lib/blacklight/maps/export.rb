@@ -92,6 +92,7 @@ module BlacklightMaps
         geojson_hash.delete("bbox")
       end
       geojson_hash["properties"] ||= {}
+      geojson_hash["properties"]["hits"] = hits.to_i if hits
       geojson_hash["properties"]["popup"] = render_leaflet_popup_content(geojson_hash, hits)
       geojson_hash
     end
@@ -126,6 +127,7 @@ module BlacklightMaps
         Rails.logger.error("This coordinate format is not yet supported: '#{coords}'")
       end
       geojson_hash["properties"] = { popup: render_leaflet_popup_content(geojson_hash.stringify_keys, hits) }
+      geojson_hash["properties"]["hits"] = hits.to_i if hits
       geojson_hash
     end
 

@@ -5,11 +5,31 @@
 
     // Update page links with number of mapped items, disable sort, per_page, pagination
     var mapped_items = '<span class="badge mapped-count">' + geojson_docs.features.length + '</span> location' + (geojson_docs.features.length > 1 ? 's' : '') + ' mapped'
+
     if ($('#sortAndPerPage').length) {
-        $('.page_links').html(mapped_items);
+        //$('.page_links').html(mapped_items);
         $('#sortAndPerPage').find('.dropdown-toggle').attr('disabled','disabled');
+
+        var clusterIconFunction = function (cluster) {
+            var markers = cluster.getAllChildMarkers();
+            var childCount = 0;
+            for (var i = 0; i < markers.length; i++) {
+                childCount += markers[i].feature.properties.hits;
+            }
+            var c = ' marker-cluster-';
+            if (childCount < 10) {
+                c += 'small';
+            } else if (childCount < 100) {
+                c += 'medium';
+            } else {
+                c += 'large';
+            }
+            return new L.divIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(40, 40) });
+        }
+
     } else {
         $(this.selector).before(mapped_items);
+        var clusterIconFunction = this._defaultIconCreateFunction;
     }
 
     // Configure default options and those passed via the constructor options
@@ -18,7 +38,8 @@
       mapattribution : 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
       viewpoint: [0,0],
       initialzoom: 2,
-      sidebar: 'blacklight-map-sidebar'
+      singlemarkermode: true
+      //sidebar: 'blacklight-map-sidebar'
     }, arg_opts );
 
     // Extend options from data-attributes
@@ -57,7 +78,8 @@
 
       // Create a marker cluster object and set options
       markers = new L.MarkerClusterGroup({
-        //singleMarkerMode: true
+          singleMarkerMode: options.singlemarkermode,
+          iconCreateFunction: clusterIconFunction
       });
 
 
@@ -108,6 +130,25 @@
       // map.on('click drag', hideSidebar);
 
     });
+
+
+      function clusterIcon(cluster) {
+          /*
+           var markers = cluster.getAllChildMarkers();
+           var childCount = 0;
+           for (var i = 0; i < markers.length; i++) {
+           childCount += markers[i].feature.properties.hits;
+           } */
+          var c = ' marker-cluster-';
+          //if (childCount < 10) {
+          c += 'small';
+          //} else if (childCount < 100) {
+          //    c += 'medium';
+          // } else {
+          //    c += 'large';
+          //}*/
+          return L.divIcon({ html: '<div><span>' + "3" + '</span></div>', className: 'marker-cluster' + c, iconSize: L.Point(40, 40) });
+      }
 /*
     function setupSidebarDisplay(e, placenames){
       hideSidebar();
