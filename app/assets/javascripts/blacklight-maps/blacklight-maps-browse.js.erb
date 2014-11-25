@@ -71,18 +71,6 @@
         maxZoom: options.maxzoom
       }).addTo(map);
 
-      /*
-      // Initialize sidebar
-      sidebar = L.control.sidebar(options.sidebar, {
-        position: 'right',
-        autoPan: false
-      });
-
-      // Adds leaflet-sidebar control to map
-      map.addControl(sidebar);
-      */
-
-
       // Create a marker cluster object and set options
       markers = new L.MarkerClusterGroup({
           singleMarkerMode: options.singlemarkermode,
@@ -97,138 +85,63 @@
             } else {
                 layer.bindPopup("Sorry, there is no data for this location.");
             }
-
-          /*
-          layer.defaultOptions.title = getMapTitle(options.type, feature.properties.name);
-          layer.on('click', function(e){
-            var placenames = {};
-            placenames[layer.defaultOptions.title] = [feature.properties.html];
-            setupSidebarDisplay(e,placenames);
-          });
-          */
-
         }
       });
 
       // Add GeoJSON layer to marker cluster object
       markers.addLayer(geoJsonLayer);
 
-      // Add GeoJSON layer object to map
-      // map.addLayer(geoJsonLayer);
-
       // Add markers to map
       map.addLayer(markers);
 
-      /*
-      // Listeners for marker cluster clicks
-      markers.on('clusterclick', function(e){
-        // hideSidebar();
+      // create search control
+      var searchControl = L.Control.extend({
+          options: { position: 'topleft' },
 
-        //if map is at the lowest zoom level
-        if (map.getZoom() === options.maxzoom){
+          onAdd: function (map) {
+              // create the control container with a particular class name
+              var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+              this.link = L.DomUtil.create('a', 'leaflet-bar-part search-control',
+                      container);
+              this.link.href = '';
+              this.icon = L.DomUtil.create('i', 'glyphicon glyphicon-search', this.link);
 
-          var placenames = generatePlacenamesObject(e.layer.getAllChildMarkers());
-          setupSidebarDisplay(e,placenames);
-        }
+              // ... initialize other DOM elements, add listeners, etc.
+
+              return container;
+          }
+
       });
-      */
 
-      //Add click listener to map
-      // map.on('click drag', hideSidebar);
+      // add search control to map
+      map.addControl(new searchControl());
+
 
     });
 
-
-      function clusterIcon(cluster) {
-          /*
-           var markers = cluster.getAllChildMarkers();
-           var childCount = 0;
-           for (var i = 0; i < markers.length; i++) {
-           childCount += markers[i].feature.properties.hits;
-           } */
-          var c = ' marker-cluster-';
-          //if (childCount < 10) {
-          c += 'small';
-          //} else if (childCount < 100) {
-          //    c += 'medium';
-          // } else {
-          //    c += 'large';
-          //}*/
-          return L.divIcon({ html: '<div><span>' + "3" + '</span></div>', className: 'marker-cluster' + c, iconSize: L.Point(40, 40) });
-      }
-/*
-    function setupSidebarDisplay(e, placenames){
-      hideSidebar();
-      offsetMap(e);
-      if (currentLayer !== e.layer || !("layer" in e)){
-        // Update sidebar div with new html
-        $('#' + options.sidebar).html(buildList(placenames));
-
-        // Scroll sidebar div to top
-        $('#' + options.sidebar).scrollTop(0);
-        currentLayer = e.layer;
+      function _search() {
+          var params = this.filterParams(['bbox', 'page']),
+                  bounds = L.boundsToBbox(this._map.getBounds());
+          params.push('bbox=' + encodeURIComponent(bounds.join(' ')));
+          this._searcher(params.join('&'));
       }
 
-      // Show the sidebar
-      sidebar.show();
-
-    }
-
-    // Hides sidebar if it is visible
-    function hideSidebar(){
-      if (sidebar.isVisible()){
-        sidebar.hide();
+      function filterParams(filterList) {
+          var querystring = window.location.search.substr(1),
+                  params = [];
+          if (querystring !== "") {
+              params = $.map(querystring.split('&'), function(value) {
+                  if ($.inArray(value.split('=')[0], filterList) > -1) {
+                      return null;
+                  } else {
+                      return value;
+                  }
+              });
+          }
+          return params;
       }
-    }
 
-    // Build the list
-    function buildList(placenames){
-      var html = "";
-      $.each(placenames, function(i,val){
-        html += "<h2>" + i + "</h2>";
-        html += "<ul class='sidebar-list'>";
-        $.each(val, function(j, val2){
-          html += val2;
-        });
-        html += "</ul>";
-      });
-      return html;
-    }
 
-    // Generates placenames object
-    function generatePlacenamesObject(markers){
-      var placenames = {};
-      $.each(markers, function(i,val){
-        if (!(val.defaultOptions.title in placenames)){
-          placenames[val.defaultOptions.title] = [];
-        }
-        placenames[val.defaultOptions.title].push(val.feature.properties.html);
-      });
-      return placenames;
-    }
-
-    // Move the map so that it centers the clicked cluster TODO account for various size screens
-    function offsetMap(e){
-      var mapWidth = $('#' + options.id).width();
-      var mapHeight = $('#' + options.id).height();
-      if (!e.latlng.equals(map.getCenter())){
-        map.panBy([(e.originalEvent.layerX - (mapWidth/4)), (e.originalEvent.layerY - (mapHeight/2))]);
-      }else{
-        map.panBy([(mapWidth/4), 0]);
-      }
-    }
-      */
   };
-  /*
-  function getMapTitle(type, featureName){
-    switch(type){
-    case 'bbox':
-      return 'Results';
-    case 'placename_coord':
-      return featureName;
-    default:
-      return 'Results';
-    }
-  }
-*/
+
 }( jQuery ));
