@@ -3,13 +3,20 @@
   $.fn.blacklight_leaflet_map = function(geojson_docs, arg_opts) {
     var map, sidebar, markers, geoJsonLayer, currentLayer;
 
+    var mapped_items = '<span class="mapped-count"><span class="badge">' + geojson_docs.features.length + '</span> location' + (geojson_docs.features.length !== 1 ? 's' : '') + ' mapped</span>';
+
+    var mapped_caveat = '<span class="mapped-caveat">Only items with location data are shown below</span>';
+
+    var sortAndPerPage = $('#sortAndPerPage');
+
     // Update page links with number of mapped items, disable sort, per_page, pagination
-    var mapped_items = '<span class="badge mapped-count">' + geojson_docs.features.length + '</span> location' + (geojson_docs.features.length > 1 ? 's' : '') + ' mapped'
+    if (sortAndPerPage.length) {
+        var page_links = sortAndPerPage.find('.page_links');
+        var result_count = page_links.find('.page_entries').find('strong').last().html();
+        page_links.html('<span class="page_entries"><strong>' + result_count + '</strong> items found</span>' + mapped_items + mapped_caveat);
+        sortAndPerPage.find('.dropdown-toggle').hide();
 
-    if ($('#sortAndPerPage').length) {
-        //$('.page_links').html(mapped_items);
-        $('#sortAndPerPage').find('.dropdown-toggle').attr('disabled','disabled');
-
+        // clusters should show item result count in #index and #map views
         var clusterIconFunction = function (cluster) {
             var markers = cluster.getAllChildMarkers();
             var childCount = 0;

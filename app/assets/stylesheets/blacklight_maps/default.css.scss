@@ -8,18 +8,29 @@ body.blacklight-catalog-map {
     margin-bottom: 10px;
   }
 
-  #sortAndPerPage {
-
-    #sort-dropdown, #per_page-dropdown {
-      display:none;
-    }
-
-  }
-
 }
 
 .view-icon-maps {
   &:before { content: "\e135"; } 
+}
+
+#sortAndPerPage {
+
+  .page_links {
+
+    .mapped-count {
+      margin-left: 12px;
+      color: dimgray;
+    }
+
+    .mapped-caveat {
+      margin-left: 12px;
+      font-size: 12px;
+      color: darkgray;
+    }
+
+  }
+
 }
 
 #documents {
@@ -38,16 +49,12 @@ body.blacklight-catalog-map {
 
   }
 
-  .badge.mapped-count {
-    margin-left: 8px;
-  }
-
 }
 
 #document #blacklight-show-map {
   height: 300px;
 }
 
-.badge.mapped-count {
+.mapped-count .badge {
   vertical-align: text-bottom;
 }
