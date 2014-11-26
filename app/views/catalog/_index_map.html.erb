@@ -1,3 +1,5 @@
-<%= blacklight_map_tag('blacklight-index-map', {data:{viewpoint: set_viewpoint(geojson_features)}}) %>
+<%= blacklight_map_tag('blacklight-index-map', {data:{viewpoint: set_viewpoint(geojson_features),
+                                                      catalogpath: catalog_index_path,
+                                                      searchctrlcue: t('blacklight.maps.leaflet.search_ctrl_cue')}}) %>
 <div id="blacklight-map-sidebar"></div>
 <%= javascript_tag "$('#blacklight-index-map').blacklight_leaflet_map(#{geojson_features});" %>

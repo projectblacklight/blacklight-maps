@@ -45,8 +45,9 @@
       mapattribution : 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
       viewpoint: [0,0],
       initialzoom: 2,
-      singlemarkermode: true
-      //sidebar: 'blacklight-map-sidebar'
+      singlemarkermode: true,
+      catalogpath: 'catalog',
+      searchctrlcue: 'Search for all items within the current map window'
     }, arg_opts );
 
     // Extend options from data-attributes
@@ -77,7 +78,6 @@
           iconCreateFunction: clusterIconFunction
       });
 
-
       geoJsonLayer = L.geoJson(geojson_docs, {
         onEachFeature: function(feature, layer){
             if (feature.properties.popup) {
@@ -103,10 +103,11 @@
               var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
               this.link = L.DomUtil.create('a', 'leaflet-bar-part search-control',
                       container);
-              this.link.href = '';
+              //this.link.href = '#';
+              this.link.title = options.searchctrlcue;
               this.icon = L.DomUtil.create('i', 'glyphicon glyphicon-search', this.link);
 
-              // ... initialize other DOM elements, add listeners, etc.
+              L.DomEvent.addListener(this.link, 'click', _search);
 
               return container;
           }
@@ -119,16 +120,20 @@
 
     });
 
-      function _search() {
-          var params = this.filterParams(['bbox', 'page']),
-                  bounds = L.boundsToBbox(this._map.getBounds());
-          params.push('bbox=' + encodeURIComponent(bounds.join(' ')));
-          this._searcher(params.join('&'));
+      function _search(e) {
+          var params = filterParams(['view', 'spatial_search_type', 'coordinates', 'f%5Bsubject_geographic_ssim%5D%5B%5D']), // TODO use config for geo facet param
+              bounds = map.getBounds().toBBoxString().split(','),
+              coordinate_params = '[' + bounds[1] + ',' + bounds[0] + ' TO ' + bounds[3] + ',' + bounds[2] + ']';
+          params.push('coordinates=' + encodeURIComponent(coordinate_params), 'spatial_search_type=bbox');
+          console.log(params);
+          $(location).attr('href', options.catalogpath + '?' + params.join('&'));
+          //this._searcher(params.join('&'));
+          //alert('HEY!');
       }
 
       function filterParams(filterList) {
           var querystring = window.location.search.substr(1),
-                  params = [];
+              params = [];
           if (querystring !== "") {
               params = $.map(querystring.split('&'), function(value) {
                   if ($.inArray(value.split('=')[0], filterList) > -1) {
