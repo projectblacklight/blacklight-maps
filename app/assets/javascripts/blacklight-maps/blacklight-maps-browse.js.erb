@@ -94,6 +94,9 @@
       // Add markers to map
       map.addLayer(markers);
 
+      // create overlay for search control hover
+      var searchHoverLayer = L.rectangle([[0,0], [0,0]], {color: "#0033ff", weight: 5, opacity:0.5, fill:true, fillColor:"#0033ff", fillOpacity:0.2});
+
       // create search control
       var searchControl = L.Control.extend({
           options: { position: 'topleft' },
@@ -108,6 +111,15 @@
               this.icon = L.DomUtil.create('i', 'glyphicon glyphicon-search', this.link);
 
               L.DomEvent.addListener(this.link, 'click', _search);
+
+              L.DomEvent.addListener(this.link, 'mouseover', function () {
+                  searchHoverLayer.setBounds(map.getBounds());
+                  map.addLayer(searchHoverLayer);
+              });
+
+              L.DomEvent.addListener(this.link, 'mouseout', function () {
+                  map.removeLayer(searchHoverLayer);
+              });
 
               return container;
           }

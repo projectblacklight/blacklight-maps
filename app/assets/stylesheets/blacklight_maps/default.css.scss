@@ -61,9 +61,5 @@ body.blacklight-catalog-map {
 
 a.leaflet-bar-part.search-control {
   cursor: pointer;
-
-  &:hover #facets .panel .panel-body {
-    background-color: #0033FF;
-  }
-
 }
+
