@@ -46,8 +46,10 @@
       viewpoint: [0,0],
       initialzoom: 2,
       singlemarkermode: true,
+      searchcontrol: false,
       catalogpath: 'catalog',
-      searchctrlcue: 'Search for all items within the current map window'
+      searchctrlcue: 'Search for all items within the current map window',
+      placenamefacetfield: 'placename_facet_field'
     }, arg_opts );
 
     // Extend options from data-attributes
@@ -95,18 +97,23 @@
       map.addLayer(markers);
 
       // create overlay for search control hover
-      var searchHoverLayer = L.rectangle([[0,0], [0,0]], {color: "#0033ff", weight: 5, opacity:0.5, fill:true, fillColor:"#0033ff", fillOpacity:0.2});
+      var searchHoverLayer = L.rectangle([[0,0], [0,0]], {
+          color: "#0033ff",
+          weight: 5,
+          opacity: 0.5,
+          fill: true,
+          fillColor: "#0033ff",
+          fillOpacity: 0.2
+      });
 
       // create search control
       var searchControl = L.Control.extend({
           options: { position: 'topleft' },
 
           onAdd: function (map) {
-              // create the control container with a particular class name
               var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
               this.link = L.DomUtil.create('a', 'leaflet-bar-part search-control',
                       container);
-              //this.link.href = '#';
               this.link.title = options.searchctrlcue;
               this.icon = L.DomUtil.create('i', 'glyphicon glyphicon-search', this.link);
 
@@ -127,20 +134,21 @@
       });
 
       // add search control to map
-      map.addControl(new searchControl());
-
+      if (options.searchcontrol === true) {
+          map.addControl(new searchControl());
+      }
 
     });
 
       function _search(e) {
-          var params = filterParams(['view', 'spatial_search_type', 'coordinates', 'f%5Bsubject_geographic_ssim%5D%5B%5D']), // TODO use config for geo facet param
-              bounds = map.getBounds().toBBoxString().split(','),
+          var params = filterParams(['view', 'spatial_search_type', 'coordinates', 'f%5B' + options.placenamefacetfield + '%5D%5B%5D']),
+              bounds = map.getBounds().toBBoxString().split(',').map(function(coord) {
+                  return Math.round(parseFloat(coord) * 1000000) / 1000000;
+              });
               coordinate_params = '[' + bounds[1] + ',' + bounds[0] + ' TO ' + bounds[3] + ',' + bounds[2] + ']';
           params.push('coordinates=' + encodeURIComponent(coordinate_params), 'spatial_search_type=bbox');
           console.log(params);
           $(location).attr('href', options.catalogpath + '?' + params.join('&'));
-          //this._searcher(params.join('&'));
-          //alert('HEY!');
       }
 
       function filterParams(filterList) {
