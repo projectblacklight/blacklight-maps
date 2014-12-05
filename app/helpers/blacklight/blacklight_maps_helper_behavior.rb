@@ -96,12 +96,12 @@ module Blacklight::BlacklightMapsHelperBehavior
 
   # determine the best viewpoint for the map so all markers are visible
   def set_viewpoint(geojson_features)
+    viewpoint = nil
     geojson_docs = JSON.parse(geojson_features)["features"]
     if geojson_docs.length == 1
-      viewpoint = geojson_docs[0]["bbox"] ?
-          BlacklightMaps::Geometry::BoundingBox.new(geojson_docs[0]["bbox"]).find_center.reverse :
-          geojson_docs[0]["geometry"]["coordinates"].reverse
-    elsif geojson_docs.length > 1
+      viewpoint = geojson_docs[0]["bbox"] ? nil : geojson_docs[0]["geometry"]["coordinates"].reverse
+    end
+    if geojson_docs.length > 1 || !viewpoint
       longs, lats = [[],[]]
       geojson_docs.each do |feature|
         if feature["bbox"]
