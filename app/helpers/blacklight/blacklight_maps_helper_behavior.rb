@@ -114,7 +114,7 @@ module Blacklight::BlacklightMapsHelperBehavior
       end
       sorted_longs, sorted_lats = longs.sort, lats.sort
       viewpoint = [[sorted_lats.first,sorted_longs.first],[sorted_lats.last,sorted_longs.last]]
-    else
+    elsif !viewpoint
       viewpoint = [0,0]
     end
     viewpoint
