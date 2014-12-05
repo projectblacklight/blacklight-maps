@@ -22,7 +22,7 @@ module BlacklightMaps
         else
           solr_parameters[:fq] << "{!geofilt sfield=#{blacklight_config.view.maps.coordinates_field}}"
           solr_parameters[:pt] = user_parameters[:coordinates]
-          solr_parameters[:d] = 0.5
+          solr_parameters[:d] = blacklight_config.view.maps.spatial_query_dist
         end
       end
     end
