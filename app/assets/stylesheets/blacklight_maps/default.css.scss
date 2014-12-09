@@ -67,3 +67,23 @@ a.leaflet-bar-part.search-control {
   cursor: pointer;
 }
 
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 991px) {
+
+  #sortAndPerPage {
+
+    .page_links {
+      width: 75%;
+      padding: 0 12px 0 0;
+
+      .mapped-caveat {
+        margin-left: 0;
+        float: left;
+      }
+
+    }
+
+  }
+
+}
+
