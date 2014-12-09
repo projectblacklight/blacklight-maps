@@ -64,7 +64,11 @@
 
       // set the viewpoint and zoom
       if (options.viewpoint[0].constructor === Array) {
-        map.fitBounds(options.viewpoint, {padding:[50,50]});
+        map.fitBounds(options.viewpoint,
+          {
+            padding:[50,50],
+            maxZoom:options.maxzoom
+          });
       } else {
         map.setView(options.viewpoint, options.initialzoom);
       }
