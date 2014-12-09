@@ -66,7 +66,7 @@
       if (options.viewpoint[0].constructor === Array) {
         map.fitBounds(options.viewpoint,
           {
-            padding:[50,50],
+            padding:[10,10],
             maxZoom:options.maxzoom
           });
       } else {
