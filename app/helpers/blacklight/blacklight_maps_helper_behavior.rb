@@ -26,7 +26,7 @@ module Blacklight::BlacklightMapsHelperBehavior
   # create a link to a bbox spatial search
   def link_to_bbox_search bbox_coordinates
     coords_for_search = bbox_coordinates.map { |v| v.to_s }
-    link_to(t('blacklight.maps.leaflet.bbox_search'),
+    link_to(t('blacklight.maps.interactions.bbox_search'),
             catalog_index_path(spatial_search_type: "bbox",
                                coordinates: "[#{coords_for_search[1]},#{coords_for_search[0]} TO #{coords_for_search[3]},#{coords_for_search[2]}]"))
   end
@@ -47,7 +47,7 @@ module Blacklight::BlacklightMapsHelperBehavior
     new_params = params.except(:controller, :action, :view, :id, :spatial_search_type, :coordinates)
     new_params[:spatial_search_type] = "point"
     new_params[:coordinates] = "#{point_coordinates[1]},#{point_coordinates[0]}"
-    link_to(t('blacklight.maps.leaflet.point_search'), catalog_index_path(new_params))
+    link_to(t('blacklight.maps.interactions.point_search'), catalog_index_path(new_params))
   end
 
   # return the facet field containing geographic data

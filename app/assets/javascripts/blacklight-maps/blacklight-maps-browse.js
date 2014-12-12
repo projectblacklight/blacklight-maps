@@ -10,33 +10,32 @@
     var sortAndPerPage = $('#sortAndPerPage');
 
     // Update page links with number of mapped items, disable sort, per_page, pagination
-    if (sortAndPerPage.length) {
-        var page_links = sortAndPerPage.find('.page_links');
-        var result_count = page_links.find('.page_entries').find('strong').last().html();
-        page_links.html('<span class="page_entries"><strong>' + result_count + '</strong> items found</span>' + mapped_items + mapped_caveat);
-        sortAndPerPage.find('.dropdown-toggle').hide();
+    if (sortAndPerPage.length) { // catalog#index and #map view
+      var page_links = sortAndPerPage.find('.page_links');
+      var result_count = page_links.find('.page_entries').find('strong').last().html();
+      page_links.html('<span class="page_entries"><strong>' + result_count + '</strong> items found</span>' + mapped_items + mapped_caveat);
+      sortAndPerPage.find('.dropdown-toggle').hide();
 
-        // clusters should show item result count in #index and #map views
-        var clusterIconFunction = function (cluster) {
-            var markers = cluster.getAllChildMarkers();
-            var childCount = 0;
-            for (var i = 0; i < markers.length; i++) {
-                childCount += markers[i].feature.properties.hits;
-            }
-            var c = ' marker-cluster-';
-            if (childCount < 10) {
-                c += 'small';
-            } else if (childCount < 100) {
-                c += 'medium';
-            } else {
-                c += 'large';
-            }
-            return new L.divIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(40, 40) });
+      // clusters should show item result count in #index and #map views
+      var clusterIconFunction = function (cluster) {
+        var markers = cluster.getAllChildMarkers();
+        var childCount = 0;
+        for (var i = 0; i < markers.length; i++) {
+          childCount += markers[i].feature.properties.hits;
         }
-
-    } else {
-        $(this.selector).before(mapped_items);
-        var clusterIconFunction = this._defaultIconCreateFunction;
+        var c = ' marker-cluster-';
+        if (childCount < 10) {
+          c += 'small';
+        } else if (childCount < 100) {
+          c += 'medium';
+        } else {
+          c += 'large';
+        }
+        return new L.divIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(40, 40) });
+      };
+    } else { // catalog#show view
+      $(this.selector).before(mapped_items);
+      var clusterIconFunction = this._defaultIconCreateFunction;
     }
 
     // Configure default options and those passed via the constructor options
@@ -49,7 +48,8 @@
       searchcontrol: false,
       catalogpath: 'catalog',
       searchctrlcue: 'Search for all items within the current map window',
-      placenamefacetfield: 'placename_facet_field'
+      placenamefacetfield: 'placename_facet_field',
+      nodata: 'Sorry, there is no data for this location.'
     }, arg_opts );
 
     // Extend options from data-attributes
@@ -64,9 +64,9 @@
 
       // set the viewpoint and zoom
       if (options.viewpoint[0].constructor === Array) {
-          map.fitBounds(options.viewpoint, {padding:[50,50]});
+        map.fitBounds(options.viewpoint, {padding:[50,50]});
       } else {
-          map.setView(options.viewpoint, options.initialzoom);
+        map.setView(options.viewpoint, options.initialzoom);
       }
 
       L.tileLayer(options.tileurl, {
@@ -76,17 +76,17 @@
 
       // Create a marker cluster object and set options
       markers = new L.MarkerClusterGroup({
-          singleMarkerMode: options.singlemarkermode,
-          iconCreateFunction: clusterIconFunction
+        singleMarkerMode: options.singlemarkermode,
+        iconCreateFunction: clusterIconFunction
       });
 
       geoJsonLayer = L.geoJson(geojson_docs, {
         onEachFeature: function(feature, layer){
-            if (feature.properties.popup) {
-                layer.bindPopup(feature.properties.popup);
-            } else {
-                layer.bindPopup("Sorry, there is no data for this location.");
-            }
+          if (feature.properties.popup) {
+              layer.bindPopup(feature.properties.popup);
+          } else {
+              layer.bindPopup(options.nodata);
+          }
         }
       });
 
@@ -98,74 +98,74 @@
 
       // create overlay for search control hover
       var searchHoverLayer = L.rectangle([[0,0], [0,0]], {
-          color: "#0033ff",
-          weight: 5,
-          opacity: 0.5,
-          fill: true,
-          fillColor: "#0033ff",
-          fillOpacity: 0.2
+        color: "#0033ff",
+        weight: 5,
+        opacity: 0.5,
+        fill: true,
+        fillColor: "#0033ff",
+        fillOpacity: 0.2
       });
 
       // create search control
       var searchControl = L.Control.extend({
-          options: { position: 'topleft' },
 
-          onAdd: function (map) {
-              var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
-              this.link = L.DomUtil.create('a', 'leaflet-bar-part search-control',
-                      container);
-              this.link.title = options.searchctrlcue;
-              this.icon = L.DomUtil.create('i', 'glyphicon glyphicon-search', this.link);
+        options: { position: 'topleft' },
 
-              L.DomEvent.addListener(this.link, 'click', _search);
+        onAdd: function (map) {
+          var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+          this.link = L.DomUtil.create('a', 'leaflet-bar-part search-control', container);
+          this.link.title = options.searchctrlcue;
+          this.icon = L.DomUtil.create('i', 'glyphicon glyphicon-search', this.link);
 
-              L.DomEvent.addListener(this.link, 'mouseover', function () {
-                  searchHoverLayer.setBounds(map.getBounds());
-                  map.addLayer(searchHoverLayer);
-              });
+          L.DomEvent.addListener(this.link, 'click', _search);
 
-              L.DomEvent.addListener(this.link, 'mouseout', function () {
-                  map.removeLayer(searchHoverLayer);
-              });
+          L.DomEvent.addListener(this.link, 'mouseover', function () {
+            searchHoverLayer.setBounds(map.getBounds());
+            map.addLayer(searchHoverLayer);
+          });
 
-              return container;
-          }
+          L.DomEvent.addListener(this.link, 'mouseout', function () {
+            map.removeLayer(searchHoverLayer);
+          });
+
+          return container;
+        }
 
       });
 
       // add search control to map
       if (options.searchcontrol === true) {
-          map.addControl(new searchControl());
+        map.addControl(new searchControl());
       }
 
     });
 
-      function _search(e) {
-          var params = filterParams(['view', 'spatial_search_type', 'coordinates', 'f%5B' + options.placenamefacetfield + '%5D%5B%5D']),
-              bounds = map.getBounds().toBBoxString().split(',').map(function(coord) {
-                  return Math.round(parseFloat(coord) * 1000000) / 1000000;
-              });
-              coordinate_params = '[' + bounds[1] + ',' + bounds[0] + ' TO ' + bounds[3] + ',' + bounds[2] + ']';
-          params.push('coordinates=' + encodeURIComponent(coordinate_params), 'spatial_search_type=bbox');
-          console.log(params);
-          $(location).attr('href', options.catalogpath + '?' + params.join('&'));
-      }
+    // remove stale params, add new params, and run a new search
+    function _search() {
+      var params = filterParams(['view', 'spatial_search_type', 'coordinates', 'f%5B' + options.placenamefacetfield + '%5D%5B%5D']),
+          bounds = map.getBounds().toBBoxString().split(',').map(function(coord) {
+            return Math.round(parseFloat(coord) * 1000000) / 1000000;
+          }),
+          coordinate_params = '[' + bounds[1] + ',' + bounds[0] + ' TO ' + bounds[3] + ',' + bounds[2] + ']';
+      params.push('coordinates=' + encodeURIComponent(coordinate_params), 'spatial_search_type=bbox');
+      $(location).attr('href', options.catalogpath + '?' + params.join('&'));
+    }
 
-      function filterParams(filterList) {
-          var querystring = window.location.search.substr(1),
-              params = [];
-          if (querystring !== "") {
-              params = $.map(querystring.split('&'), function(value) {
-                  if ($.inArray(value.split('=')[0], filterList) > -1) {
-                      return null;
-                  } else {
-                      return value;
-                  }
-              });
+    // remove unwanted params
+    function filterParams(filterList) {
+      var querystring = window.location.search.substr(1),
+          params = [];
+      if (querystring !== "") {
+        params = $.map(querystring.split('&'), function(value) {
+          if ($.inArray(value.split('=')[0], filterList) > -1) {
+            return null;
+          } else {
+            return value;
           }
-          return params;
+        });
       }
-
+      return params;
+    }
 
   };
 
