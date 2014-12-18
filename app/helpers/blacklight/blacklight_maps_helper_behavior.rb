@@ -20,7 +20,7 @@ module Blacklight::BlacklightMapsHelperBehavior
 
   # return the geo facet value to be used as a link
   def geo_facet_value(geojson_hash)
-    geojson_hash["properties"][blacklight_config.view.maps.placename_property]
+    geojson_hash[:properties][blacklight_config.view.maps.placename_property.to_sym]
   end
 
   # create a link to a bbox spatial search
@@ -68,7 +68,7 @@ module Blacklight::BlacklightMapsHelperBehavior
 
   # render the location name for the Leaflet popup
   def render_geo_facet_heading(geojson_hash)
-    geojson_hash["properties"][blacklight_config.view.maps.placename_property]
+    geojson_hash[:properties][blacklight_config.view.maps.placename_property.to_sym]
   end
 
   # render the map for #index and #map views

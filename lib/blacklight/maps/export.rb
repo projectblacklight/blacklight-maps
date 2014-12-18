@@ -67,7 +67,7 @@ module BlacklightMaps
           end
         when "show"
           doc = @response_docs
-          return if doc[geojson_field].nil? && doc[coordinates_field].nil?
+          return unless doc[geojson_field] || doc[coordinates_field]
           if doc[geojson_field]
             doc[geojson_field].uniq.each do |loc|
               features.push(build_feature_from_geojson(loc))
@@ -84,50 +84,50 @@ module BlacklightMaps
     # build blacklight-maps GeoJSON feature from GeoJSON-formatted data
     # turn bboxes into points for index view so we don't get weird mix of boxes and markers
     def build_feature_from_geojson(loc, hits = nil)
-      geojson_hash = JSON.parse(loc)
+      geojson_hash = JSON.parse(loc).deep_symbolize_keys
 
-      if @action != "show" && geojson_hash["bbox"]
-        geojson_hash["geometry"]["coordinates"] = Geometry::BoundingBox.new(geojson_hash["bbox"]).find_center
-        geojson_hash["geometry"]["type"] = "Point"
-        geojson_hash.delete("bbox")
+      if @action != "show" && geojson_hash[:bbox]
+        geojson_hash[:geometry][:coordinates] = Geometry::BoundingBox.new(geojson_hash[:bbox]).find_center
+        geojson_hash[:geometry][:type] = "Point"
+        geojson_hash.delete(:bbox)
       end
-      geojson_hash["properties"] ||= {}
-      geojson_hash["properties"]["hits"] = hits.to_i if hits
-      geojson_hash["properties"]["popup"] = render_leaflet_popup_content(geojson_hash, hits)
+      geojson_hash[:properties] ||= {}
+      geojson_hash[:properties][:hits] = hits.to_i if hits
+      geojson_hash[:properties][:popup] = render_leaflet_popup_content(geojson_hash, hits)
       geojson_hash
     end
 
     # build blacklight-maps GeoJSON feature from coordinate data
     # turn bboxes into points for index view so we don't get weird mix of boxes and markers
     def build_feature_from_coords(coords, hits = nil)
-      geojson_hash = {"type" => "Feature", "geometry" => {}, "properties" => {}}
+      geojson_hash = {type: "Feature", geometry: {}, properties: {}}
       if coords.scan(/[\s]/).length == 3 # bbox
         if @action != "show"
-          geojson_hash["geometry"]["type"] = "Point"
-          geojson_hash["geometry"]["coordinates"] = Geometry::BoundingBox.from_lon_lat_string(coords).find_center
+          geojson_hash[:geometry][:type] = "Point"
+          geojson_hash[:geometry][:coordinates] = Geometry::BoundingBox.from_lon_lat_string(coords).find_center
         else
           coords_array = coords.split(' ').map { |v| v.to_f }
-          geojson_hash["bbox"] = coords_array
-          geojson_hash["geometry"]["type"] = "Polygon"
-          geojson_hash["geometry"]["coordinates"] = [[[coords_array[0],coords_array[1]],
+          geojson_hash[:bbox] = coords_array
+          geojson_hash[:geometry][:type] = "Polygon"
+          geojson_hash[:geometry][:coordinates] = [[[coords_array[0],coords_array[1]],
                                                     [coords_array[2],coords_array[1]],
                                                     [coords_array[2],coords_array[3]],
                                                     [coords_array[0],coords_array[3]],
                                                     [coords_array[0],coords_array[1]]]]
         end
       elsif coords.match(/^[-]?[\d]+[\.]?[\d]*[ ,][-]?[\d]+[\.]?[\d]*$/) # point
-        geojson_hash["geometry"]["type"] = "Point"
+        geojson_hash[:geometry][:type] = "Point"
         if coords.match(/,/)
           coords_array = coords.split(',').reverse
         else
           coords_array = coords.split(' ')
         end
-        geojson_hash["geometry"]["coordinates"] = coords_array.map { |v| v.to_f }
+        geojson_hash[:geometry][:coordinates] = coords_array.map { |v| v.to_f }
       else
         Rails.logger.error("This coordinate format is not yet supported: '#{coords}'")
       end
-      geojson_hash["properties"] = { popup: render_leaflet_popup_content(geojson_hash.stringify_keys, hits) }
-      geojson_hash["properties"]["hits"] = hits.to_i if hits
+      geojson_hash[:properties] = { popup: render_leaflet_popup_content(geojson_hash, hits) } if geojson_hash[:geometry][:coordinates]
+      geojson_hash[:properties][:hits] = hits.to_i if hits
       geojson_hash
     end
 
@@ -137,12 +137,12 @@ module BlacklightMaps
     # For coordinate searches (or features with only coordinate data),
     #  render catalog/map_coordinate_search partial
     def render_leaflet_popup_content(geojson_hash, hits=nil)
-      if search_mode == 'placename_facet' && geojson_hash["properties"][placename_property]
+      if search_mode == 'placename_facet' && geojson_hash[:properties][placename_property.to_sym]
         @controller.render_to_string partial: 'catalog/map_facet_search',
                                      locals: { geojson_hash: geojson_hash, hits: hits }
       else
         @controller.render_to_string partial: 'catalog/map_spatial_search',
-                                     locals: { coordinates: geojson_hash["bbox"].presence || geojson_hash["geometry"]["coordinates"],
+                                     locals: { coordinates: geojson_hash[:bbox].presence || geojson_hash[:geometry][:coordinates],
                                                hits: hits }
       end
     end
