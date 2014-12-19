@@ -33,6 +33,8 @@ describe BlacklightMaps::ControllerOverride do
 
   describe "map" do
 
+    # TODO: figure out how to test controller action mixin
+
     it "should create a map controller action"
 
     it "should render the map page"

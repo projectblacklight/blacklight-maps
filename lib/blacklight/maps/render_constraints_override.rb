@@ -34,7 +34,7 @@ module BlacklightMaps
     # Render the search query constraint
     def render_search_to_s_coord(params)
       return "".html_safe if params[:coordinates].blank?
-      render_search_to_s_element(spatial_constraint_label(params) , render_filter_value(params[:coordinates]) )
+      render_search_to_s_element(spatial_constraint_label(params), render_filter_value(params[:coordinates]) )
     end
 
     # Render the spatial query constraints
