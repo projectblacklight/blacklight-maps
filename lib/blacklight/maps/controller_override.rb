@@ -25,6 +25,7 @@ module BlacklightMaps
           solr_parameters[:d] = blacklight_config.view.maps.spatial_query_dist
         end
       end
+      solr_parameters
     end
 
   end
