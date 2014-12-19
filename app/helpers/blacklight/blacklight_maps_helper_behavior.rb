@@ -6,7 +6,6 @@ module Blacklight::BlacklightMapsHelperBehavior
     default_data = {
         maxzoom: blacklight_config.view.maps.maxzoom,
         tileurl: blacklight_config.view.maps.tileurl,
-        type: blacklight_config.view.maps.type,
         mapattribution: blacklight_config.view.maps.mapattribution
     }
 
