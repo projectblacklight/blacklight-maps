@@ -66,6 +66,8 @@ module Blacklight::BlacklightMapsHelperBehavior
   end
 
   # render the location name for the Leaflet popup
+  # separate from BlacklightMapsHelperBehavior#geo_facet_value so
+  # location name display can be easily customized
   def render_geo_facet_heading(geojson_hash)
     geojson_hash[:properties][blacklight_config.view.maps.placename_property.to_sym]
   end

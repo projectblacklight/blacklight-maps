@@ -4,5 +4,4 @@
                               catalogpath: catalog_index_path,
                               placenamefacetfield: blacklight_config.view.maps.placename_facet_field
                        }}) %>
-<div id="blacklight-map-sidebar"></div>
 <%= javascript_tag "$('#blacklight-index-map').blacklight_leaflet_map(#{geojson_features});" %>
