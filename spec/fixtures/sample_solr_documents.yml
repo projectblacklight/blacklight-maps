@@ -58,7 +58,6 @@
   language_facet:
   - Urdu
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords: []
 - lc_1letter_facet:
   - M - Music
   author_t:
@@ -113,7 +112,6 @@
   language_facet:
   - Urdu
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords: []
 - subtitle_display: 'guft va gū-yi Akbar Ganjī bā ʻAbd Allāh Nūrī : bih payvast-i
     matn-i istīz̤āḥ-i ʻAbd Allāh Nūrī dar Majlis-i panjum'
   author_vern_display: "‏نورى، عبد الله"
@@ -251,9 +249,10 @@
   language_facet:
   - Persian
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords:
-  - Iran-|-32.427908-|-53.688046
-  place_bbox: 44.0318907 25.0594286 63.3333366 39.7816755
+  geojson: "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[53.688046,32.427908]},\"properties\":{\"placename\":\"Iran\"}}"
+  coordinates:
+  - 53.688046 32.427908
+  - 44.0318907 25.0594286 63.3333366 39.7816755
 - author_t:
   - Yoshida, Hajime,
   - "吉田一"
@@ -335,9 +334,10 @@
   language_facet:
   - Japanese
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords:
-  - Japan-|-36.204824-|-138.252924
-  place_bbox: 122.9338302 24.0460446 153.9874305 45.5227719
+  geojson: "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[138.252924,36.204824]},\"properties\":{\"placename\":\"Japan\"}}"
+  coordinates:
+  - 138.252924 36.204824
+  - 122.9338302 24.0460446 153.9874305 45.5227719
 - lc_1letter_facet:
   - D - World History
   author_t:
@@ -407,9 +407,10 @@
   language_facet:
   - Russian
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords:
-  - Kazakhstan-|-48.019573-|-66.923684
-  place_bbox: 46.4936719 40.568584 87.315415 55.441984
+  geojson: "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[66.923684,48.019573]},\"properties\":{\"placename\":\"Kazakhstan\"}}"
+  coordinates:
+  - 66.923684 48.019573
+  - 46.4936719 40.568584 87.315415 55.441984
 - lc_1letter_facet:
   - K - Law
   author_t:
@@ -482,7 +483,6 @@
   language_facet:
   - Russian
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords: []
 - lc_1letter_facet:
   - D - World History
   marc_display: "<?xml version=\"1.0\" encoding=\"UTF-8\"?><collection xmlns=\"http://www.loc.gov/MARC21/slim\"><record><leader>01062cam
@@ -572,9 +572,10 @@
   language_facet:
   - Korean
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords:
-  - Korea-|-35.907757-|-127.766922
-  place_bbox: 124.608139 33.1061096 130.9232178 38.6169312
+  geojson: "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[127.766922,35.907757},\"properties\":{\"placename\":\"Korea\"}}"
+  coordinates:
+  - 124.608139 33.1061096 130.9232178 38.6169312
+  - 127.766922 35.907757
 - lc_1letter_facet:
   - P - Language & Literature
   author_t:
@@ -641,7 +642,6 @@
   language_facet:
   - Sanskrit
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords: []
 - lc_1letter_facet:
   - H - Social Sciences
   author_t:
@@ -705,9 +705,12 @@
   language_facet:
   - Urdu
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords:
-  - Pakistan-|-30.375321-|-69.34511599999999
-  place_bbox: 60.872972 23.6946945 77.8334694 37.084107
+  geojson:
+  - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[69.34511599999999,30.375321]},\"properties\":{\"placename\":\"Pakistan\"}}"
+  - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[60.872972, 23.6946945], [77.8334694, 23.6946945], [77.8334694, 37.084107], [60.872972, 37.084107], [60.872972, 23.6946945]]]},\"bbox\":[60.872972, 23.6946945, 77.8334694, 37.084107]}"
+  coordinates:
+  - 60.872972 23.6946945 77.8334694 37.084107
+  - 69.34511599999999 30.375321
 - lc_1letter_facet:
   - M - Music
   author_t:
@@ -766,7 +769,6 @@
   language_facet:
   - Sanskrit
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords: []
 - subtitle_display: sipurim mafliʼim ha-mevusasim ʻal ʻuvdot hisṭoriyot
   author_vern_display: "‏פינקל, חיים יעקב"
   subject_addl_t:
@@ -862,7 +864,6 @@
   language_facet:
   - Hebrew
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords: []
 - lc_1letter_facet:
   - B - Philosophy, Psychology, Religion
   author_t:
@@ -963,7 +964,6 @@
   language_facet:
   - Persian
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords: []
 - lc_1letter_facet:
   - M - Music
   author_t:
@@ -1020,7 +1020,6 @@
   subtitle_t:
   - tʻeoriul-metʻoduri narkvevi /
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords: []
 - lc_1letter_facet:
   - K - Law
   author_t:
@@ -1107,9 +1106,8 @@
   language_facet:
   - Korean
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords:
-  - Korea (North)-|-35.907757-|-127.766922
-  place_bbox: 124.608139 33.1061096 130.9232178 38.6169312
+  geojson: "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[127.766922,35.907757]},\"properties\":{\"placename\":\"Korea (North)\"}}"
+  coordinates: 127.766922 35.907757
 - subtitle_display: ṿe-hu perush yafeh u-menupeh ʻal Shulḥan ʻarukh Oraḥ ḥayim
     asher ḥiber Yosef Ḳaro ... ʻim ḥidushe dinim she-hishmiṭ ha-gaʼon ... ṿe-himtsiʼam
     ... Mosheh Iserlish
@@ -1274,7 +1272,6 @@
   language_facet:
   - Hebrew
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords: []
 - subtitle_display: 'kangnam yŏin kwa sin pʻalbulchʻul : Kim Hong-sin setʻae rŭpʻo'
   author_vern_display: "김　홍신, 1947-"
   subject_addl_t:
@@ -1369,12 +1366,12 @@
   language_facet:
   - Korean
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords:
-  - Seoul (Korea)-|-37.566535-|-126.9779692
-  - Korea (South)-|-35.907757-|-127.766922
-  place_bbox:
-  - 126.7645827 37.4259627 127.18359 37.7017495
-  - 124.608139 33.1061096 130.9232178 38.6169312
+  geojson:
+  - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[126.9779692,37.566535]},\"properties\":{\"placename\":\"Seoul (Korea)\"}}"
+  - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[127.766922,35.907757]},\"properties\":{\"placename\":\"Korea (South)\"}}"
+  coordinates:
+  - 126.9779692 37.566535
+  - 127.766922 35.907757
 - subtitle_display: dar khiradvarzī-i siyāsī va huvīyat-i mā Īrānīyān
   author_vern_display: "‏رجايى، فرهنگ ."
   subject_addl_t:
@@ -1483,9 +1480,10 @@
   language_facet:
   - Persian
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords:
-  - Iran-|-32.427908-|-53.688046
-  place_bbox: 44.0318907 25.0594286 63.3333366 39.7816755
+  geojson: "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[53.688046,32.427908]},\"properties\":{\"placename\":\"Iran\"}}"
+  coordinates:
+  - 53.688046 32.427908
+  - 44.0318907 25.0594286 63.3333366 39.7816755
 - lc_1letter_facet:
   - P - Language & Literature
   author_t:
@@ -1573,7 +1571,6 @@
   language_facet:
   - Sanskrit
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords: []
 - lc_1letter_facet:
   - U - Military Science
   author_t:
@@ -1664,7 +1661,6 @@
   language_facet:
   - Arabic
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords: []
 - lc_1letter_facet:
   - D - World History
   author_t:
@@ -1733,7 +1729,6 @@
   language_facet:
   - Tibetan
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords: []
 - subtitle_display: min jald al-dhāt ilá ṣidq al-sharḥ
   author_vern_display: "أبو الخير، علي عبد الحميد"
   subject_addl_t:
@@ -1822,7 +1817,6 @@
   language_facet:
   - Arabic
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords: []
 - lc_1letter_facet:
   - H - Social Sciences
   marc_display: "<?xml version=\"1.0\" encoding=\"UTF-8\"?><collection xmlns=\"http://www.loc.gov/MARC21/slim\"><record><leader>03730cam
@@ -1996,9 +1990,12 @@
   language_facet:
   - Hebrew
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords:
-  - Israel-|-31.046051-|-34.851612
-  place_bbox: 34.267387 29.47969999999999 35.896244 33.33280500000001
+  geojson:
+  - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[34.851612, 31.046051]},\"properties\":{\"placename\":\"Israel\"}}"
+  - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[34.267387, 29.47969999999999], [35.896244, 29.47969999999999], [35.896244, 33.33280500000001], [34.267387, 33.33280500000001], [34.267387, 29.47969999999999]]]},\"bbox\":[34.267387, 29.47969999999999, 35.896244, 33.33280500000001]}"
+  coordinates:
+  - 34.267387 29.47969999999999 35.896244 33.33280500000001
+  - 34.851612 31.046051
 - lc_1letter_facet:
   - E - History of the Americas (General)
   author_t:
@@ -2107,10 +2104,12 @@
   subtitle_t:
   - 'a Native American elder has her say : an oral history /'
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords:
-  - New Jersey-|-40.0583238-|--74.4056612
-  - Bridgeton-|-39.427337-|--75.2340768
-  place_bbox: "-75.25303300000002 39.4027581 -75.20384 39.455303"
+  geojson:
+  - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[74.4056612,40.0583238]},\"properties\":{\"placename\":\"New Jersey\"}}"
+  - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[75.2340768,39.427337]},\"properties\":{\"placename\":\"Bridgeton\"}}"
+  coordinates:
+  - 74.4056612 40.0583238
+  - 75.2340768 39.427337
 - lc_1letter_facet:
   - B - Philosophy, Psychology, Religion
   author_t:
@@ -2191,7 +2190,6 @@
   - dam paʼi chos dgoṅs pa gcig paʼi dri ba legs bśad bsu baʼi pho ñaʼi dris lan
     Dgoṅs-gcig smra baʼi mdzes rgyan źes bya ba bźugs so /
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords: []
 - subtitle_display: a supplication to the noble Lama Mahaguru Padmasambhava
   subject_addl_t:
   - Prayers and devotions
@@ -2297,9 +2295,12 @@
   - English
   - Tibetan
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords:
-  - India-|-20.593684-|-78.96288
-  place_bbox: 68.162386 6.7535159 97.395555 35.5044752
+  geojson:
+  - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[78.96288,20.593684]},\"properties\":{\"placename\":\"India\"}}"
+  - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[68.162386, 6.7535159], [97.395555, 6.7535159], [97.395555, 35.5044752], [68.162386, 35.5044752], [68.162386, 6.7535159]]]},\"bbox\":[68.162386, 6.7535159, 97.395555, 35.5044752]}"
+  coordinates:
+  - 68.162386 6.7535159 97.395555 35.5044752
+  - 78.96288 20.593684
 - lc_1letter_facet:
   - B - Philosophy, Psychology, Religion
   author_t:
@@ -2380,7 +2381,6 @@
   - goṅ sa skyabs mgon chen po mchog nas deṅ dus Bod rigs na gźon rnams la naṅ
     chos ṅo sprod bstsal ba bźugs so.
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords: []
 - lc_1letter_facet:
   - D - World History
   author_t:
@@ -2458,9 +2458,8 @@
   language_facet:
   - Tibetan
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords:
-  - Tibet (China)-|-29.646923-|-91.117212
-  place_bbox: 78.3955448 26.8548157 99.116241 36.4833345
+  geojson: "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[91.117212,29.646923]},\"properties\":{\"placename\":\"Tibet (China)\"}}"
+  coordinates: 91.117212 29.646923
 - marc_display: "<?xml version=\"1.0\" encoding=\"UTF-8\"?><collection xmlns=\"http://www.loc.gov/MARC21/slim\"><record><leader>01127cam
     a22002895a 4500</leader><controlfield tag=\"001\">  2008308478</controlfield><controlfield
     tag=\"003\">DLC</controlfield><controlfield tag=\"005\">20090123131001.0</controlfield><controlfield
@@ -2535,12 +2534,14 @@
   language_facet:
   - Tibetan
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords:
-  - China-|-35.86166-|-104.195397
-  - Tibet-|-29.646923-|-91.117212
-  - India-|-20.593684-|-78.96288
-  - India-|-20.593684-|-78.96288
-  place_bbox: 68.162386 6.7535159 97.395555 35.5044752
+  geojson:
+  - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[104.195397,35.86166]},\"properties\":{\"placename\":\"China\"}}"
+  - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[91.117212,29.646923]},\"properties\":{\"placename\":\"Tibet\"}}"
+  - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[78.96288,20.593684]},\"properties\":{\"placename\":\"India\"}}"
+  coordinates:
+  - 104.195397 35.86166
+  - 91.117212 29.646923
+  - 78.96288 20.593684
 - author_vern_display: "吉田一, 1934-"
   subject_addl_t:
   - 20th century History and criticism
@@ -2646,9 +2647,8 @@
   language_facet:
   - Japanese
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords:
-  - Japan-|-36.204824-|-138.252924
-  place_bbox: 122.9338302 24.0460446 153.9874305 45.5227719
+  geojson: "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[138.252924,36.204824]},\"properties\":{\"placename\":\"Japan\"}}"
+  coordinates: 138.252924 36.204824
 - author_vern_display: "林行止"
   subject_addl_t:
   - 1990-
@@ -2753,8 +2753,9 @@
   language_facet:
   - Chinese
   timestamp: '2014-02-03T18:42:53.056Z'
-  placename_coords:
-  - Economic history-|-41.3137481-|--72.9231485
-  - World politics-|-38.910504-|--77.03605999999999
-  - Hong Kong (China)-|-22.396428-|-114.109497
-  place_bbox: 113.835078 22.1533884 114.4069561 22.561968
+  geojson:
+  - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[114.109497,22.396428]},\"properties\":{\"placename\":\"Hong Kong (China)\"}}"
+  - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[113.835078, 22.1533884], [114.4069561, 22.1533884], [114.4069561, 22.561968], [113.835078, 22.561968], [113.835078, 22.1533884]]]},\"bbox\":[113.835078, 22.1533884, 114.4069561, 22.561968]}"
+  coordinates:
+  - 113.835078 22.1533884 114.4069561 22.561968
+  - 114.109497 22.396428

@@ -2,44 +2,49 @@ require 'spec_helper'
 
 describe "Map View", js: true do
 
-  describe "using placename coords" do
-    before do
-      CatalogController.blacklight_config = Blacklight::Configuration.new
-      CatalogController.configure_blacklight do |config|
-        config.view.maps.type = 'placename_coord'
-        config.view.maps.placename_coord_delimiter = '-|-'
-        # These fields also need to be added for some reason for the tests to pass
-        # Link in list is not being generated correctly if not passed
-        config.index.title_field = 'title_display'
-      end
+  before :each do
+    CatalogController.blacklight_config = Blacklight::Configuration.new
+    CatalogController.configure_blacklight do |config|
+      #config.view.maps.type = 'placename_coord'
+      #config.view.maps.placename_coord_delimiter = '-|-'
+      # These fields also need to be added for some reason for the tests to pass
+      # Link in list is not being generated correctly if not passed
+      #config.index.title_field = 'title_display'
     end
+  end
+
+  describe "catalog#index map view" do
+
 
     before { visit catalog_index_path :q => 'tibet', :view => 'maps' }
 
     it "should display map elements" do
       expect(page).to have_selector("#documents.map")
-      expect(page).to have_selector("#blacklight-map")
-      expect(page).to have_selector("#blacklight-map-sidebar")
+      expect(page).to have_selector("#blacklight-index-map")
+    end
+
+    describe "#sortAndPerPage" do
+
+      it "should show the mapped item count" do
+        expect(page).to have_selector(".mapped-count .badge", text: "7")
+      end
+
     end
 
     describe "data attributes" do
 
-      it "maxzoom should be 8" do
-        expect(page).to have_selector("#blacklight-map[data-maxzoom='8']")
+      it "maxzoom should be from config" do
+        expect(page).to have_selector("#blacklight-index-map[data-maxzoom='#{CatalogController.blacklight_config.view.maps.maxzoom}']")
       end
 
-      it "type should be placename_coord" do
-        expect(page).to have_selector("#blacklight-map[data-type='placename_coord']")
-      end
-
-      it "tileurl should be OSM" do
-        expect(page).to have_selector("#blacklight-map[data-tileurl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png']")
+      it "tileurl should be from config" do
+        expect(page).to have_selector("#blacklight-index-map[data-tileurl='#{CatalogController.blacklight_config.view.maps.tileurl}']")
       end
 
     end
 
     describe "marker clusters" do
-
+=begin
       it "should have marker cluster div" do
         expect(page).to have_selector("div.marker-cluster")
       end
@@ -78,10 +83,13 @@ describe "Map View", js: true do
             end
           end
         end
-      end
+        end
+=end
     end
-  end
 
+
+  end
+=begin
   describe "using bounding box" do
     before do
       CatalogController.blacklight_config = Blacklight::Configuration.new
@@ -109,4 +117,5 @@ describe "Map View", js: true do
       end
     end
   end
+=end
 end
