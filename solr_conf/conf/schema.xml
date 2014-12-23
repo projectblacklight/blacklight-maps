@@ -535,6 +535,9 @@
 
    <!-- addition -->
    <field name="geojson" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="coordinates" type="location_rpt" stored="true" indexed="true" multiValued="true"/>
+   <!-- copy coordinates to string field for faceting -->
+   <copyField source="coordinates" dest="coordinates_facet" />
 
    <!-- Dynamic field definitions.  If a field name is not found, dynamicFields
         will be used if the name matches any of the patterns.
@@ -580,9 +583,6 @@
 
    <dynamicField name="*_pt"     type="location"     stored="true" indexed="true"/>
    <dynamicField name="*_bbox"   type="location_rpt" stored="true" indexed="true" multiValued="true"/>
-   <dynamicField name="coordinates" type="location_rpt" stored="true" indexed="true" multiValued="true"/>
-   <!-- copy coordinates to string field for faceting -->
-   <copyField source="coordinates" dest="coordinates_facet_ssim" type="string" indexed="true" stored="true" multiValued="true" />
 
    <!-- uncomment the following to ignore any fields that don't already match an existing
         field name or dynamic field, rather than reporting them as an error.

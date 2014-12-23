@@ -10,6 +10,9 @@ describe "Map View", js: true do
       # These fields also need to be added for some reason for the tests to pass
       # Link in list is not being generated correctly if not passed
       #config.index.title_field = 'title_display'
+
+      # facet for blacklight-maps catalog#index map view
+      config.add_facet_field 'geojson', :limit => -2, :label => 'GeoJSON', :show => false
     end
   end
 
