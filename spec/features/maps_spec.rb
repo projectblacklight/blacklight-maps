@@ -5,21 +5,18 @@ describe "Map View", js: true do
   before :each do
     CatalogController.blacklight_config = Blacklight::Configuration.new
     CatalogController.configure_blacklight do |config|
-      #config.view.maps.type = 'placename_coord'
-      #config.view.maps.placename_coord_delimiter = '-|-'
-      # These fields also need to be added for some reason for the tests to pass
-      # Link in list is not being generated correctly if not passed
-      #config.index.title_field = 'title_display'
-
       # facet for blacklight-maps catalog#index map view
       config.add_facet_field 'geojson', :limit => -2, :label => 'GeoJSON', :show => false
+      config.add_facet_fields_to_solr_request!
     end
   end
 
   describe "catalog#index map view" do
 
-
-    before { visit catalog_index_path :q => 'tibet', :view => 'maps' }
+    before {
+      visit catalog_index_path :q => 'tibet', :view => 'maps'
+      #print page.html # debugging
+    }
 
     it "should display map elements" do
       expect(page).to have_selector("#documents.map")
@@ -29,8 +26,19 @@ describe "Map View", js: true do
     describe "#sortAndPerPage" do
 
       it "should show the mapped item count" do
-        expect(page).to have_selector(".mapped-count .badge", text: "7")
+        expect(page).to have_selector(".mapped-count .badge", text: "4")
       end
+
+      it "should show the mapped item caveat" do
+        expect(page).to have_selector(".mapped-caveat")
+      end
+
+      # placeholder spec: #sortAndPerPage > .view-type > .view-type-group should show
+      # active map icon. however, this spec doesn't work because
+      # Blacklight::ConfigurationHelperBehavior#has_alternative_views? returns false,
+      # can't figure out why
+      it "should show the map view icon"
+          #expect(page).to have_selector(".view-type-maps.active")
 
     end
 
