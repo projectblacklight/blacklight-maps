@@ -572,7 +572,7 @@
   language_facet:
   - Korean
   timestamp: '2014-02-03T18:42:53.056Z'
-  geojson: "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[127.766922,35.907757},\"properties\":{\"placename\":\"Korea\"}}"
+  geojson: "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[127.766922,35.907757]},\"properties\":{\"placename\":\"Korea\"}}"
   coordinates:
   - 124.608139 33.1061096 130.9232178 38.6169312
   - 127.766922 35.907757
@@ -2415,7 +2415,7 @@
     tag=\"520\" ind1=\" \" ind2=\" \"><subfield code=\"a\">History of Tibet in questions/answers
     format.</subfield></datafield><datafield tag=\"504\" ind1=\" \" ind2=\" \"><subfield
     code=\"a\">Includes bibliographical references (p. 406-407).</subfield></datafield><datafield
-    tag=\"651\" ind1=\" \" ind2=\"0\"><subfield code=\"a\">Tibet (China)</subfield><subfield
+    tag=\"651\" ind1=\" \" ind2=\"0\"><subfield code=\"a\">Tibet</subfield><subfield
     code=\"x\">History</subfield><subfield code=\"v\">Miscellanea.</subfield></datafield><datafield
     tag=\"710\" ind1=\"2\" ind2=\" \"><subfield code=\"a\">Rnam-rgyal Grwa-tshaṅ.</subfield></datafield></record></collection>"
   published_display:
@@ -2439,7 +2439,7 @@
   subject_addl_t:
   - History Miscellanea
   subject_t:
-  - Tibet (China)
+  - Tibet
   title_sort: bod gaṅs can gyi rgyal rabs mdor bsdus dris lan brgya pa rab gsal śel
     gyi me loṅ źes bya ba bźugs so
   id: '2008308202'
@@ -2450,7 +2450,7 @@
     loṅ źes bya ba bźugs so /
   - Rgyal rabs dris lan brgya pa rab gsal śel gyi me loṅ
   subject_geo_facet:
-  - Tibet (China)
+  - Tibet
   author_addl_t:
   - Rnam-rgyal Grwa-tshaṅ.
   lc_alpha_facet:
@@ -2458,7 +2458,7 @@
   language_facet:
   - Tibetan
   timestamp: '2014-02-03T18:42:53.056Z'
-  geojson: "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[91.117212,29.646923]},\"properties\":{\"placename\":\"Tibet (China)\"}}"
+  geojson: "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[91.117212,29.646923]},\"properties\":{\"placename\":\"Tibet\"}}"
   coordinates: 91.117212 29.646923
 - marc_display: "<?xml version=\"1.0\" encoding=\"UTF-8\"?><collection xmlns=\"http://www.loc.gov/MARC21/slim\"><record><leader>01127cam
     a22002895a 4500</leader><controlfield tag=\"001\">  2008308478</controlfield><controlfield
