@@ -41,11 +41,11 @@ body.blacklight-catalog-map {
 
   #blacklight-index-map {
     height: 550px;
-    margin-top: 10px;
+    margin: 10px 0;
 
     & ~ div.record-padding {
 
-      #pagination_links {
+      div.pagination {
         display: none;
       }
 

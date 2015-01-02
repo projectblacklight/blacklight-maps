@@ -8,20 +8,17 @@ describe "Map View", js: true do
 
   describe "catalog#index and catalog#map views" do
 
-    before :each do
-      CatalogController.configure_blacklight do |config|
-        # facet for blacklight-maps catalog#index map view
-        config.add_facet_field 'geojson', :limit => -2, :label => 'GeoJSON', :show => false
-        config.add_facet_fields_to_solr_request!
-      end
-    end
-
     describe "catalog#index map view" do
 
-      before {
+      before :each do
+        CatalogController.configure_blacklight do |config|
+          # use geojson facet for blacklight-maps catalog#index map view specs
+          config.add_facet_field 'geojson', :limit => -2, :label => 'GeoJSON', :show => false
+          config.add_facet_fields_to_solr_request!
+        end
         visit catalog_index_path :q => 'korea', :view => 'maps'
         #print page.html # debugging
-      }
+      end
 
       it "should display map elements" do
         expect(page).to have_selector("#documents.map")
@@ -145,39 +142,106 @@ describe "Map View", js: true do
 
     end
 
+    describe "catalog#map view" do
+
+      before :each do
+        CatalogController.configure_blacklight do |config|
+          # use coordinates_facet facet for blacklight-maps catalog#map view specs
+          config.view.maps.facet_mode = 'coordinates'
+          config.view.maps.coordinates_facet_field = 'coordinates_facet'
+          config.add_facet_field 'coordinates_facet', :limit => -2, :label => 'Coordinates', :show => false
+          config.add_facet_fields_to_solr_request!
+        end
+        visit map_path
+        #print page.html # debugging
+      end
+
+      it "should display map elements" do
+        expect(page).to have_selector("#documents.map")
+        expect(page).to have_selector("#blacklight-index-map")
+      end
+
+      it "should display some markers" do
+        expect(page).to have_selector("div.marker-cluster")
+      end
+
+      describe "marker popups" do
+
+        before :each do
+          0.upto(1) { find("a.leaflet-control-zoom-in").click } # zoom in
+          find(".marker-cluster:first-child").click
+        end
+
+        it "should show a popup with correct content" do
+          expect(page).to have_selector("div.leaflet-popup-content-wrapper")
+          expect(page).to have_content("[35.86166, 104.195397]")
+        end
+
+        describe "click search link" do
+
+          before { find("div.leaflet-popup-content a").click }
+
+          it "should run a new search" do
+            expect(page).to have_selector(".constraint-value .filterValue", text: "35.86166,104.195397")
+          end
+
+        end
+
+      end
+
+    end
+
   end
 
+  describe "catalog#show maplet view" do
 
-
-
-
-=begin
-  describe "using bounding box" do
-    before do
-      CatalogController.blacklight_config = Blacklight::Configuration.new
+    before :each do
       CatalogController.configure_blacklight do |config|
-        config.view.maps.type = 'bbox'
-        config.view.maps.bbox_field = 'place_bbox'
+        # add maplet to show partials
+        config.show.partials << :show_maplet
       end
+      visit catalog_path('2008308175')
+      #print page.html # debugging
     end
 
-    before { visit catalog_index_path :q => 'korea', :view => 'maps' }
-
-    it "should have 4 markers" do
-      expect(find("div.marker-cluster")).to have_content(4)
+    it "should show the maplet" do
+      expect(page).to have_selector("#blacklight-show-map")
     end
 
-    it "should display number mapped" do
-      expect(page).to have_content('4 mapped')
+    it "should show the mapped item count" do
+      expect(page).to have_selector(".mapped-count .badge", text: "2")
     end
 
-    describe "click marker cluster" do
-      before { find("div.marker-cluster").click }
+    it "should show a bounding box and a point marker" do
+      expect(page).to have_selector(".leaflet-overlay-pane path.leaflet-clickable")
+      expect(page).to have_selector(".leaflet-marker-icon")
+    end
 
-      it "should split into 2 markers" do
-        expect(page).to have_selector('div.marker-cluster', count: 2)
+    describe "click marker icon" do
+
+      before { find(".leaflet-marker-icon").click }
+
+      it "should show a popup with correct content" do
+        expect(page).to have_selector("div.leaflet-popup-content-wrapper")
+        expect(page).to have_content("India")
       end
+
     end
+
+    describe "click bbox path" do
+
+      before do
+        0.upto(4) { find("a.leaflet-control-zoom-in").click } #so bbox not covered by point
+        find(".leaflet-overlay-pane svg").click
+      end
+
+      it "should show a popup with correct content" do
+        expect(page).to have_selector("div.leaflet-popup-content-wrapper")
+        expect(page).to have_content("[68.162386, 6.7535159, 97.395555, 35.5044752]")
+      end
+
+    end
+
   end
-=end
+
 end
