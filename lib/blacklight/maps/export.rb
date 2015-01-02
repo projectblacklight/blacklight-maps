@@ -115,7 +115,7 @@ module BlacklightMaps
                                                     [coords_array[0],coords_array[3]],
                                                     [coords_array[0],coords_array[1]]]]
         end
-      elsif coords.match(/^[-]?[\d]+[\.]?[\d]*[ ,][-]?[\d]+[\.]?[\d]*$/) # point
+      elsif coords.match(/^[-]?[\d]*[\.]?[\d]*[ ,][-]?[\d]*[\.]?[\d]*$/) # point
         geojson_hash[:geometry][:type] = "Point"
         if coords.match(/,/)
           coords_array = coords.split(',').reverse
