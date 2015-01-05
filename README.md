@@ -2,10 +2,14 @@
 
 [![Build Status](https://travis-ci.org/sul-dlss/blacklight-maps.png?branch=master)](https://travis-ci.org/sul-dlss/blacklight-maps)
 
-Provides a map view for Blacklight search results.
+Provides map views for Blacklight for items with geospatial coordinate (latitude/longitude) metadata.
 
-![Screen shot](docs/map-view.png)
-![Screen shot](docs/map-sidebar.png)
+Browse all records by 'Map' view:
+![Screen shot](docs/blacklight-maps_map-view.png)
+Map results view for search results (coordinate data as facet):
+![Screen shot](docs/blacklight-maps_index-view.png)
+Maplet widget in item detail view:
+![Screen shot](docs/blacklight-maps_show-view.png)
 
 ## Installation
 
@@ -27,33 +31,79 @@ Run Blacklight-Maps generator:
 
 ## Usage
 
-Blacklight-Maps adds a map view capability for a results set that contains geospatial coordinates (latitude/longitude).
+Blacklight-Maps integrates [Leaflet](http://leafletjs.com/) to add map view capabilities for items with geospatial data in their corresponding Solr record.
 
-For now, Blacklight-Maps requires that your Solr index include one of the following two types of fields:
+In the map views, locations are represented as markers (or marker clusters, depending on the zoom level). Clicking on a marker opens a popup which (depending on config settings) displays the location name or coordinates, and provides a link to search for other items with the same location name/coordinates. 
 
-1. A `location_rpt` field that contains a bounding box for the document.  For more on `location_rpt` see [Solr help](https://cwiki.apache.org/confluence/display/solr/Spatial+Search). This field can be multivalued.
+In the catalog#map and catalog#index views, geospatial data comes from the facet component of the Solr response. Bounding boxes are represented as points corresponding to the center of the box.
+
+In the catalog#show view, the data simply comes from the main document. Points are represented as markers and bounding boxes are represented as polygons. Clicking on a polygon open a popup that allows the user to search for any items intersecting the bounding box.
+
+## Solr Requirements
+
+Blacklight-Maps requires that your Solr index include at least one (but preferably BOTH) of the following two types of fields:
+
+1. A `location_rpt` field that contains coordinates or a bounding box. For more on `location_rpt` see [Solr help](https://cwiki.apache.org/confluence/display/solr/Spatial+Search). This field can be multivalued.
+
 ```
-  place_bbox: 44.0318907 25.0594286 63.3333366 39.7816755
-              # minX minY maxX maxY
+  coordinates: 
+   # coordinates: long lat
+   - 78.96288 20.593684
+   # bounding box: minX minY maxX maxY
+   - 68.162386 6.7535159 97.395555 35.5044752       
 ```
 
-2. A field containing placenames with latitude and longitude coordinates delimited by `-|-`. The delimiter can be configured in `app/controllers/catalog_controller.rb`.  This field can be multivalued.
-```  
-  placename_coords:
-    - China-|-35.86166-|-104.195397
-    - Tibet-|-29.646923-|-91.117212
-    - India-|-20.593684-|-78.96288
+2. An indexed, stored string field containing a properly-formatted [GeoJSON](http://geojson.org) feature object for a coordinate point or bounding box that represents the coordinates and (preferably) location name. This field can be multivalued.
+
+```
+  geojson_ssim:
+   # coordinate point
+   - {"type":"Feature","geometry":{"type":"Point","coordinates":[78.96288,20.593684]},"properties":{"placename":"India"}}
+   # bounding box
+   - {"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[68.162386, 6.7535159], [97.395555, 6.7535159], [97.395555, 35.5044752], [68.162386, 35.5044752], [68.162386, 6.7535159]]]},"bbox":[68.162386, 6.7535159, 97.395555, 35.5044752]}
 ```
 
-Note: We are looking at implementing support for additional fields.
+If you have #2 above and you want the popup search links to use the location name as a search parameter, you also need:
+
+3. An indexed, stored text or string field containing location names. This field can be multivalued.
+
+```
+   placename_field: India
+```
+
+* GeoJSON (#2 above) allows you to associate place names with coordinates, so the map marker popups can display the location name
+* Location names (#3 above) allow users to run meaningful searches for locations found on the map
+* Coordinate data (#1 above) allows you to use the "Search" function on the map in the catalog#map and catalog#index views
+
+Blacklight-Maps can be used with either field type, however to take advantage fo the full feature set, it is preferred that both field types exist for each item with geospatial metadata.
+
+**Important:** If you are NOT using the geojson field (#2), you should create a `copyField` in your Solr schema.xml to copy the coordinates from the `location_rpt` field to a string field that is stored, indexed, and multivalued to allow for proper faceting of the coordinate values in the catalog#map and catalog#index views.
+
+```
+  <!-- Solr4 location_rpt field for coordinates, shapes, etc. -->
+  <dynamicField name="geospatial" type="location_rpt" indexed="true" stored="true" multiValued="true" />
+  <!-- copy geospatial to string field for faceting -->
+  <copyField source="geospatial" dest="geospatial_facet" />
+```
+
+Support for additional field types may be added in the future.
 
 ### Configuration
 
 #### Required
 Blacklight-Maps expects you to provide:
 
-- the type of location field you are using, `placename_coord` or `bbox` (`bbox` is default)
-- a field to map the placename coordinates or bbox field
++ `facet_mode`  = the type of field containing the data to use to display locations on the map (`geojson` or `coordinates`)
+  - if `geojson`:
+    + `geojson_field` = the name of the Solr field containing the GeoJSON data
++ `search_mode` = the type of search to run when clicking a link in the map popups (`placename` or `coordinates`)
+  - if `placename`:
+    + `placename_field` = the name of the Solr field containing the location names
+
+If using GeoJSON:
++ `geojson_field` = the name of the SOlr field containing the GeoJSON data
+If using location names
+
 
 #### Optional
 

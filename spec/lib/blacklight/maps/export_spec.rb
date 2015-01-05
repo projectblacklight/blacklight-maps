@@ -9,7 +9,7 @@ describe "BlacklightMaps::GeojsonExport" do
     @request = ActionDispatch::TestRequest.new
     @controller.request = @request
     @response = ActionDispatch::TestResponse.new
-    @response.stub(:docs) {[{ "published_display"=>["Dharamsala, Distt. Kangra, H.P."], "pub_date"=>["2007"], "format"=>"Book", "title_display"=>"Ses yon", "material_type_display"=>["xii, 419 p."], "id"=>"2008308478", "placename_facet_field"=>["China", "Tibet", "India"], "subject_topic_facet"=>["Education and state", "Tibetans", "Tibetan language", "Teaching"], "language_facet"=>["Tibetan"], "geojson"=>["{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[104.195397,35.86166]},\"properties\":{\"placename\":\"China\"}}", "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[91.117212,29.646923]},\"properties\":{\"placename\":\"Tibet\"}}", "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[78.96288,20.593684]},\"properties\":{\"placename\":\"India\"}}"], "coordinates"=>["68.162386 6.7535159 97.395555 35.5044752", "104.195397 35.86166", "91.117212 29.646923", "20.593684,78.96288"], "score"=>0.0026767207 }]}
+    @response.stub(:docs) {[{ "published_display"=>["Dharamsala, Distt. Kangra, H.P."], "pub_date"=>["2007"], "format"=>"Book", "title_display"=>"Ses yon", "material_type_display"=>["xii, 419 p."], "id"=>"2008308478", "placename_field"=>["China", "Tibet", "India"], "subject_topic_facet"=>["Education and state", "Tibetans", "Tibetan language", "Teaching"], "language_facet"=>["Tibetan"], "geojson"=>["{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[104.195397,35.86166]},\"properties\":{\"placename\":\"China\"}}", "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[91.117212,29.646923]},\"properties\":{\"placename\":\"Tibet\"}}", "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[78.96288,20.593684]},\"properties\":{\"placename\":\"India\"}}"], "coordinates"=>["68.162386 6.7535159 97.395555 35.5044752", "104.195397 35.86166", "91.117212 29.646923", "20.593684,78.96288"], "score"=>0.0026767207 }]}
   end
 
   # TODO: use @response.facet_by_field_name('geojson').items instead of @response
@@ -35,7 +35,7 @@ describe "BlacklightMaps::GeojsonExport" do
     end
 
     it "should return search_mode" do
-      expect(subject.send(:search_mode)).to eq('placename_facet')
+      expect(subject.send(:search_mode)).to eq('placename')
     end
 
     it "should return facet_mode" do
@@ -159,8 +159,8 @@ describe "BlacklightMaps::GeojsonExport" do
 
     describe "placename_facet search_mode" do
 
-      it "should render the map_facet_search partial if the placename is present" do
-        expect(subject.send(:render_leaflet_popup_content, {type:"Feature",geometry:{type:"Point",coordinates:[104.195397,35.86166]},properties:{placename:"China", hits:1}})).to include('href="/catalog?f%5Bplacename_facet_field%5D%5B%5D=China')
+      it "should render the map_placename_search partial if the placename is present" do
+        expect(subject.send(:render_leaflet_popup_content, {type:"Feature",geometry:{type:"Point",coordinates:[104.195397,35.86166]},properties:{placename:"China", hits:1}})).to include('href="/catalog?f%5Bplacename_field%5D%5B%5D=China')
       end
 
       it "should render the map_spatial_search partial if the placename is not present" do

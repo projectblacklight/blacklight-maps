@@ -17,8 +17,8 @@ module Blacklight::BlacklightMapsHelperBehavior
     end
   end
 
-  # return the geo facet value to be used as a link
-  def geo_facet_value(geojson_hash)
+  # return the placename value to be used as a link
+  def placename_value(geojson_hash)
     geojson_hash[:properties][blacklight_config.view.maps.placename_property.to_sym]
   end
 
@@ -31,7 +31,7 @@ module Blacklight::BlacklightMapsHelperBehavior
   end
 
   # create a link to a location name facet value
-  def link_to_placename_facet field_value, field, displayvalue = nil
+  def link_to_placename_field field_value, field, displayvalue = nil
     if params[:f] && params[:f][field] && params[:f][field].include?(field_value)
       new_params = params
     else
@@ -66,9 +66,9 @@ module Blacklight::BlacklightMapsHelperBehavior
   end
 
   # render the location name for the Leaflet popup
-  # separate from BlacklightMapsHelperBehavior#geo_facet_value so
+  # separate from BlacklightMapsHelperBehavior#placename_value so
   # location name display can be easily customized
-  def render_geo_facet_heading(geojson_hash)
+  def render_placename_heading(geojson_hash)
     geojson_hash[:properties][blacklight_config.view.maps.placename_property.to_sym]
   end
 

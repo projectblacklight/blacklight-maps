@@ -48,7 +48,7 @@
       searchcontrol: false,
       catalogpath: 'catalog',
       searchctrlcue: 'Search for all items within the current map window',
-      placenamefacetfield: 'placename_facet_field',
+      placenamefield: 'placename_field',
       nodata: 'Sorry, there is no data for this location.'
     }, arg_opts );
 
@@ -146,7 +146,7 @@
 
     // remove stale params, add new params, and run a new search
     function _search() {
-      var params = filterParams(['view', 'spatial_search_type', 'coordinates', 'f%5B' + options.placenamefacetfield + '%5D%5B%5D']),
+      var params = filterParams(['view', 'spatial_search_type', 'coordinates', 'f%5B' + options.placenamefield + '%5D%5B%5D']),
           bounds = map.getBounds().toBBoxString().split(',').map(function(coord) {
             return Math.round(parseFloat(coord) * 1000000) / 1000000;
           }),

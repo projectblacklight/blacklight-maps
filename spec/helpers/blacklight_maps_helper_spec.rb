@@ -56,10 +56,10 @@ describe BlacklightMapsHelper do
 
   end
 
-  describe "geo_facet_value" do
+  describe "placename_value" do
 
-    it "should return the geo facet value" do
-      expect(helper.geo_facet_value(@geojson_hash)).to eq('Tibet')
+    it "should return the placename value" do
+      expect(helper.placename_value(@geojson_hash)).to eq('Tibet')
     end
 
   end
@@ -77,14 +77,14 @@ describe BlacklightMapsHelper do
 
   end
 
-  describe "link_to_placename_facet" do
+  describe "link_to_placename_field" do
 
-    it "should create a link to the placename facet field" do
-      expect(helper.link_to_placename_facet('Tibet', blacklight_config.view.maps.placename_facet_field)).to include("catalog?f%5B#{blacklight_config.view.maps.placename_facet_field}%5D%5B%5D=Tibet")
+    it "should create a link to the placename field" do
+      expect(helper.link_to_placename_field('Tibet', blacklight_config.view.maps.placename_field)).to include("catalog?f%5B#{blacklight_config.view.maps.placename_field}%5D%5B%5D=Tibet")
     end
 
-    it "should create a link to the placename facet field using the display value" do
-      expect(helper.link_to_placename_facet('Tibet', blacklight_config.view.maps.placename_facet_field, 'foo')).to include('">foo</a>')
+    it "should create a link to the placename field using the display value" do
+      expect(helper.link_to_placename_field('Tibet', blacklight_config.view.maps.placename_field, 'foo')).to include('">foo</a>')
     end
 
   end
@@ -124,10 +124,10 @@ describe BlacklightMapsHelper do
 
   end
 
-  describe "render_geo_facet_heading" do
+  describe "render_placename_heading" do
 
-    it "should return the geo facet heading" do
-      expect(helper.render_geo_facet_heading(@geojson_hash)).to eq('Tibet')
+    it "should return the placename heading" do
+      expect(helper.render_placename_heading(@geojson_hash)).to eq('Tibet')
     end
 
   end

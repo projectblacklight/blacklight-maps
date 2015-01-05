@@ -9,9 +9,9 @@ module Blacklight
       Blacklight::Configuration.default_values[:view].maps.geojson_field = "geojson"
       Blacklight::Configuration.default_values[:view].maps.placename_property = "placename"
       Blacklight::Configuration.default_values[:view].maps.coordinates_field = "coordinates"
-      Blacklight::Configuration.default_values[:view].maps.search_mode = "placename_facet" # or 'coordinates'
+      Blacklight::Configuration.default_values[:view].maps.search_mode = "placename" # or 'coordinates'
       Blacklight::Configuration.default_values[:view].maps.spatial_query_dist = 0.5
-      Blacklight::Configuration.default_values[:view].maps.placename_facet_field = "placename_facet_field"
+      Blacklight::Configuration.default_values[:view].maps.placename_field = "placename_field"
       Blacklight::Configuration.default_values[:view].maps.coordinates_facet_field = "coordinates_facet_field"
       Blacklight::Configuration.default_values[:view].maps.facet_mode = "geojson" # or 'coordinates'
       Blacklight::Configuration.default_values[:view].maps.tileurl = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
