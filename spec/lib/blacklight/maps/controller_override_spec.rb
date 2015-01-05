@@ -31,16 +31,4 @@ describe BlacklightMaps::ControllerOverride do
 
   end
 
-  describe "map" do
-
-    # TODO: figure out how to test controller action mixin
-
-    it "should create a map controller action"
-
-    it "should render the map page"
-
-    it "should set the params[:view]"
-
-  end
-
 end

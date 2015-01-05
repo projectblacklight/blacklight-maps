@@ -12,8 +12,6 @@ describe BlacklightMaps::RenderConstraintsOverride do
     @fake_controller.params = { coordinates: "35.86166,104.195397", spatial_search_type: "point" }
   end
 
-  puts @request.inspect
-
   describe "testing for spatial parameters" do
 
     describe "has_spatial_parameters?" do
@@ -63,13 +61,22 @@ describe BlacklightMaps::RenderConstraintsOverride do
 
     describe "render_spatial_query" do
 
+      before :each do
+        # have to create a request or call to 'url _for' returns an error
+        @fake_controller.request = ActionDispatch::Request.new(params:{controller: 'catalog', action: 'index'})
+        @fake_controller.request.path_parameters[:controller] = 'catalog'
+      end
+
       # TODO: can't get these specs to pass, getting error:
-      #       NoMethodError: undefined method 'host' for nil:NilClass
-      #       coming from call to 'url_for' in render_spatial_query
+      # NoMethodError: undefined method `render_constraint_element'
 
-      it "should render the coordinates"
+      it "should render the coordinates" #do
+        #expect(@fake_controller.render_spatial_query(@test_params)).to have_content(@fake_controller.params[:coordinates])
+      #end
 
-      it "should remove the :coordinates and :spatial_search_type params in the 'remove' link"
+      it "should remove spatial params in the 'remove' link" #do
+        #expect(@fake_controller.render_spatial_query(@test_params)).to_not have_content("spatial_search_type")
+      #end
 
     end
 

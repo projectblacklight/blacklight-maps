@@ -17,7 +17,6 @@ describe "Map View", js: true do
           config.add_facet_fields_to_solr_request!
         end
         visit catalog_index_path :q => 'korea', :view => 'maps'
-        #print page.html # debugging
       end
 
       it "should display map elements" do
@@ -39,13 +38,13 @@ describe "Map View", js: true do
           expect(page).to have_selector(".mapped-caveat")
         end
 
-        # placeholder spec: #sortAndPerPage > .view-type > .view-type-group should show
-        # active map icon. however, this spec doesn't work because
+        # TODO: placeholder spec: #sortAndPerPage > .view-type > .view-type-group
+        # should show active map icon. however, this spec doesn't work because
         # Blacklight::ConfigurationHelperBehavior#has_alternative_views? returns false,
-        # so catalog/_view_type_group partial renders no content
-        # can't figure out why
-        it "should show the map view icon"
-        #expect(page).to have_selector(".view-type-maps.active")
+        # so catalog/_view_type_group partial renders no content, can't figure out why
+        it "should show the map view icon" #do
+          #expect(page).to have_selector(".view-type-maps.active")
+        #end
 
       end
 
@@ -201,7 +200,6 @@ describe "Map View", js: true do
         config.show.partials << :show_maplet
       end
       visit catalog_path('2008308175')
-      #print page.html # debugging
     end
 
     it "should show the maplet" do
