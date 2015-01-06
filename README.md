@@ -37,11 +37,11 @@ Blacklight-Maps integrates [Leaflet](http://leafletjs.com/) to add map view capa
 
 In the map views, locations are represented as markers (or marker clusters, depending on the zoom level). Clicking on a marker opens a popup which (depending on config settings) displays the location name or coordinates, and provides a link to search for other items with the same location name/coordinates.
 
-Users can also run a search using the map bounds as coordinate parameters by clicking the <span class="glyphicon glyphicon-search"></span> search control in the map view. Any items with coordinates or bounding boxes that are contained within the current map window will be returned.
+Users can also run a search using the map bounds as coordinate parameters by clicking the ![search control](docs/blacklight-maps_search-control.png) search control in the map view. Any items with coordinates or bounding boxes that are contained within the current map window will be returned.
 
 In the catalog#map and catalog#index views, the geospatial data to populate the map comes from the facet component of the Solr response. Bounding boxes are represented as points corresponding to the center of the box.
 
-In the catalog#show view, the data simply comes from the main document. Points are represented as markers and bounding boxes are represented as polygons. Clicking on a polygon open a popup that allows the user to search for any items intersecting the bounding box.
+In the catalog#show view, the data simply comes from the main document. Points are represented as markers and bounding boxes are represented as polygons. Clicking on a polygon opens a popup that allows the user to search for any items intersecting the bounding box.
 
 ### Solr Requirements
 
@@ -49,38 +49,39 @@ Blacklight-Maps requires that your Solr index include at least one (but preferab
 
 1. A `location_rpt` field that contains coordinates or a bounding box. For more on `location_rpt` see [Solr help](https://cwiki.apache.org/confluence/display/solr/Spatial+Search). This field can be multivalued.
 
-```
-  coordinates: 
-   # coordinates: lon lat or lat,lon
+  ```
+  # coordinates: lon lat or lat,lon
+  # bounding box: minX minY maxX maxY
+  coordinates_field: 
    - 78.96288 20.593684
    - 20.593684,78.96288
-   # bounding box: minX minY maxX maxY
    - 68.162386 6.7535159 97.395555 35.5044752       
-```
+  ```
 
 2. An indexed, stored string field containing a properly-formatted [GeoJSON](http://geojson.org) feature object for a point or bounding box that includes the coordinates and (preferably) location name. This field can be multivalued.
 
-```
+  ```
+  # first example below is for coordinate point, second is for bounding box
   geojson_ssim:
-   # coordinate point
    - {"type":"Feature","geometry":{"type":"Point","coordinates":[78.96288,20.593684]},"properties":{"placename":"India"}}
-   # bounding box
    - {"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[68.162386, 6.7535159], [97.395555, 6.7535159], [97.395555, 35.5044752], [68.162386, 35.5044752], [68.162386, 6.7535159]]]},"bbox":[68.162386, 6.7535159, 97.395555, 35.5044752]}
-```
+  ```
 
-If you have #2 above and you want the popup search links to use the location name as a search parameter, you also need:
+  If you have #2 above and you want the popup search links to use the location name as a search parameter, you also need:
 
 3. An indexed, stored text or string field containing location names. This field can be multivalued.
 
-```
+  ```
    placename_field: India
-```
+  ```
+
+**Why so complicated?**
+Blacklight-Maps can be used with either field type (#1 or #2), however to take advantage of the full feature set, it is preferred that both field types exist for each item with geospatial metadata.
 
 * The GeoJSON field (#2 above) provides reliable association of place names with coordinates, so the map marker popups can display the location name
 * The Location name field (#3 above) allows users to run meaningful searches for locations found on the map
 * The Coordinate field (#1 above) provides for the "Search" function on the map in the catalog#map and catalog#index views
 
-Blacklight-Maps can be used with either field type, however to take advantage fo the full feature set, it is preferred that both field types exist for each item with geospatial metadata.
 
 **Important:** If you are NOT using the geojson field (#2), you should create a `copyField` in your Solr schema.xml to copy the coordinates from the `location_rpt` field to a string field that is stored, indexed, and multivalued to allow for proper faceting of the coordinate values in the catalog#map and catalog#index views.
 
