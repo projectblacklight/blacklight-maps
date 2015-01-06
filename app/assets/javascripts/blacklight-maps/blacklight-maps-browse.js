@@ -148,6 +148,11 @@
     function _search() {
       var params = filterParams(['view', 'spatial_search_type', 'coordinates', 'f%5B' + options.placenamefield + '%5D%5B%5D']),
           bounds = map.getBounds().toBBoxString().split(',').map(function(coord) {
+            if (parseFloat(coord) > 180) {
+              coord = '180'
+            } else if (parseFloat(coord) < -180) {
+              coord = '-180'
+            }
             return Math.round(parseFloat(coord) * 1000000) / 1000000;
           }),
           coordinate_params = '[' + bounds[1] + ',' + bounds[0] + ' TO ' + bounds[3] + ',' + bounds[2] + ']';
