@@ -75,7 +75,7 @@ Blacklight-Maps requires that your Solr index include at least one (but preferab
    placename_field: India
   ```
 
-**Why so complicated?**
+##### Why so complicated?
 Blacklight-Maps can be used with either field type (#1 or #2), however to take advantage of the full feature set, it is preferred that both field types exist for each item with geospatial metadata.
 
 * The GeoJSON field (#2 above) provides reliable association of place names with coordinates, so the map marker popups can display the location name
@@ -149,19 +149,19 @@ However, the catalog#show maplet widget must be included manually, via one of tw
 
 1. Include the catalog/show_maplet_default partial explicitly. This option gives you the most flexibility, as you can choose where the partial gets rendered.
 
-```ruby
-  <%= render partial: 'catalog/show_maplet_default' %>
-```
+  ```ruby
+    <%= render partial: 'catalog/show_maplet_default' %>
+  ```
 
 2. Add `:show_maplet` to the list of partials to be rendered automatically by Blacklight in `CatalogController.rb` in the `config` block. This option is less work up front, but it may be more difficult to customize how the maplet is integrated into the page layout. 
 
-```
-...
-  configure_blacklight do |config|
-    # add :show_maplet to the show partials array
-    config.show.partials << :show_maplet
-...
-```
+  ```
+  ...
+    configure_blacklight do |config|
+      # add :show_maplet to the show partials array
+      config.show.partials << :show_maplet
+  ...
+  ```
 
 ## Contributing
 
