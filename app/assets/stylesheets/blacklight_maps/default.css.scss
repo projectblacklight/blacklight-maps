@@ -1,9 +1,7 @@
-/*
-*= require leaflet
-*= require leaflet.markercluster
-*= require leaflet.markercluster.default
-*= require L.Control.Sidebar.css
-*/
+@import 'leaflet';
+@import 'leaflet.markercluster';
+@import 'leaflet.markercluster.default';
+@import 'L.Control.Sidebar';
 
 .view-icon-maps {
   &:before { content: "\e135"; } 
