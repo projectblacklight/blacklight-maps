@@ -1,7 +1,6 @@
 require 'blacklight'
 require 'leaflet-rails'
 require 'leaflet-markercluster-rails'
-# require 'leaflet-sidebar-rails'
 
 module Blacklight
   module Maps

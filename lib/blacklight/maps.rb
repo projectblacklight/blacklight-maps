@@ -12,7 +12,7 @@ module Blacklight
       CatalogController.send(:include, BlacklightMaps::ControllerOverride)
       CatalogController.send(:helper, BlacklightMaps::RenderConstraintsOverride)
 
-      # TODO inject constraints into SearchHistory and SavedSearches so spatial queries display
+      # inject into SearchHistory and SavedSearches so spatial queries display properly
       SearchHistoryController.send(:helper, BlacklightMaps::RenderConstraintsOverride)
       SavedSearchesController.send(:helper, BlacklightMaps::RenderConstraintsOverride)
     end

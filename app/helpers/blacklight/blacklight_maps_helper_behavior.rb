@@ -23,6 +23,7 @@ module Blacklight::BlacklightMapsHelperBehavior
     geojson_hash["properties"][blacklight_config.view.maps.placename_property]
   end
 
+  # create a link to a bbox spatial search
   def link_to_bbox_search bbox_coordinates
     coords_for_search = bbox_coordinates.map { |v| v.to_s }
     link_to(t('blacklight.maps.leaflet.bbox_search'),
@@ -30,6 +31,7 @@ module Blacklight::BlacklightMapsHelperBehavior
                                coordinates: "[#{coords_for_search[1]},#{coords_for_search[0]} TO #{coords_for_search[3]},#{coords_for_search[2]}]"))
   end
 
+  # create a link to a location name facet value
   def link_to_placename_facet field_value, field, displayvalue = nil
     if params[:f] && params[:f][field] && params[:f][field].include?(field_value)
       new_params = params
@@ -40,6 +42,7 @@ module Blacklight::BlacklightMapsHelperBehavior
             catalog_index_path(new_params.except(:view, :id, :spatial_search_type, :coordinates)))
   end
 
+  # create a link to a spatial search for a set of point coordinates
   def link_to_point_search point_coordinates
     new_params = params.except(:controller, :action, :view, :id, :spatial_search_type, :coordinates)
     new_params[:spatial_search_type] = "point"
@@ -63,7 +66,19 @@ module Blacklight::BlacklightMapsHelperBehavior
     end
   end
 
-  def render_coordinate_search_link coordinates
+  # render the location name for the Leaflet popup
+  def render_geo_facet_heading(geojson_hash)
+    geojson_hash["properties"][blacklight_config.view.maps.placename_property]
+  end
+
+  # render the map for #index and #map views
+  def render_index_map
+    render :partial => 'catalog/index_map',
+           :locals => {:geojson_features => serialize_geojson(map_facet_values)}
+  end
+
+  # determine the type of spatial search to use based on coordinates (bbox or point)
+  def render_spatial_search_link coordinates
     if coordinates.length == 4
       link_to_bbox_search(coordinates)
     else
@@ -71,16 +86,7 @@ module Blacklight::BlacklightMapsHelperBehavior
     end
   end
 
-  # render the location name for the Leaflet popup
-  def render_geo_facet_heading(geojson_hash)
-    geojson_hash["properties"][blacklight_config.view.maps.placename_property]
-  end
-
-  def render_index_map
-    render :partial => 'catalog/index_map',
-           :locals => {:geojson_features => serialize_geojson(map_facet_values)}
-  end
-
+  # pass the document or facet values to BlacklightMaps::GeojsonExport
   def serialize_geojson(documents)
     export = BlacklightMaps::GeojsonExport.new(controller,
                                                controller.action_name,
@@ -88,7 +94,7 @@ module Blacklight::BlacklightMapsHelperBehavior
     export.to_geojson
   end
 
-  # determine the best viewpoint for the map
+  # determine the best viewpoint for the map so all markers are visible
   def set_viewpoint(geojson_features)
     geojson_docs = JSON.parse(geojson_features)["features"]
     if geojson_docs.length == 1
