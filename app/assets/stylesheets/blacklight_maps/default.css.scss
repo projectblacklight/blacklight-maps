@@ -1,22 +1,29 @@
 @import 'leaflet';
 @import 'leaflet.markercluster';
 @import 'leaflet.markercluster.default';
-@import 'L.Control.Sidebar';
 
 .view-icon-maps {
   &:before { content: "\e135"; } 
 }
 
-#documents #blacklight-index-map {
-  height: 550px;
-  margin-top:10px;
+#documents {
 
-  & ~ div.record-padding {
+  #blacklight-index-map {
+    height: 550px;
+    margin-top: 10px;
 
-    #pagination_links {
-      display: none;
+    & ~ div.record-padding {
+
+      #pagination_links {
+        display: none;
+      }
+
     }
 
+  }
+
+  .badge.mapped-count {
+    margin-left: 8px;
   }
 
 }
@@ -25,12 +32,10 @@
   height: 300px;
 }
 
-
 .badge.mapped-count {
-  margin-left: 8px;
   vertical-align: text-bottom;
 }
-
+/*
 .sidebar-thumb{
   height: 64px;
   width: 64px;
@@ -40,3 +45,4 @@
   padding-left: 0;
   list-style: none;
 }
+*/

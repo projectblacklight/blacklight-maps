@@ -54,15 +54,12 @@
       map.addControl(sidebar);
       */
 
-      /*
+
       // Create a marker cluster object and set options
       markers = new L.MarkerClusterGroup({
-        showCoverageOnHover: false,
-        spiderfyOnMaxZoom: true,
-        singleMarkerMode: true,
-        animateAddingMarkers: true
+        singleMarkerMode: true
       });
-      */
+
 
       geoJsonLayer = L.geoJson(geojson_docs, {
         onEachFeature: function(feature, layer){
@@ -85,10 +82,13 @@
       });
 
       // Add GeoJSON layer to marker cluster object
-      // markers.addLayer(geoJsonLayer);
+      markers.addLayer(geoJsonLayer);
 
       // Add GeoJSON layer object to map
-      map.addLayer(geoJsonLayer);
+      // map.addLayer(geoJsonLayer);
+
+      // Add markers to map
+      map.addLayer(markers);
 
       /*
       // Listeners for marker cluster clicks
@@ -108,7 +108,7 @@
       // map.on('click drag', hideSidebar);
 
     });
-
+/*
     function setupSidebarDisplay(e, placenames){
       hideSidebar();
       offsetMap(e);
@@ -169,9 +169,9 @@
         map.panBy([(mapWidth/4), 0]);
       }
     }
-
+      */
   };
-
+  /*
   function getMapTitle(type, featureName){
     switch(type){
     case 'bbox':
@@ -182,5 +182,5 @@
       return 'Results';
     }
   }
-
+*/
 }( jQuery ));
