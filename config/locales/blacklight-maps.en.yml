@@ -1,5 +1,21 @@
 en:
   blacklight:
+
+    maps:
+      interactions:
+        bbox_search: 'View items that intersect with this bounding box'
+        placename_search: 'View items from this location'
+        item: 'item'
+        point_search: 'View items from this location'
+        search_ctrl_cue: 'Search for all items within the current map window'
+      title: 'Map'
+      leader: 'Click on a marker to search for items from that location.'
+
     search:
+      filters:
+        coordinates:
+          bbox: 'Bounding Box'
+          point: 'Coordinates'
       view:
-        maps: "Map"
+        maps: 'Map'
+

@@ -1,23 +1,31 @@
 require 'blacklight'
 require 'leaflet-rails'
 require 'leaflet-markercluster-rails'
-require 'leaflet-sidebar-rails'
 
 module Blacklight
   module Maps
     class Engine < Rails::Engine
       # Set some default configurations
-      Blacklight::Configuration.default_values[:view].maps.type = 'bbox'
-      Blacklight::Configuration.default_values[:view].maps.bbox_field = 'place_bbox'
-      Blacklight::Configuration.default_values[:view].maps.placename_coord_field = 'placename_coords'
+      Blacklight::Configuration.default_values[:view].maps.geojson_field = "geojson"
+      Blacklight::Configuration.default_values[:view].maps.placename_property = "placename"
+      Blacklight::Configuration.default_values[:view].maps.coordinates_field = "coordinates"
+      Blacklight::Configuration.default_values[:view].maps.search_mode = "placename" # or 'coordinates'
+      Blacklight::Configuration.default_values[:view].maps.spatial_query_dist = 0.5
+      Blacklight::Configuration.default_values[:view].maps.placename_field = "placename_field"
+      Blacklight::Configuration.default_values[:view].maps.coordinates_facet_field = "coordinates_facet_field"
+      Blacklight::Configuration.default_values[:view].maps.facet_mode = "geojson" # or 'coordinates'
       Blacklight::Configuration.default_values[:view].maps.tileurl = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       Blacklight::Configuration.default_values[:view].maps.mapattribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
-      Blacklight::Configuration.default_values[:view].maps.maxzoom = 8
-      Blacklight::Configuration.default_values[:view].maps.placename_coord_delimiter = '-|-'
+      Blacklight::Configuration.default_values[:view].maps.maxzoom = 18
+      Blacklight::Configuration.default_values[:view].maps.show_initial_zoom = 5
 
       # Add our helpers
       initializer 'blacklight-maps.helpers' do |app|
         ActionView::Base.send :include, BlacklightMapsHelper
+      end
+
+      config.to_prepare do
+        Blacklight::Maps.inject!
       end
 
       # This makes our rake tasks visible.

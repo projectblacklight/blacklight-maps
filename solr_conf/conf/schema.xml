@@ -534,7 +534,10 @@
    <field name="format" type="string" indexed="true" stored="true"/>
 
    <!-- addition -->
-   <field name="placename_coords" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="geojson" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="coordinates" type="location_rpt" stored="true" indexed="true" multiValued="true"/>
+   <!-- copy coordinates to string field for faceting -->
+   <copyField source="coordinates" dest="coordinates_facet" />
 
    <!-- Dynamic field definitions.  If a field name is not found, dynamicFields
         will be used if the name matches any of the patterns.

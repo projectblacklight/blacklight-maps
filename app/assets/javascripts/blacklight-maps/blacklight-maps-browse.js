@@ -3,14 +3,53 @@
   $.fn.blacklight_leaflet_map = function(geojson_docs, arg_opts) {
     var map, sidebar, markers, geoJsonLayer, currentLayer;
 
-    // Update page links with number of mapped items
-    $('.page_links').append('<span class="badge mapped-count">' + geojson_docs.features.length + '</span> mapped');
+    var mapped_items = '<span class="mapped-count"><span class="badge">' + geojson_docs.features.length + '</span> location' + (geojson_docs.features.length !== 1 ? 's' : '') + ' mapped</span>';
+
+    var mapped_caveat = '<span class="mapped-caveat">Only items with location data are shown below</span>';
+
+    var sortAndPerPage = $('#sortAndPerPage');
+
+    // Update page links with number of mapped items, disable sort, per_page, pagination
+    if (sortAndPerPage.length) { // catalog#index and #map view
+      var page_links = sortAndPerPage.find('.page_links');
+      var result_count = page_links.find('.page_entries').find('strong').last().html();
+      page_links.html('<span class="page_entries"><strong>' + result_count + '</strong> items found</span>' + mapped_items + mapped_caveat);
+      sortAndPerPage.find('.dropdown-toggle').hide();
+
+      // clusters should show item result count in #index and #map views
+      var clusterIconFunction = function (cluster) {
+        var markers = cluster.getAllChildMarkers();
+        var childCount = 0;
+        for (var i = 0; i < markers.length; i++) {
+          childCount += markers[i].feature.properties.hits;
+        }
+        var c = ' marker-cluster-';
+        if (childCount < 10) {
+          c += 'small';
+        } else if (childCount < 100) {
+          c += 'medium';
+        } else {
+          c += 'large';
+        }
+        return new L.divIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(40, 40) });
+      };
+    } else { // catalog#show view
+      $(this.selector).before(mapped_items);
+      var clusterIconFunction = this._defaultIconCreateFunction;
+    }
 
     // Configure default options and those passed via the constructor options
     var options = $.extend({
       tileurl : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       mapattribution : 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-      sidebar: 'blacklight-map-sidebar'
+      viewpoint: [0,0],
+      initialzoom: 2,
+      singlemarkermode: true,
+      searchcontrol: false,
+      catalogpath: 'catalog',
+      searchctrlcue: 'Search for all items within the current map window',
+      placenamefield: 'placename_field',
+      nodata: 'Sorry, there is no data for this location.'
     }, arg_opts );
 
     // Extend options from data-attributes
@@ -21,135 +60,122 @@
       options.id = this.id;
 
       // Setup Leaflet map
-      map = L.map(this.id).setView([0,0], 2);
+      map = L.map(this.id);
+
+      // set the viewpoint and zoom
+      if (options.viewpoint[0].constructor === Array) {
+        map.fitBounds(options.viewpoint,
+          {
+            padding:[10,10],
+            maxZoom:options.maxzoom
+          });
+      } else {
+        map.setView(options.viewpoint, options.initialzoom);
+      }
+
       L.tileLayer(options.tileurl, {
         attribution: options.mapattribution,
         maxZoom: options.maxzoom
       }).addTo(map);
 
-      // Initialize sidebar
-      sidebar = L.control.sidebar(options.sidebar, {
-        position: 'right',
-        autoPan: false
-      });
-
-      // Adds leaflet-sidebar control to map
-      map.addControl(sidebar);
-
       // Create a marker cluster object and set options
       markers = new L.MarkerClusterGroup({
-        showCoverageOnHover: false,
-        spiderfyOnMaxZoom: false,
-        singleMarkerMode: true,
-        animateAddingMarkers: true
+        singleMarkerMode: options.singlemarkermode,
+        iconCreateFunction: clusterIconFunction
       });
 
       geoJsonLayer = L.geoJson(geojson_docs, {
         onEachFeature: function(feature, layer){
-          layer.defaultOptions.title = getMapTitle(options.type, feature.properties.name);
-          layer.on('click', function(e){
-            var placenames = {};
-            placenames[layer.defaultOptions.title] = [feature.properties.html];
-            setupSidebarDisplay(e,placenames);
-          });
+          if (feature.properties.popup) {
+              layer.bindPopup(feature.properties.popup);
+          } else {
+              layer.bindPopup(options.nodata);
+          }
         }
       });
 
       // Add GeoJSON layer to marker cluster object
       markers.addLayer(geoJsonLayer);
 
-      // Add marker cluster object to map
+      // Add markers to map
       map.addLayer(markers);
 
-      // Listeners for marker cluster clicks
-      markers.on('clusterclick', function(e){
-        hideSidebar();
-
-        //if map is at the lowest zoom level
-        if (map.getZoom() === options.maxzoom){
-
-          var placenames = generatePlacenamesObject(e.layer.getAllChildMarkers());
-          setupSidebarDisplay(e,placenames);
-        }
+      // create overlay for search control hover
+      var searchHoverLayer = L.rectangle([[0,0], [0,0]], {
+        color: "#0033ff",
+        weight: 5,
+        opacity: 0.5,
+        fill: true,
+        fillColor: "#0033ff",
+        fillOpacity: 0.2
       });
 
-      //Add click listener to map
-      map.on('click drag', hideSidebar);
+      // create search control
+      var searchControl = L.Control.extend({
+
+        options: { position: 'topleft' },
+
+        onAdd: function (map) {
+          var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+          this.link = L.DomUtil.create('a', 'leaflet-bar-part search-control', container);
+          this.link.title = options.searchctrlcue;
+          this.icon = L.DomUtil.create('i', 'glyphicon glyphicon-search', this.link);
+
+          L.DomEvent.addListener(this.link, 'click', _search);
+
+          L.DomEvent.addListener(this.link, 'mouseover', function () {
+            searchHoverLayer.setBounds(map.getBounds());
+            map.addLayer(searchHoverLayer);
+          });
+
+          L.DomEvent.addListener(this.link, 'mouseout', function () {
+            map.removeLayer(searchHoverLayer);
+          });
+
+          return container;
+        }
+
+      });
+
+      // add search control to map
+      if (options.searchcontrol === true) {
+        map.addControl(new searchControl());
+      }
 
     });
 
-    function setupSidebarDisplay(e, placenames){
-      hideSidebar();
-      offsetMap(e);
-      if (currentLayer !== e.layer || !("layer" in e)){
-        // Update sidebar div with new html
-        $('#' + options.sidebar).html(buildList(placenames));
-
-        // Scroll sidebar div to top
-        $('#' + options.sidebar).scrollTop(0);
-        currentLayer = e.layer;
-      }
-
-      // Show the sidebar
-      sidebar.show();
-
+    // remove stale params, add new params, and run a new search
+    function _search() {
+      var params = filterParams(['view', 'spatial_search_type', 'coordinates', 'f%5B' + options.placenamefield + '%5D%5B%5D']),
+          bounds = map.getBounds().toBBoxString().split(',').map(function(coord) {
+            if (parseFloat(coord) > 180) {
+              coord = '180'
+            } else if (parseFloat(coord) < -180) {
+              coord = '-180'
+            }
+            return Math.round(parseFloat(coord) * 1000000) / 1000000;
+          }),
+          coordinate_params = '[' + bounds[1] + ',' + bounds[0] + ' TO ' + bounds[3] + ',' + bounds[2] + ']';
+      params.push('coordinates=' + encodeURIComponent(coordinate_params), 'spatial_search_type=bbox');
+      $(location).attr('href', options.catalogpath + '?' + params.join('&'));
     }
 
-    // Hides sidebar if it is visible
-    function hideSidebar(){
-      if (sidebar.isVisible()){
-        sidebar.hide();
-      }
-    }
-
-    // Build the list
-    function buildList(placenames){
-      var html = "";
-      $.each(placenames, function(i,val){
-        html += "<h2>" + i + "</h2>";
-        html += "<ul class='sidebar-list'>";
-        $.each(val, function(j, val2){
-          html += val2;
+    // remove unwanted params
+    function filterParams(filterList) {
+      var querystring = window.location.search.substr(1),
+          params = [];
+      if (querystring !== "") {
+        params = $.map(querystring.split('&'), function(value) {
+          if ($.inArray(value.split('=')[0], filterList) > -1) {
+            return null;
+          } else {
+            return value;
+          }
         });
-        html += "</ul>";
-      });
-      return html;
-    }
-
-    // Generates placenames object
-    function generatePlacenamesObject(markers){
-      var placenames = {};
-      $.each(markers, function(i,val){
-        if (!(val.defaultOptions.title in placenames)){
-          placenames[val.defaultOptions.title] = [];
-        }
-        placenames[val.defaultOptions.title].push(val.feature.properties.html);
-      });
-      return placenames;
-    }
-
-    // Move the map so that it centers the clicked cluster TODO account for various size screens
-    function offsetMap(e){
-      var mapWidth = $('#' + options.id).width();
-      var mapHeight = $('#' + options.id).height();
-      if (!e.latlng.equals(map.getCenter())){
-        map.panBy([(e.originalEvent.layerX - (mapWidth/4)), (e.originalEvent.layerY - (mapHeight/2))]);
-      }else{
-        map.panBy([(mapWidth/4), 0]);
       }
+      return params;
     }
 
   };
-
-  function getMapTitle(type, featureName){
-    switch(type){
-    case 'bbox':
-      return 'Results';
-    case 'placename_coord':
-      return featureName;
-    default:
-      return 'Results';
-    }
-  }
 
 }( jQuery ));

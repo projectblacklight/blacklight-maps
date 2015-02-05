@@ -3,6 +3,5 @@
 
 //= require leaflet
 //= require leaflet.markercluster
-//= require L.Control.Sidebar
 
-//= require_tree './blacklight-maps'
+//= require_tree .
