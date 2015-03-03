@@ -85,9 +85,8 @@ module BlacklightMaps
     # turn bboxes into points for index view so we don't get weird mix of boxes and markers
     def build_feature_from_geojson(loc, hits = nil)
       geojson_hash = JSON.parse(loc).deep_symbolize_keys
-
       if @action != "show" && geojson_hash[:bbox]
-        geojson_hash[:geometry][:coordinates] = Geometry::BoundingBox.new(geojson_hash[:bbox]).find_center
+        geojson_hash[:geometry][:coordinates] = Geometry::Point.new(Geometry::BoundingBox.new(geojson_hash[:bbox]).find_center).normalize_for_search
         geojson_hash[:geometry][:type] = "Point"
         geojson_hash.delete(:bbox)
       end
@@ -104,7 +103,7 @@ module BlacklightMaps
       if coords.scan(/[\s]/).length == 3 # bbox
         if @action != "show"
           geojson_hash[:geometry][:type] = "Point"
-          geojson_hash[:geometry][:coordinates] = Geometry::BoundingBox.from_lon_lat_string(coords).find_center
+          geojson_hash[:geometry][:coordinates] = Geometry::Point.new(Geometry::BoundingBox.from_lon_lat_string(coords).find_center).normalize_for_search
         else
           coords_array = coords.split(' ').map { |v| v.to_f }
           geojson_hash[:bbox] = coords_array

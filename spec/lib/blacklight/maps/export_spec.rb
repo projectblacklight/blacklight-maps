@@ -131,6 +131,18 @@ describe "BlacklightMaps::GeojsonExport" do
           expect(@output[:geometry][:coordinates]).to eq([82.7789705, 21.12899555])
         end
 
+        describe "bounding box that crosses the dateline" do
+
+          before do
+            @output = subject.send(:build_feature_from_coords, '1.162386 6.7535159 -179.395555 35.5044752', 1)
+          end
+
+          it "should set a center point with a long value between -180 and 180" do
+            expect(@output[:geometry][:coordinates]).to eq([90.88341550000001,21.12899555])
+          end
+
+        end
+
       end
 
       describe "catalog#show view" do
