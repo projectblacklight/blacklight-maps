@@ -2,6 +2,7 @@
                        {data:{viewpoint: set_viewpoint(geojson_features),
                               searchcontrol: true,
                               catalogpath: catalog_index_path,
-                              placenamefield: blacklight_config.view.maps.placename_field
+                              placenamefield: blacklight_config.view.maps.placename_field,
+                              clustercount:'hits'
                        }}) %>
 <%= javascript_tag "$('#blacklight-index-map').blacklight_leaflet_map(#{geojson_features});" %>
