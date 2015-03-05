@@ -14,7 +14,7 @@ describe "BlacklightMaps::GeojsonExport" do
 
   # TODO: use @response.facet_by_field_name('geojson').items instead of @response
   #       then refactor build_geojson_features and to_geojson specs
-  subject {BlacklightMaps::GeojsonExport.new(@controller, @action, @response.docs)}
+  subject {BlacklightMaps::GeojsonExport.new(@controller, @action, @response.docs, {foo:'bar'})}
 
   it "should instantiate GeojsonExport" do
     expect(subject.class).to eq(::BlacklightMaps::GeojsonExport)
@@ -44,6 +44,10 @@ describe "BlacklightMaps::GeojsonExport" do
 
     it "should return placename_property" do
       expect(subject.send(:placename_property)).to eq('placename')
+    end
+
+    it "should create an @options instance variable" do
+      expect(subject.instance_variable_get("@options")[:foo]).to eq('bar')
     end
 
   end

@@ -13,10 +13,12 @@ module BlacklightMaps
     # response_docs is passed by a helper, and is either:
     #  - index view, map view: an array of facet values
     #  - show view: the document object
-    def initialize(controller, action, response_docs)
+    # options is an optional hash of possible configuration options
+    def initialize(controller, action, response_docs, options={})
       @controller = controller
       @action = action
       @response_docs = response_docs
+      @options = options
     end
 
     # build the GeoJSON FeatureCollection
