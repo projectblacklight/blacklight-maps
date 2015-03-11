@@ -163,6 +163,23 @@ However, the catalog#show maplet widget must be included manually, via one of tw
   ...
   ```
 
+### Customization
+
+The ```blacklight_map_tag``` helper takes an options hash as one of its arguments that can be used to provide customization options for the Leaflet map functionality via data attributes. (See ```app/views/catalog/index_map``` for an example.) The available options include:
+
+- ```viewpoint``` = the center point of the map (```[lat,long]```)
+- ```searchcontrol``` = whether to display the search control on the map (```boolean```)
+- ```catalogpath``` = the search path for the search control (e.g. ```catalog_index_path```)
+- ```placenamefield``` =  the name of the Solr field containing the location names (e.g. ```"placename_field"```)
+- ```searchctrlcue``` = the hover text to display when the mouse hovers over the search control
+- ```singlemarkermode``` = whether locations should be clustered (```boolean```)
+- ```clustercount``` = whether clusters should display the location count or the number of hits (```"hits" || "locations"```)
+- ```maxzoom``` = the maxZoom [property of the map](http://leafletjs.com/reference.html#map-maxzoom)
+- ```tileurl``` = a [tileLayer url](http://leafletjs.com/reference.html#tilelayer-l.tilelayer) to change the basemap
+- ```mapattribution``` = an [attribution string](http://leafletjs.com/reference.html#tilelayer-attribution) to describe the basemap layer
+- ```nodata``` = a message to display in the Leaflet popup when the "popup" member is not present in the properties hash in the GeoJSON Feature for a location.
+
+
 ## Contributing
 
 1. Fork it ( http://github.com/<my-github-username>/blacklight-maps/fork )

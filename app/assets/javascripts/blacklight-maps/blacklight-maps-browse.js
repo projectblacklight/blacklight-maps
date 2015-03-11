@@ -3,6 +3,24 @@
   $.fn.blacklight_leaflet_map = function(geojson_docs, arg_opts) {
     var map, sidebar, markers, geoJsonLayer, currentLayer;
 
+    // Configure default options and those passed via the constructor options
+    var options = $.extend({
+      tileurl : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      mapattribution : 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+      viewpoint: [0,0],
+      initialzoom: 2,
+      singlemarkermode: true,
+      searchcontrol: false,
+      catalogpath: 'catalog',
+      searchctrlcue: 'Search for all items within the current map window',
+      placenamefield: 'placename_field',
+      nodata: 'Sorry, there is no data for this location.',
+      clustercount:'locations'
+    }, arg_opts );
+
+    // Extend options from data-attributes
+    $.extend(options, this.data());
+
     var mapped_items = '<span class="mapped-count"><span class="badge">' + geojson_docs.features.length + '</span> location' + (geojson_docs.features.length !== 1 ? 's' : '') + ' mapped</span>';
 
     var mapped_caveat = '<span class="mapped-caveat">Only items with location data are shown below</span>';
@@ -15,8 +33,12 @@
       var result_count = page_links.find('.page_entries').find('strong').last().html();
       page_links.html('<span class="page_entries"><strong>' + result_count + '</strong> items found</span>' + mapped_items + mapped_caveat);
       sortAndPerPage.find('.dropdown-toggle').hide();
+    } else { // catalog#show view
+      $(this.selector).before(mapped_items);
+    }
 
-      // clusters should show item result count in #index and #map views
+    // determine whether to use item location or result count in cluster icon display
+    if (options.clustercount == 'hits') {
       var clusterIconFunction = function (cluster) {
         var markers = cluster.getAllChildMarkers();
         var childCount = 0;
@@ -33,27 +55,9 @@
         }
         return new L.divIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(40, 40) });
       };
-    } else { // catalog#show view
-      $(this.selector).before(mapped_items);
+    } else {
       var clusterIconFunction = this._defaultIconCreateFunction;
     }
-
-    // Configure default options and those passed via the constructor options
-    var options = $.extend({
-      tileurl : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      mapattribution : 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-      viewpoint: [0,0],
-      initialzoom: 2,
-      singlemarkermode: true,
-      searchcontrol: false,
-      catalogpath: 'catalog',
-      searchctrlcue: 'Search for all items within the current map window',
-      placenamefield: 'placename_field',
-      nodata: 'Sorry, there is no data for this location.'
-    }, arg_opts );
-
-    // Extend options from data-attributes
-    $.extend(options, this.data());
 
     // Display the map
     this.each(function() {
