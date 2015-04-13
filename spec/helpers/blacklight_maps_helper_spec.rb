@@ -65,10 +65,16 @@ describe BlacklightMapsHelper do
   end
 
   describe "link_to_bbox_search" do
+
     it "should create a spatial search link" do
       expect(helper.link_to_bbox_search(bbox)).to include('catalog?coordinates')
       expect(helper.link_to_bbox_search(bbox)).to include('spatial_search_type=bbox')
     end
+
+    it "should include the default_document_index_view_type in the params" do
+      expect(helper.link_to_bbox_search(bbox)).to include('view=list')
+    end
+
   end
 
   describe "link_to_placename_field" do
@@ -81,13 +87,23 @@ describe BlacklightMapsHelper do
       expect(helper.link_to_placename_field('Tibet', blacklight_config.view.maps.placename_field, 'foo')).to include('">foo</a>')
     end
 
+    it "should include the default_document_index_view_type in the params" do
+      expect(helper.link_to_placename_field('Tibet', blacklight_config.view.maps.placename_field)).to include('view=list')
+    end
+
   end
 
   describe "link_to_point_search" do
+
     it "should create a link to a coordinate point" do
       expect(helper.link_to_point_search(coords)).to include('catalog?coordinates')
       expect(helper.link_to_point_search(coords)).to include('spatial_search_type=point')
     end
+
+    it "should include the default_document_index_view_type in the params" do
+      expect(helper.link_to_point_search(coords)).to include('view=list')
+    end
+
   end
 
   describe "map_facet_field" do

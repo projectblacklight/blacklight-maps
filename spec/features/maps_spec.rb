@@ -108,6 +108,10 @@ describe "Map View", js: true do
             expect(page).to have_selector(".constraint-value .filterValue", text: "Seoul (Korea)")
           end
 
+          it "should use the default view type" do
+            expect(current_url).to include("view=list")
+          end
+
         end
 
       end
@@ -134,6 +138,7 @@ describe "Map View", js: true do
 
           it "should run a new search" do
             expect(page).to have_selector(".constraint.coordinates")
+            expect(current_url).to include("view=list")
           end
 
         end
@@ -183,6 +188,7 @@ describe "Map View", js: true do
 
           it "should run a new search" do
             expect(page).to have_selector(".constraint-value .filterValue", text: "35.86166,104.195397")
+            expect(current_url).to include("view=list")
           end
 
         end

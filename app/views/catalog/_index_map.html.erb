@@ -2,6 +2,7 @@
                        {data:{searchcontrol: true,
                               catalogpath: catalog_index_path,
                               placenamefield: blacklight_config.view.maps.placename_field,
-                              clustercount:'hits'
+                              clustercount:'hits',
+                              searchresultsview: default_document_index_view_type
                        }}) %>
 <%= javascript_tag "$('#blacklight-index-map').blacklight_leaflet_map(#{geojson_features});" %>
