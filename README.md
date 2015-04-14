@@ -181,7 +181,7 @@ Option | Type | Default | Description
 `catalogpath` | String | `'catalog'` | the search path for the search control
 `placenamefield` | String | `'placename_field'` | the name of the Solr field containing the location names
 `searchctrlcue` | String | `'Search for all items within the current map window'` | the hover text to display when the mouse hovers over the ![search control](docs/blacklight-maps_search-control.png) search control
-`searchresultsview` | String | `'list'` | the view type for the search results on the catalog#index page after the ![search control](docs/blacklight-maps_search-control.png) search control is used
+`searchresultsview` | String | `'list'` | the view type for the search results on the catalog#index page after the map ![search control](docs/blacklight-maps_search-control.png) search control is used
 `singlemarkermode` | Boolean | `true` | whether locations should be clustered
 `clustercount` | String | `'locations'` | whether clusters should display the location count or the number of hits (`'hits'` or `'locations'`)
 `maxzoom` | Integer | 18 | the maxZoom [property of the map](http://leafletjs.com/reference.html#map-maxzoom)
