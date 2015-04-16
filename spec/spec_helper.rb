@@ -17,6 +17,8 @@ end
 if ENV["COVERAGE"] or ENV["CI"]
   require 'simplecov'
   require 'coveralls'
+  Coveralls.wear!('rails')
+
 
   SimpleCov.formatter = Coveralls::SimpleCov::Formatter
   SimpleCov.start do
