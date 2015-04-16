@@ -1,6 +1,6 @@
 # Blacklight::Maps
 
-[![Build Status](https://travis-ci.org/sul-dlss/blacklight-maps.png?branch=master)](https://travis-ci.org/sul-dlss/blacklight-maps)
+[![Build Status](https://travis-ci.org/projectblacklight/blacklight-maps.png?branch=master)](https://travis-ci.org/sul-dlss/blacklight-maps)
 
 Provides map views for Blacklight for items with geospatial coordinate (latitude/longitude) metadata.
 
