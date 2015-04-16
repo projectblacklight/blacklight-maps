@@ -11,19 +11,19 @@ describe BlacklightMapsHelper do
   end
 
   let(:r) { create_response }
+  let(:geojson_hash) { { type: 'Feature', geometry: { type: 'Point', coordinates: [91.117212, 29.646923] }, properties: { placename: 'Tibet' } } }
+  let(:coords) { [91.117212, 29.646923] }
+  let(:bbox) { [78.3955448, 26.8548157, 99.116241, 36.4833345] }
 
   before :each do
+    allow(helper).to receive_messages(blacklight_config: blacklight_config)
     CatalogController.blacklight_config = Blacklight::Configuration.new
-    helper.stub(blacklight_config: blacklight_config)
     @request = ActionDispatch::TestRequest.new
     @catalog = CatalogController.new
     @catalog.request = @request
     @catalog.action_name = "index"
     helper.instance_variable_set(:@_controller, @catalog)
     @docs = r.facet_by_field_name(blacklight_config.view.maps.geojson_field).items
-    @geojson_hash = {type:"Feature", geometry:{type:"Point",coordinates:[91.117212, 29.646923]},properties:{placename:"Tibet"}}
-    @coords = [91.117212,29.646923]
-    @bbox = [78.3955448,26.8548157,99.116241,36.4833345]
   end
 
   describe "blacklight_map_tag" do
@@ -59,22 +59,16 @@ describe BlacklightMapsHelper do
   describe "placename_value" do
 
     it "should return the placename value" do
-      expect(helper.placename_value(@geojson_hash)).to eq('Tibet')
+      expect(helper.placename_value(geojson_hash)).to eq('Tibet')
     end
 
   end
 
   describe "link_to_bbox_search" do
-
-    before do
-      @bbox = [78.3955448,26.8548157,99.116241,36.4833345]
-    end
-
     it "should create a spatial search link" do
-      expect(helper.link_to_bbox_search(@bbox)).to include('catalog?coordinates')
-      expect(helper.link_to_bbox_search(@bbox)).to include('spatial_search_type=bbox')
+      expect(helper.link_to_bbox_search(bbox)).to include('catalog?coordinates')
+      expect(helper.link_to_bbox_search(bbox)).to include('spatial_search_type=bbox')
     end
-
   end
 
   describe "link_to_placename_field" do
@@ -90,16 +84,10 @@ describe BlacklightMapsHelper do
   end
 
   describe "link_to_point_search" do
-
-    before do
-      @coords = [91.117212,29.646923]
-    end
-
     it "should create a link to a coordinate point" do
-      expect(helper.link_to_point_search(@coords)).to include('catalog?coordinates')
-      expect(helper.link_to_point_search(@coords)).to include('spatial_search_type=point')
+      expect(helper.link_to_point_search(coords)).to include('catalog?coordinates')
+      expect(helper.link_to_point_search(coords)).to include('spatial_search_type=point')
     end
-
   end
 
   describe "map_facet_field" do
@@ -127,7 +115,7 @@ describe BlacklightMapsHelper do
   describe "render_placename_heading" do
 
     it "should return the placename heading" do
-      expect(helper.render_placename_heading(@geojson_hash)).to eq('Tibet')
+      expect(helper.render_placename_heading(geojson_hash)).to eq('Tibet')
     end
 
   end
@@ -147,11 +135,11 @@ describe BlacklightMapsHelper do
   describe "render_spatial_search_link" do
 
     it "should return link_to_bbox_search if bbox coordinates are passed" do
-      expect(helper.render_spatial_search_link(@bbox)).to include('spatial_search_type=bbox')
+      expect(helper.render_spatial_search_link(bbox)).to include('spatial_search_type=bbox')
     end
 
     it "should return link_to_point_search if point coordinates are passed" do
-      expect(helper.render_spatial_search_link(@coords)).to include('spatial_search_type=point')
+      expect(helper.render_spatial_search_link(coords)).to include('spatial_search_type=point')
     end
 
   end

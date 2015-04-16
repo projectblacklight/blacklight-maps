@@ -9,12 +9,12 @@ describe CatalogController do
     before { get :map }
 
     it "should respond to the #map action" do
-      response.should be_success
-      assigns(:document_list).should_not be_nil
+      expect(response).to be_success
+      expect(assigns(:document_list)).to_not be_nil
     end
 
     it "should render the '/map' page" do
-      response.body.should have_selector("body.blacklight-catalog-map")
+      expect(response.body).to have_css 'body.blacklight-catalog-map'
     end
 
   end

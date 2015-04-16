@@ -29,7 +29,6 @@ require 'blacklight'
 require 'blacklight/maps'
 
 require 'rspec/rails'
-require 'rspec/autorun'
 require 'capybara/rspec'
 
 
