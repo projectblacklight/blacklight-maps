@@ -7,8 +7,7 @@
     var options = $.extend({
       tileurl : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       mapattribution : 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-      viewpoint: [0,0],
-      initialzoom: 2,
+      initialZoom: 2,
       singlemarkermode: true,
       searchcontrol: false,
       catalogpath: 'catalog',
@@ -64,18 +63,10 @@
       options.id = this.id;
 
       // Setup Leaflet map
-      map = L.map(this.id);
-
-      // set the viewpoint and zoom
-      if (options.viewpoint[0].constructor === Array) {
-        map.fitBounds(options.viewpoint,
-          {
-            padding:[10,10],
-            maxZoom:options.maxzoom
-          });
-      } else {
-        map.setView(options.viewpoint, options.initialzoom);
-      }
+      map = L.map(this.id, {
+        center: [0, 0],
+        zoom: options.initialZoom
+      });
 
       L.tileLayer(options.tileurl, {
         attribution: options.mapattribution,
@@ -103,6 +94,12 @@
 
       // Add markers to map
       map.addLayer(markers);
+
+      // Fit bounds of map based off of layers
+      map.fitBounds(markers.getBounds(), {
+        padding: [10, 10],
+        maxZoom: options.maxzoom
+      });
 
       // create overlay for search control hover
       var searchHoverLayer = L.rectangle([[0,0], [0,0]], {
