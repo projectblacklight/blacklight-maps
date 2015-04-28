@@ -26,6 +26,8 @@
 
     var sortAndPerPage = $('#sortAndPerPage');
 
+    var markers;
+
     // Update page links with number of mapped items, disable sort, per_page, pagination
     if (sortAndPerPage.length) { // catalog#index and #map view
       var page_links = sortAndPerPage.find('.page_links');
@@ -95,11 +97,8 @@
       // Add markers to map
       map.addLayer(markers);
 
-      // Fit bounds of map based off of layers
-      map.fitBounds(markers.getBounds(), {
-        padding: [10, 10],
-        maxZoom: options.maxzoom
-      });
+      // Fit bounds of map
+      setMapBounds(map);
 
       // create overlay for search control hover
       var searchHoverLayer = L.rectangle([[0,0], [0,0]], {
@@ -144,6 +143,46 @@
       }
 
     });
+
+    /**
+    * Sets the view of the map, based off of the map bounds
+    */
+    function setMapBounds() {
+      map.fitBounds(mapBounds(), {
+        padding: [10, 10],
+        maxZoom: options.maxzoom
+      });
+    }
+
+    /**
+    * Returns the bounds of the map based off of initialview being set or gets
+    * the bounds of the markers object
+    */
+    function mapBounds() {
+      if (options.initialview) {
+        return options.initialview;
+      } else {
+        return markerBounds();
+      }
+    }
+
+    /**
+    * Returns the bounds of markers, if there are not any return
+    */
+    function markerBounds() {
+      if (hasAnyFeatures()) {
+        return markers.getBounds();
+      } else {
+        return [[90, 180], [-90, -180]];
+      }
+    }
+
+    /**
+    * Checks to see if there are any features in the markers MarkerClusterGroup
+    */
+    function hasAnyFeatures() {
+      return !$.isEmptyObject(markers._featureGroup._layers);
+    }
 
     // remove stale params, add new params, and run a new search
     function _search() {
