@@ -1,6 +1,8 @@
 ENV["RAILS_ENV"] ||= 'test'
 
 require 'engine_cart'
+require 'coveralls'
+Coveralls.wear!('rails')
 EngineCart.load_application!
 
 require 'capybara/poltergeist'
@@ -16,9 +18,6 @@ end
 
 if ENV["COVERAGE"] or ENV["CI"]
   require 'simplecov'
-  require 'coveralls'
-  Coveralls.wear!('rails')
-
 
   SimpleCov.formatter = Coveralls::SimpleCov::Formatter
   SimpleCov.start do
@@ -26,8 +25,6 @@ if ENV["COVERAGE"] or ENV["CI"]
   end
 end
 
-
-require 'blacklight'
 require 'blacklight/maps'
 
 require 'rspec/rails'
