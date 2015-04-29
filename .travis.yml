@@ -1,6 +1,5 @@
 notifications:
   email: false
-cache: bundler
 language: ruby
 sudo: false
 rvm:
