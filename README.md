@@ -184,9 +184,4 @@ Option | Type | Default | Description
 
 ## Contributing
 
-1. Fork it ( http://github.com/<my-github-username>/blacklight-maps/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Make some changes (with [tests](https://github.com/projectblacklight/blacklight/wiki/testing), please)
-4. Commit your changes (`git commit -am 'Add some feature'`)
-5. Push to the branch (`git push origin my-new-feature`)
-6. Create new Pull Request
+We encourage you to contribute to Blacklight-Maps. Please see the [contributing guide](/CONTRIBUTING.md) for more information on contributing to the project.
