@@ -7,8 +7,7 @@
     var options = $.extend({
       tileurl : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       mapattribution : 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-      viewpoint: [0,0],
-      initialzoom: 2,
+      initialZoom: 2,
       singlemarkermode: true,
       searchcontrol: false,
       catalogpath: 'catalog',
@@ -26,6 +25,8 @@
     var mapped_caveat = '<span class="mapped-caveat">Only items with location data are shown below</span>';
 
     var sortAndPerPage = $('#sortAndPerPage');
+
+    var markers;
 
     // Update page links with number of mapped items, disable sort, per_page, pagination
     if (sortAndPerPage.length) { // catalog#index and #map view
@@ -64,18 +65,10 @@
       options.id = this.id;
 
       // Setup Leaflet map
-      map = L.map(this.id);
-
-      // set the viewpoint and zoom
-      if (options.viewpoint[0].constructor === Array) {
-        map.fitBounds(options.viewpoint,
-          {
-            padding:[10,10],
-            maxZoom:options.maxzoom
-          });
-      } else {
-        map.setView(options.viewpoint, options.initialzoom);
-      }
+      map = L.map(this.id, {
+        center: [0, 0],
+        zoom: options.initialZoom
+      });
 
       L.tileLayer(options.tileurl, {
         attribution: options.mapattribution,
@@ -103,6 +96,9 @@
 
       // Add markers to map
       map.addLayer(markers);
+
+      // Fit bounds of map
+      setMapBounds(map);
 
       // create overlay for search control hover
       var searchHoverLayer = L.rectangle([[0,0], [0,0]], {
@@ -147,6 +143,46 @@
       }
 
     });
+
+    /**
+    * Sets the view of the map, based off of the map bounds
+    */
+    function setMapBounds() {
+      map.fitBounds(mapBounds(), {
+        padding: [10, 10],
+        maxZoom: options.maxzoom
+      });
+    }
+
+    /**
+    * Returns the bounds of the map based off of initialview being set or gets
+    * the bounds of the markers object
+    */
+    function mapBounds() {
+      if (options.initialview) {
+        return options.initialview;
+      } else {
+        return markerBounds();
+      }
+    }
+
+    /**
+    * Returns the bounds of markers, if there are not any return
+    */
+    function markerBounds() {
+      if (hasAnyFeatures()) {
+        return markers.getBounds();
+      } else {
+        return [[90, 180], [-90, -180]];
+      }
+    }
+
+    /**
+    * Checks to see if there are any features in the markers MarkerClusterGroup
+    */
+    function hasAnyFeatures() {
+      return !$.isEmptyObject(markers._featureGroup._layers);
+    }
 
     // remove stale params, add new params, and run a new search
     function _search() {

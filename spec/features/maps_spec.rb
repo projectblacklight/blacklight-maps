@@ -91,8 +91,9 @@ describe "Map View", js: true do
       end
 
       describe "marker popups" do
-
-        before { find(".marker-cluster:first-child").click }
+        before do
+          find('.marker-cluster', text: '1', match: :first).click
+        end
 
         it "should show a popup with correct content" do
           expect(page).to have_selector("div.leaflet-popup-content-wrapper")
