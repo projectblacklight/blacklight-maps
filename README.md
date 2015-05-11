@@ -110,6 +110,11 @@ Blacklight-Maps expects you to provide these configuration options:
     + `placename_field` = the name of the Solr field containing the location names
 + `coordinates_field` = the name of the Solr `location_rpt` type field containing geospatial coordinate data
 
+In addition, you must add the geospatial facet field to the list of facet fields:
+```ruby
+config.add_facet_field 'geojson_field', :limit => -2, :label => 'Coordinates', :show => false
+```
+
 #### Optional
 
 - `show_initial_zoom` = the zoom level to be used in the catalog#show view map (zoom levels for catalog#map and catalog#index map views are computed automatically)
@@ -137,6 +142,8 @@ All of these options can easily be configured in `CatalogController.rb` in the `
     config.view.maps.mapattribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
     config.view.maps.maxzoom = 18
     config.view.maps.show_initial_zoom = 5
+
+    config.add_facet_field 'geojson', :limit => -2, :label => 'Coordinates', :show => false
 ...
 
 ```
@@ -173,7 +180,8 @@ Option | Type | Default | Description
 `searchcontrol` | Boolean | `false` | display the search control on the map
 `catalogpath` | String | `'catalog'` | the search path for the search control
 `placenamefield` | String | `'placename_field'` | the name of the Solr field containing the location names
-`searchctrlcue` | String | `'Search for all items within the current map window'` | the hover text to display when the mouse hovers over the search control
+`searchctrlcue` | String | `'Search for all items within the current map window'` | the hover text to display when the mouse hovers over the ![search control](docs/blacklight-maps_search-control.png) search control
+`searchresultsview` | String | `'list'` | the view type for the search results on the catalog#index page after the ![search control](docs/blacklight-maps_search-control.png) search control is used
 `singlemarkermode` | Boolean | `true` | whether locations should be clustered
 `clustercount` | String | `'locations'` | whether clusters should display the location count or the number of hits (`'hits'` or `'locations'`)
 `maxzoom` | Integer | 18 | the maxZoom [property of the map](http://leafletjs.com/reference.html#map-maxzoom)

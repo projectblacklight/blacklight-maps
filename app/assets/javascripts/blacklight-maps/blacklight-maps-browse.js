@@ -14,7 +14,8 @@
       searchctrlcue: 'Search for all items within the current map window',
       placenamefield: 'placename_field',
       nodata: 'Sorry, there is no data for this location.',
-      clustercount:'locations'
+      clustercount:'locations',
+      searchresultsview: 'list'
     }, arg_opts );
 
     // Extend options from data-attributes
@@ -196,7 +197,7 @@
             return Math.round(parseFloat(coord) * 1000000) / 1000000;
           }),
           coordinate_params = '[' + bounds[1] + ',' + bounds[0] + ' TO ' + bounds[3] + ',' + bounds[2] + ']';
-      params.push('coordinates=' + encodeURIComponent(coordinate_params), 'spatial_search_type=bbox');
+      params.push('coordinates=' + encodeURIComponent(coordinate_params), 'spatial_search_type=bbox', 'view=' + options.searchresultsview);
       $(location).attr('href', options.catalogpath + '?' + params.join('&'));
     }
 
