@@ -61,8 +61,8 @@ module Blacklight::BlacklightMapsHelperBehavior
 
   # return an array of Blacklight::SolrResponse::Facets::FacetItem items
   def map_facet_values
-    if @response.facet_by_field_name(map_facet_field)
-      @response.facet_by_field_name(map_facet_field).items
+    if @response.aggregations[map_facet_field]
+      @response.aggregations[map_facet_field].items
     else
       []
     end

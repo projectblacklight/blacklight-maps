@@ -23,7 +23,7 @@ describe BlacklightMapsHelper do
     @catalog.request = @request
     @catalog.action_name = "index"
     helper.instance_variable_set(:@_controller, @catalog)
-    @docs = r.facet_by_field_name(blacklight_config.view.maps.geojson_field).items
+    @docs = r.aggregations[blacklight_config.view.maps.geojson_field].items
   end
 
   describe "blacklight_map_tag" do
