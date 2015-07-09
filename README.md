@@ -15,6 +15,8 @@ Maplet widget in item detail view:
 
 ## Installation
 
+(See [Blacklight Version Compatibility](#blacklight-compatibility) below to make sure you're using a version of the gem that works with the version of Blacklight you're using.)
+
 Add this line to your application's Gemfile:
 
     gem 'blacklight-maps'
@@ -189,6 +191,13 @@ Option | Type | Default | Description
 `mapattribution` | String | ``Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'` | an [attribution string](http://leafletjs.com/reference.html#tilelayer-attribution) to describe the basemap layer
 `nodata` | String | `'Sorry, there is no data for this location.'` | a message to display in the Leaflet popup when the "popup" member is not present in the properties hash in the GeoJSON Feature for a location.
 
+### <a name="blacklight-compatibility"></a>Blacklight Version Compatibility
+The table below indicates which versions of Blacklight Maps are compatible with which versions of Blacklight.
+
+Blacklight Maps version | works with Blacklight version
+----------------------- | ---------------------
+>= 0.4.0 | >= 5.12.0 to < 6.*
+<= 0.3.3 | >= 5.1 to <= 5.11.2
 
 ## Contributing
 
