@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rails"
   spec.add_dependency "blacklight", ">= 5.12.0"
-  spec.add_dependency "bootstrap-sass", "~> 3.0"
+  spec.add_dependency "bootstrap-sass", "~> 3.2"
   spec.add_dependency "leaflet-rails"
   spec.add_dependency "leaflet-markercluster-rails"
 
