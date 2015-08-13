@@ -7,6 +7,7 @@ module Blacklight
     require 'blacklight/maps/engine'
     require 'blacklight/maps/export'
     require 'blacklight/maps/geometry'
+    require 'blacklight/maps/maps_search_builder'
 
     def self.inject!
       CatalogController.send(:include, BlacklightMaps::ControllerOverride)
