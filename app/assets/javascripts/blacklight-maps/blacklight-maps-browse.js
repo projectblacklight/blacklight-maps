@@ -182,7 +182,13 @@
     * Checks to see if there are any features in the markers MarkerClusterGroup
     */
     function hasAnyFeatures() {
-      return !$.isEmptyObject(markers._featureGroup._layers);
+      var has_features = false;
+      markers.eachLayer(function (layer) {
+        if (!$.isEmptyObject(layer)) {
+          has_features = true;
+        }
+      });
+      return has_features;
     }
 
     // remove stale params, add new params, and run a new search
