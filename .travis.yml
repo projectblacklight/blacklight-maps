@@ -3,23 +3,27 @@ notifications:
 language: ruby
 sudo: false
 rvm:
-  - 2.2.0
-  - 2.1.0
-  - 2.0.0
-  - 1.9.3
-  - jruby-19mode
+  - 2.2.3
+
+matrix:
+  include:
+    - rvm: 2.2.2
+      env: "RAILS_VERSION=4.1.13"
+    - rvm: 2.1.6
+      env: "RAILS_VERSION=4.2.4"
+  allow_failures:
+    - rvm: jruby
+      env: "RAILS_VERSION=4.2.4 JRUBY_OPTS=\"-J-Xms512m -J-Xmx1024m\""
+    - rvm: 1.9.3
+
+env:
+ - "RAILS_VERSION=4.2.4"
 
 notifications:
   irc: "irc.freenode.org#blacklight"
   email:
       - blacklight-commits@googlegroups.com
 
-env:
-  global:
-    - JRUBY_OPTS="-J-Xms512m -J-Xmx1024m"
+global_env:
     - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
 
-matrix:
-  allow_failures:
-    - rvm: jruby-19mode
-    - rvm: 1.9.3
