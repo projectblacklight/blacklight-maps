@@ -2759,3 +2759,103 @@
   coordinates:
   - 113.835078 22.1533884 114.4069561 22.561968
   - 114.109497 22.396428
+- subject_addl_t:
+  - 1990-
+  - 2005-2015
+  - Economic conditions 1997-
+  - Politics and government 1997-
+  title_display: Test item with bounding box only
+  subject_era_facet:
+  - 1990-
+  - 2005-2015
+  - 1997-
+  id: '2009373514'
+  isbn_t:
+  - '9789573908678'
+  - '9573908670'
+  subject_geo_facet:
+  - Economic history
+  - World politics
+  - Hong Kong (China)
+  lc_alpha_facet:
+  - HC
+  title_series_t:
+  - Lin Xingzhi zuo pin ji ; 51
+  author_t:
+  - Lin, Xingzhi.
+  lc_1letter_facet:
+  - H - Social Sciences
+  marc_display: "<?xml version=\"1.0\" encoding=\"UTF-8\"?><collection xmlns=\"http://www.loc.gov/MARC21/slim\"><record><leader>01213nam
+    a22003614a 4500</leader><controlfield tag=\"001\">  2009373513</controlfield><controlfield
+    tag=\"003\">DLC</controlfield><controlfield tag=\"005\">20090121153231.0</controlfield><controlfield
+    tag=\"008\">090114s2008    ch            000 0 chi d</controlfield><datafield
+    tag=\"010\" ind1=\" \" ind2=\" \"><subfield code=\"a\">  2009373513</subfield></datafield><datafield
+    tag=\"020\" ind1=\" \" ind2=\" \"><subfield code=\"a\">9789573908678</subfield></datafield><datafield
+    tag=\"020\" ind1=\" \" ind2=\" \"><subfield code=\"a\">9573908670</subfield></datafield><datafield
+    tag=\"035\" ind1=\" \" ind2=\" \"><subfield code=\"a\">(OCoLC)ocn268619391</subfield></datafield><datafield
+    tag=\"040\" ind1=\" \" ind2=\" \"><subfield code=\"a\">HUA</subfield><subfield
+    code=\"c\">HUA</subfield><subfield code=\"d\">HKP</subfield><subfield code=\"d\">DLC</subfield></datafield><datafield
+    tag=\"042\" ind1=\" \" ind2=\" \"><subfield code=\"a\">lccopycat</subfield></datafield><datafield
+    tag=\"043\" ind1=\" \" ind2=\" \"><subfield code=\"a\">a-cc-hk</subfield></datafield><datafield
+    tag=\"050\" ind1=\"0\" ind2=\"0\"><subfield code=\"a\">HC59.15</subfield><subfield
+    code=\"b\">.L533 2008</subfield></datafield><datafield tag=\"066\" ind1=\" \"
+    ind2=\" \"><subfield code=\"c\">$1</subfield></datafield><datafield tag=\"100\"
+    ind1=\"1\" ind2=\" \"><subfield code=\"6\">880-01</subfield><subfield code=\"a\">Lin,
+    Xingzhi.</subfield></datafield><datafield tag=\"245\" ind1=\"1\" ind2=\"0\"><subfield
+    code=\"6\">880-02</subfield><subfield code=\"a\">Ci an zhou bian /</subfield><subfield
+    code=\"c\">Lin Xingzhi zhu.</subfield></datafield><datafield tag=\"250\" ind1=\"
+    \" ind2=\" \"><subfield code=\"6\">880-03</subfield><subfield code=\"a\">Chu ban.</subfield></datafield><datafield
+    tag=\"260\" ind1=\" \" ind2=\" \"><subfield code=\"6\">880-04</subfield><subfield
+    code=\"a\">Taibei Xian Banqiao Shi :</subfield><subfield code=\"b\">Yuan jing
+    chu ban shi ye you xian gong si,</subfield><subfield code=\"c\">2008.</subfield></datafield><datafield
+    tag=\"300\" ind1=\" \" ind2=\" \"><subfield code=\"a\">5, 300 p. ;</subfield><subfield
+    code=\"c\">21 cm.</subfield></datafield><datafield tag=\"490\" ind1=\"0\" ind2=\"
+    \"><subfield code=\"6\">880-05</subfield><subfield code=\"a\">Lin Xingzhi zuo
+    pin ji ;</subfield><subfield code=\"v\">51</subfield></datafield><datafield tag=\"651\"
+    ind1=\" \" ind2=\"0\"><subfield code=\"a\">Economic history</subfield><subfield
+    code=\"y\">1990-</subfield></datafield><datafield tag=\"651\" ind1=\" \" ind2=\"0\"><subfield
+    code=\"a\">World politics</subfield><subfield code=\"y\">2005-2015.</subfield></datafield><datafield
+    tag=\"651\" ind1=\" \" ind2=\"0\"><subfield code=\"a\">Hong Kong (China)</subfield><subfield
+    code=\"x\">Economic conditions</subfield><subfield code=\"y\">1997-</subfield></datafield><datafield
+    tag=\"651\" ind1=\" \" ind2=\"0\"><subfield code=\"a\">Hong Kong (China)</subfield><subfield
+    code=\"x\">Politics and government</subfield><subfield code=\"y\">1997-</subfield></datafield><datafield
+    tag=\"880\" ind1=\"1\" ind2=\" \"><subfield code=\"6\">100-01/$1</subfield><subfield
+    code=\"a\">林行止.</subfield></datafield><datafield tag=\"880\" ind1=\"1\" ind2=\"0\"><subfield
+    code=\"6\">245-02/$1</subfield><subfield code=\"a\">次按驟變 /</subfield><subfield
+    code=\"c\">林行止著.</subfield></datafield><datafield tag=\"880\" ind1=\" \" ind2=\"
+    \"><subfield code=\"6\">250-03/$1</subfield><subfield code=\"a\">初版.</subfield></datafield><datafield
+    tag=\"880\" ind1=\" \" ind2=\" \"><subfield code=\"6\">260-04/$1</subfield><subfield
+    code=\"a\">臺北縣板橋市 :</subfield><subfield code=\"b\">遠景出版事業有限公司,</subfield><subfield
+    code=\"c\">2008.</subfield></datafield><datafield tag=\"880\" ind1=\"0\" ind2=\"
+    \"><subfield code=\"6\">490-05/$1</subfield><subfield code=\"a\">林行止作品集 ;</subfield><subfield
+    code=\"v\">51</subfield></datafield></record></collection>"
+  published_display:
+  - Taibei Xian Banqiao Shi
+  author_display: Lin, Xingzhi
+  lc_callnum_display:
+  - HC59.15 .L533 2008
+  title_t:
+  - Test item with bounding box only /
+  pub_date:
+  - '2008'
+  pub_date_sort: 2008
+  format: Book
+  lc_b4cutter_facet:
+  - HC59.15
+  material_type_display:
+  - 5, 300 p.
+  subject_t:
+  - Economic history
+  - World politics
+  - Hong Kong (China)
+  title_sort: test item with bounding box only
+  author_sort: Lin Xingzhi Ci an zhou bian
+  title_addl_t:
+  - Ci an zhou bian /
+  language_facet:
+  - Chinese
+  timestamp: '2014-02-03T18:42:53.056Z'
+  geojson:
+  - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[115.1, 20.1], [118.1, 20.1], [118.1, 21.1], [115.1, 21.1], [115.1, 20.1]]]},\"bbox\":[115.1, 20.1, 118.1, 21.1]}"
+  coordinates:
+  - 115.1 20.1 118.1 21.1
