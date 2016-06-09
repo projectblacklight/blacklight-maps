@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "rails"
-  spec.add_dependency "blacklight", ">= 5.12.0"
+  spec.add_dependency "blacklight", ">= 6.1.0"
   spec.add_dependency "bootstrap-sass", "~> 3.2"
   spec.add_dependency "leaflet-rails"
   spec.add_dependency "leaflet-markercluster-rails"

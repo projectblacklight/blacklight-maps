@@ -40,15 +40,14 @@ module BlacklightMaps
     # Render the spatial query constraints
     def render_spatial_query(localized_params = params)
       # So simple don't need a view template, we can just do it here.
-      scope = localized_params.delete(:route_set) || self
       return ''.html_safe if localized_params[:coordinates].blank?
 
       render_constraint_element(spatial_constraint_label(localized_params),
                                 localized_params[:coordinates],
                                 :classes => ['coordinates'],
-                                :remove => scope.url_for(localized_params.merge(:coordinates=>nil,
-                                                                                :spatial_search_type=>nil,
-                                                                                :action=>'index')))
+                                :remove => remove_constraint_url(localized_params.merge(:coordinates=>nil,
+                                                                                        :spatial_search_type=>nil,
+                                                                                        :action=>'index')))
     end
 
     def spatial_constraint_label(params)
