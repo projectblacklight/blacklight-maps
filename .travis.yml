@@ -3,21 +3,18 @@ notifications:
 language: ruby
 sudo: false
 rvm:
-  - 2.2.3
+  - 2.3.0
 
 matrix:
   include:
-    - rvm: 2.2.2
-      env: "RAILS_VERSION=4.1.13"
-    - rvm: 2.1.6
-      env: "RAILS_VERSION=4.2.4"
-  allow_failures:
-    - rvm: jruby
-      env: "RAILS_VERSION=4.2.4 JRUBY_OPTS=\"-J-Xms512m -J-Xmx1024m\""
-    - rvm: 1.9.3
+    - rvm: 2.2.4
+      env: "RAILS_VERSION=4.1.14"
+
+before_install:
+  - gem install bundler
 
 env:
- - "RAILS_VERSION=4.2.4"
+ - "RAILS_VERSION=4.2.6"
 
 notifications:
   irc: "irc.freenode.org#blacklight"

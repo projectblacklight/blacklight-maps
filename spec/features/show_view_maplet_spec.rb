@@ -13,7 +13,7 @@ describe "catalog#show view", js: true do
   describe "item with point feature" do
 
     before :each do
-      visit catalog_path("00314247")
+      visit solr_document_path("00314247")
     end
 
     it "should display the maplet" do
@@ -40,7 +40,7 @@ describe "catalog#show view", js: true do
   describe "item with point and bbox features" do
 
     before :each do
-      visit catalog_path("2008308175")
+      visit solr_document_path("2008308175")
     end
 
     it "should show the correct mapped item count" do
@@ -75,7 +75,7 @@ describe "catalog#show view", js: true do
         # set maxzoom so we can test whether initial zoom is correct
         config.view.maps.maxzoom = 8
       end
-      visit catalog_path("2009373514")
+      visit solr_document_path("2009373514")
     end
 
     it "should display a bounding box" do

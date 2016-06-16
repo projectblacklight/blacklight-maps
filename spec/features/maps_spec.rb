@@ -16,7 +16,7 @@ describe "Map View", js: true do
           config.add_facet_field 'geojson', :limit => -2, :label => 'GeoJSON', :show => false
           config.add_facet_fields_to_solr_request!
         end
-        visit catalog_index_path :q => 'korea', :view => 'maps'
+        visit search_catalog_path :q => 'korea', :view => 'maps'
       end
 
       it "should display map elements" do
@@ -158,7 +158,7 @@ describe "Map View", js: true do
           config.add_facet_fields_to_solr_request!
         end
         visit map_path
-        #print page.html # debugging
+        # print page.html # debugging
       end
 
       it "should display map elements" do

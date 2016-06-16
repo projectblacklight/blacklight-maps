@@ -4,10 +4,11 @@ require 'spec_helper'
 describe BlacklightMapsHelper do
 
   let(:blacklight_config) { Blacklight::Configuration.new }
+  let(:search_state) { Blacklight::SearchState.new({}, blacklight_config) }
 
   def create_response
     raw_response = eval(mock_query_response)
-    Blacklight::SolrResponse.new(raw_response, raw_response['params'])
+    Blacklight::Solr::Response.new(raw_response, raw_response['params'])
   end
 
   let(:r) { create_response }
@@ -20,6 +21,8 @@ describe BlacklightMapsHelper do
     CatalogController.blacklight_config = Blacklight::Configuration.new
     @request = ActionDispatch::TestRequest.new
     @catalog = CatalogController.new
+    allow(helper).to receive_messages(blacklight_configuration_context: Blacklight::Configuration::Context.new(@catalog))
+    allow(helper).to receive(:search_state).and_return(search_state)
     @catalog.request = @request
     @catalog.action_name = "index"
     helper.instance_variable_set(:@_controller, @catalog)
@@ -120,9 +123,9 @@ describe BlacklightMapsHelper do
       @response = r
     end
 
-    it "should return an array of Blacklight::SolrResponse::Facets::FacetItem items" do
+    it "should return an array of Blacklight::Solr::Response::Facets::FacetItem items" do
       expect(helper.map_facet_values.class).to eq(Array)
-      expect(helper.map_facet_values.first.class).to eq(Blacklight::SolrResponse::Facets::FacetItem)
+      expect(helper.map_facet_values.first.class).to eq(Blacklight::Solr::Response::Facets::FacetItem)
       expect(helper.map_facet_values.length).to eq(5)
     end
 
@@ -136,14 +139,14 @@ describe BlacklightMapsHelper do
 
   end
 
-  describe "render_index_map" do
+  describe "render_index_mapview" do
 
     before do
       @response = r
     end
 
-    it "should render the 'catalog/index_map' partial" do
-      expect(helper.render_index_map).to include("$('#blacklight-index-map').blacklight_leaflet_map")
+    it "should render the 'catalog/index_mapview' partial" do
+      expect(helper.render_index_mapview).to include("$('#blacklight-index-map').blacklight_leaflet_map")
     end
 
   end

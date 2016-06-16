@@ -1,5 +1,10 @@
 module BlacklightMaps
-  module MapsSearchBuilder
+  module MapsSearchBuilderBehavior
+    extend ActiveSupport::Concern
+
+    included do
+      self.default_processor_chain += [:add_spatial_search_to_solr]
+    end
 
     # add spatial search params to solr
     def add_spatial_search_to_solr(solr_parameters = {})

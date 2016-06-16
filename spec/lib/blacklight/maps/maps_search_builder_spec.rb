@@ -1,51 +1,42 @@
 require 'spec_helper'
 
-describe BlacklightMaps::MapsSearchBuilder do
+describe BlacklightMaps::MapsSearchBuilderBehavior do
 
-  class MapsSearchBuilderTestClass
-    cattr_accessor :blacklight_config, :blacklight_params
+  let(:blacklight_config) { CatalogController.blacklight_config.deep_copy }
+  let(:user_params) { Hash.new }
+  let(:context) { CatalogController.new }
 
-    include Blacklight::SearchHelper
-    include BlacklightMaps::MapsSearchBuilder
+  before { allow(context).to receive(:blacklight_config).and_return(blacklight_config) }
 
-    def initialize blacklight_config, blacklight_params
-      self.blacklight_config = blacklight_config
-      self.blacklight_params = blacklight_params
+  let(:search_builder_class) do
+    Class.new(Blacklight::SearchBuilder) do
+      include Blacklight::Solr::SearchBuilderBehavior
+      include BlacklightMaps::MapsSearchBuilderBehavior
     end
-
   end
 
-  let(:blacklight_config) { Blacklight::Configuration.new }
-  let(:blacklight_params) { Hash.new }
-  let(:solr_parameters) { Blacklight::Solr::Request.new }
+  let(:search_builder) { search_builder_class.new(context) }
 
-  describe "add_spatial_search_to_solr" do
+  describe 'add_spatial_search_to_solr' do
 
-    before { @obj = MapsSearchBuilderTestClass.new blacklight_config, blacklight_params }
+    describe 'coordinate search' do
 
-    describe "coordinate search" do
+      subject { search_builder.with({coordinates: '35.86166,104.195397', spatial_search_type: 'point'}) }
 
-      before do
-        @obj.blacklight_params[:coordinates] = "35.86166,104.195397"
-        @obj.blacklight_params[:spatial_search_type] = "point"
-      end
-
-      it "should return a coordinate point spatial search if coordinates are given" do
-        expect(@obj.add_spatial_search_to_solr(solr_parameters)[:fq].first).to include('geofilt')
-        expect(@obj.add_spatial_search_to_solr(solr_parameters)[:pt]).to eq(@obj.blacklight_params[:coordinates])
+      it 'should return a coordinate point spatial search if coordinates are given' do
+        expect(subject[:fq].first).to include('geofilt')
+        expect(subject[:pt]).to eq('35.86166,104.195397')
       end
 
     end
 
-    describe "bbox search" do
+    describe 'bbox search' do
 
-      before do
-        @obj.blacklight_params[:coordinates] = "[6.7535159,68.162386 TO 35.5044752,97.395555]"
-        @obj.blacklight_params[:spatial_search_type] = "bbox"
-      end
+      subject { search_builder.with({coordinates: '[6.7535159,68.162386 TO 35.5044752,97.395555]',
+                                     spatial_search_type: 'bbox'}) }
 
-      it "should return a bbox spatial search if a bbox is given" do
-        expect(@obj.add_spatial_search_to_solr(solr_parameters)[:fq].first).to include(blacklight_config.view.maps.coordinates_field)
+      it 'should return a bbox spatial search if a bbox is given' do
+        expect(subject[:fq].first).to include(blacklight_config.view.maps.coordinates_field)
       end
 
     end
