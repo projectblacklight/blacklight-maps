@@ -72,8 +72,9 @@ describe "catalog#show view", js: true do
 
     before :each do
       CatalogController.configure_blacklight do |config|
-        # set maxzoom so we can test whether initial zoom is correct
+        # set zoom config so we can test whether setMapBounds() is correct
         config.view.maps.maxzoom = 8
+        config.view.maps.show_initial_zoom = 10
       end
       visit solr_document_path("2009373514")
     end
@@ -83,7 +84,7 @@ describe "catalog#show view", js: true do
     end
 
     it "should zoom to the correct map bounds" do
-      # if initial zoom >= maxzoom, zoom-in control will be disabled
+      # if setMapBounds() zoom >= maxzoom, zoom-in control will be disabled
       expect(page).to have_selector(".leaflet-control-zoom-in.leaflet-disabled")
     end
 

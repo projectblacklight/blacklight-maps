@@ -7,7 +7,7 @@
     var options = $.extend({
       tileurl : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       mapattribution : 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-      initialZoom: 2,
+      initialzoom: 2,
       singlemarkermode: true,
       searchcontrol: false,
       catalogpath: 'catalog',
@@ -68,7 +68,6 @@
       // Setup Leaflet map
       map = L.map(this.id, {
         center: [0, 0],
-        zoom: options.initialZoom
       });
 
       L.tileLayer(options.tileurl, {
@@ -147,12 +146,18 @@
 
     /**
     * Sets the view of the map, based off of the map bounds
+    * options.initialzoom is invoked for catalog#show views (unless it would obscure features)
     */
     function setMapBounds() {
       map.fitBounds(mapBounds(), {
         padding: [10, 10],
         maxZoom: options.maxzoom
       });
+      if ($('#document').length) {
+        if (map.getZoom() > options.initialzoom) {
+          map.setZoom(options.initialzoom)
+        }
+      }
     }
 
     /**
