@@ -3,7 +3,7 @@ notifications:
 language: ruby
 sudo: false
 rvm:
-  - 2.3.0
+  - 2.6.0
 
 matrix:
   include:
