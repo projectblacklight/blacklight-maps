@@ -3,11 +3,10 @@ notifications:
 language: ruby
 sudo: false
 rvm:
-  - 2.3.0
+  - 2.6.0
 
 matrix:
   include:
-    - rvm: 2.2.4
       env: "RAILS_VERSION=4.1.14"
 
 before_install:
