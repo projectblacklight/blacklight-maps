@@ -7,7 +7,7 @@ rvm:
 
 matrix:
   include:
-      env: "RAILS_VERSION=4.1.14"
+      env: "RAILS_VERSION=4.2.11"
 
 before_install:
   - gem install bundler
