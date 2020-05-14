@@ -1,6 +1,6 @@
 require 'blacklight'
-require 'leaflet-rails'
-require 'leaflet-markercluster-rails'
+# require 'leaflet-rails'
+# require 'leaflet-markercluster-rails'
 
 module Blacklight
   module Maps
@@ -8,13 +8,13 @@ module Blacklight
 
       # Set some default configurations
       initializer 'blacklight-maps.default_config' do |app|
-        Blacklight::Configuration.default_values[:view].maps.geojson_field = "geojson"
+        Blacklight::Configuration.default_values[:view].maps.geojson_field = "geojson_ssim"
         Blacklight::Configuration.default_values[:view].maps.placename_property = "placename"
-        Blacklight::Configuration.default_values[:view].maps.coordinates_field = "coordinates"
+        Blacklight::Configuration.default_values[:view].maps.coordinates_field = "coordinates_srpt"
         Blacklight::Configuration.default_values[:view].maps.search_mode = "placename" # or 'coordinates'
         Blacklight::Configuration.default_values[:view].maps.spatial_query_dist = 0.5
-        Blacklight::Configuration.default_values[:view].maps.placename_field = "placename_field"
-        Blacklight::Configuration.default_values[:view].maps.coordinates_facet_field = "coordinates_facet_field"
+        Blacklight::Configuration.default_values[:view].maps.placename_field = "subject_geo_ssim"
+        Blacklight::Configuration.default_values[:view].maps.coordinates_facet_field = "coordinates_ssim"
         Blacklight::Configuration.default_values[:view].maps.facet_mode = "geojson" # or 'coordinates'
         Blacklight::Configuration.default_values[:view].maps.tileurl = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         Blacklight::Configuration.default_values[:view].maps.mapattribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'

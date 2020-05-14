@@ -9,5 +9,9 @@ module Blacklight
     require 'blacklight/maps/geometry'
     require 'blacklight/maps/maps_search_builder'
 
+    # returns the full path to the blacklight plugin installation
+    def self.root
+      @root ||= File.expand_path(File.dirname(File.dirname(File.dirname(__FILE__))))
+    end
   end
 end

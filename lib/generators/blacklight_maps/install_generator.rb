@@ -6,7 +6,8 @@ module BlacklightMaps
     source_root File.expand_path('../templates', __FILE__)
 
     desc "Install Blacklight-Maps"
-
+# TODO: how to add assets
+=begin
     def assets
       copy_file "blacklight_maps.css.scss", "app/assets/stylesheets/blacklight_maps.css.scss"
 
@@ -21,7 +22,7 @@ module BlacklightMaps
         end
       end
     end
-
+=end
     def inject_search_builder
       inject_into_file 'app/models/search_builder.rb', after: /include Blacklight::Solr::SearchBuilderBehavior.*$/ do
         "\n  include BlacklightMaps::MapsSearchBuilderBehavior\n"
@@ -45,17 +46,7 @@ module BlacklightMaps
       end
     end
 
-    def install_saved_searches_controller
-      target_file = "app/controllers/saved_searches_controller.rb"
-      if File.exists?(target_file)
-        inject_into_file target_file, after: /include Blacklight::SavedSearches/ do
-          "\n  helper BlacklightMaps::RenderConstraintsOverride\n"
-        end
-      else
-        copy_file "saved_searches_controller.rb", target_file
-      end
-    end
-
+    # TODO: inject Solr configuration (if needed)
 
   end
 end

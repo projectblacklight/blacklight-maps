@@ -14,7 +14,5 @@ module BlacklightMaps
         format.html
       end
     end
-
   end
-
 end

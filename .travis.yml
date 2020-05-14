@@ -1,25 +1,27 @@
-notifications:
-  email: false
 language: ruby
 sudo: false
-rvm:
-  - 2.6.0
+dist: bionic
+
+addons:
+  chrome: stable
+
+before_install:
+  - google-chrome-stable --headless --disable-gpu --no-sandbox --remote-debugging-port=9222 http://localhost &
+
+global_env:
+  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+  - ENGINE_CART_RAILS_OPTIONS='--skip-git --skip-listen --skip-spring --skip-keeps --skip-action-cable --skip-coffee --skip-test'
 
 matrix:
   include:
-      env: "RAILS_VERSION=4.2.11"
+    - rvm: 2.7.0
+      env: "RAILS_VERSION=6.0.2.1"
+    - rvm: 2.6.5
+      env: "RAILS_VERSION=6.0.0 ENGINE_CART_RAILS_OPTIONS=\"--skip-webpack-install\""
+    - rvm: 2.6.5
+      env: "RAILS_VERSION=5.2.3"
+    - rvm: 2.5.7
+      env: "RAILS_VERSION=5.2.3 BLACKLIGHT_API_TEST=true ENGINE_CART_RAILS_OPTIONS=\"--api --skip-git --skip-bundle --skip-listen --skip-spring --skip-yarn --skip-keeps --skip-action-cable --skip-coffee --skip-test\""
+fast_finish: true
 
-before_install:
-  - gem install bundler
-
-env:
- - "RAILS_VERSION=4.2.6"
-
-notifications:
-  irc: "irc.freenode.org#blacklight"
-  email:
-      - blacklight-commits@googlegroups.com
-
-global_env:
-    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
-
+jdk: openjdk11

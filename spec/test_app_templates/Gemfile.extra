@@ -1,5 +1,5 @@
 # extra gems to load into the test app go here
 
-gem 'leaflet-rails'
+# gem 'leaflet-rails'
 
-gem 'leaflet-markercluster-rails'
+# gem 'leaflet-markercluster-rails'

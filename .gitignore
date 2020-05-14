@@ -19,3 +19,5 @@ spec/internal
 jetty
 .DS_Store
 .idea/
+.rakeTasks
+.internal_test_app
