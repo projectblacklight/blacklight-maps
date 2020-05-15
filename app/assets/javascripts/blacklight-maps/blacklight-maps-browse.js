@@ -6,7 +6,7 @@
     // Configure default options and those passed via the constructor options
     var options = $.extend({
       tileurl : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      mapattribution : 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+      mapattribution : 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors, <a' + ' href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>',
       initialzoom: 2,
       singlemarkermode: true,
       searchcontrol: false,

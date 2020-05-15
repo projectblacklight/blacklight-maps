@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BlacklightMaps
 
   # This class provides the ability to export a response document to GeoJSON.

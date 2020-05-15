@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 # Meant to be applied on top of Blacklight view helpers, to over-ride
 # certain methods from RenderConstraintsHelper (newish in BL),
 # to affect constraints rendering
 module BlacklightMaps
-
   module RenderConstraintsOverride
 
     # BlacklightMaps override: update to look for spatial query params

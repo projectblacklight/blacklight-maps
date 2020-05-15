@@ -1,6 +1,8 @@
 @import 'leaflet';
-@import 'leaflet.markercluster';
-@import 'leaflet.markercluster.default';
+@import '../Leaflet.markercluster/MarkerCluster';
+@import '../Leaflet.markercluster/MarkerCluster.Default';
+//@import 'leaflet.markercluster';
+//@import 'leaflet.markercluster.default';
 
 body.blacklight-catalog-map {
 

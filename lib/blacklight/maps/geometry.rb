@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BlacklightMaps
 
   # Parent class of geospatial objects used in BlacklightMaps

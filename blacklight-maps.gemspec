@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name          = 'blacklight-maps'
   s.version       = Blacklight::Maps::VERSION
   s.authors       = ['Chris Beer', 'Jack Reed', 'Eben English']
-  s.email         = ['cabeer@stanford.edu', 'pjreed@stanford.edu', 'eenglish@bpl.org']
+  s.email         = %w[cabeer@stanford.edu pjreed@stanford.edu eenglish@bpl.org]
   s.summary       = 'Maps for Blacklight'
   s.description   = 'Blacklight plugin providing map views for records with geographic data.'
   s.homepage      = 'https://github.com/projectblacklight/blacklight-maps'
@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'blacklight', '~> 7.0'
   s.add_dependency 'rails', '>= 5.1', '< 7'
   # TODO: figure out JS
-  # s.add_dependency 'leaflet-rails', '0.7.7'
+  s.add_dependency 'leaflet-rails', '~> 1.0'
   # s.add_dependency 'leaflet-markercluster-rails'
 
   s.add_development_dependency 'capybara'
