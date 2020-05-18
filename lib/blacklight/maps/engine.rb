@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'blacklight'
-require 'leaflet-rails'
-# require 'leaflet-markercluster-rails'
 
 module Blacklight
   module Maps

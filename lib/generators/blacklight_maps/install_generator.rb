@@ -20,6 +20,9 @@ module BlacklightMaps
 // Required by Blacklight-Maps
 //= require blacklight-maps}
         end
+
+        append_to_file 'config/initializers/assets.rb',
+                       "\nRails.application.config.assets.paths << Rails.root.join('vendor', 'assets', 'images')\n"
       end
     end
 

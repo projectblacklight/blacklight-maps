@@ -22,9 +22,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'blacklight', '~> 7.0'
   s.add_dependency 'rails', '>= 5.1', '< 7'
-  # TODO: figure out JS
-  s.add_dependency 'leaflet-rails', '~> 1.0'
-  # s.add_dependency 'leaflet-markercluster-rails'
 
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'engine_cart', '~> 2.1'
