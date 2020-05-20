@@ -53,11 +53,11 @@ Blacklight-Maps requires that your Solr index include at least one (but preferab
 
   ```
   # coordinates: lon lat or lat,lon
-  # bounding box: minX minY maxX maxY
-  coordinates_field: 
+  # bounding box: ENVELOPE(minX, maxX, maxY, minY)
+  coordinates_srpt: 
    - 78.96288 20.593684
    - 20.593684,78.96288
-   - 68.162386 6.7535159 97.395555 35.5044752       
+   - ENVELOPE(68.162386, 97.395555, 35.5044752, 6.7535159)
   ```
 
 2. An indexed, stored string field containing a properly-formatted [GeoJSON](http://geojson.org) feature object for a point or bounding box that includes the coordinates and (preferably) location name. This field can be multivalued.
@@ -74,7 +74,7 @@ Blacklight-Maps requires that your Solr index include at least one (but preferab
 3. An indexed, stored text or string field containing location names. This field can be multivalued.
 
   ```
-   placename_field: India
+   subject_geo_ssim: India
   ```
 
 ##### Why so complicated?
@@ -88,10 +88,10 @@ Blacklight-Maps can be used with either field type (#1 or #2), however to take a
 **Important:** If you are NOT using the geojson field (#2), you should create a `copyField` in your Solr schema.xml to copy the coordinates from the `location_rpt` field to a string field that is stored, indexed, and multivalued to allow for proper faceting of the coordinate values in the catalog#map and catalog#index views.
 
 ```
-  <!-- Solr4 location_rpt field for coordinates, shapes, etc. -->
-  <dynamicField name="geospatial" type="location_rpt" indexed="true" stored="true" multiValued="true" />
+  <!-- Solr location_rpt field for coordinates, shapes, etc. -->
+  <dynamicField name="*_srpt" type="location_rpt" indexed="true" stored="true" multiValued="true" />
   <!-- copy geospatial to string field for faceting -->
-  <copyField source="geospatial" dest="geospatial_facet" />
+  <copyField source="coordinates_srpt" dest="coordinates_ssim" />
 ```
 
 Support for additional field types may be added in the future.
@@ -112,9 +112,9 @@ Blacklight-Maps expects you to provide these configuration options:
     + `placename_field` = the name of the Solr field containing the location names
 + `coordinates_field` = the name of the Solr `location_rpt` type field containing geospatial coordinate data
 
-In addition, you must add the geospatial facet field to the list of facet fields:
+In addition, you must add the geospatial facet field to the list of facet fields in `app/controllers/catalog_controller.rb`, for example:
 ```ruby
-config.add_facet_field 'geojson_field', :limit => -2, :label => 'Coordinates', :show => false
+config.add_facet_field 'geojson_ssim', :limit => -2, :label => 'Coordinates', :show => false
 ```
 
 #### Optional

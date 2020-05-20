@@ -31,9 +31,9 @@
 
     // Update page links with number of mapped items, disable sort, per_page, pagination
     if (sortAndPerPage.length) { // catalog#index and #map view
-      var page_links = sortAndPerPage.find('.page_links');
-      var result_count = page_links.find('.page_entries').find('strong').last().html();
-      page_links.html('<span class="page_entries"><strong>' + result_count + '</strong> items found</span>' + mapped_items + mapped_caveat);
+      var page_links = sortAndPerPage.find('.page-links');
+      var result_count = page_links.find('.page-entries').find('strong').last().html();
+      page_links.html('<span class="page-entries"><strong>' + result_count + '</strong> items found</span>' + mapped_items + mapped_caveat);
       sortAndPerPage.find('.dropdown-toggle').hide();
     } else { // catalog#show view
         $(this).before(mapped_items);
@@ -119,7 +119,6 @@
           var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
           this.link = L.DomUtil.create('a', 'leaflet-bar-part search-control', container);
           this.link.title = options.searchctrlcue;
-          this.icon = L.DomUtil.create('i', 'glyphicon glyphicon-search', this.link);
 
           L.DomEvent.addListener(this.link, 'click', _search);
 

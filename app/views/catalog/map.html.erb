@@ -1,8 +1,8 @@
 <div id="content" class="col-md-12 col-sm-12">
   <h1><%= t('blacklight.maps.title') %></h1>
-  <div id="map_leader_text"><%= t('blacklight.maps.leader') %></div>
+  <div id="map_leader_text"><%= t('blacklight.maps.leader_html') %></div>
   <%= render 'search_results' %>
 </div>
 
 <%# have to put this at the end so it overrides 'catalog/search_results' %>
-<% @page_title = t('blacklight.maps.title', :application_name => application_name) %>
+<% @page_title = t('blacklight.maps.title', application_name: application_name) %>
