@@ -1,9 +1,9 @@
 <% # map for catalog#show view %>
 <% if @document[blacklight_config.view.maps.geojson_field.to_sym] || @document[blacklight_config.view.maps.coordinates_field.to_sym] %>
-    <% geojson_features = serialize_geojson(@document) %>
+  <div id="blacklight-show-map-container">
     <%= blacklight_map_tag('blacklight-show-map',
                            {data:{initialzoom:blacklight_config.view.maps.show_initial_zoom,
                                   singlemarkermode:false}}) %>
-    <%= javascript_tag "$('#blacklight-show-map').blacklight_leaflet_map(#{geojson_features});" %>
+    <%= javascript_tag "$('#blacklight-show-map').blacklight_leaflet_map(#{serialize_geojson(@document)});" %>
   </div>
 <% end %>

@@ -16,141 +16,164 @@ module BlacklightMaps
     #  - index view, map view: an array of facet values
     #  - show view: the document object
     # options is an optional hash of possible configuration options
-    def initialize(controller, action, response_docs, options={})
+    def initialize(controller, action, response_docs, options = {})
       @controller = controller
       @action = action
       @response_docs = response_docs
       @options = options
+      @features = []
     end
 
     # build the GeoJSON FeatureCollection
     def to_geojson
-      geojson_docs = { type: 'FeatureCollection',
-                       features: build_geojson_features }
-      geojson_docs.to_json
+      { type: 'FeatureCollection', features: build_geojson_features }.to_json
     end
 
     private
 
-    def blacklight_maps_config
+    def maps_config
       @controller.blacklight_config.view.maps
     end
 
     def geojson_field
-      blacklight_maps_config.geojson_field
+      maps_config.geojson_field
     end
 
     def coordinates_field
-      blacklight_maps_config.coordinates_field
-    end
-
-    def search_mode
-      blacklight_maps_config.search_mode
-    end
-
-    def facet_mode
-      blacklight_maps_config.facet_mode
-    end
-
-    def placename_property
-      blacklight_maps_config.placename_property
+      maps_config.coordinates_field
     end
 
     # build GeoJSON features array
     # determine how to build GeoJSON feature based on config and controller#action
     def build_geojson_features
-      features = []
-      case @action
-      when "index", "map"
-        @response_docs.each do |geofacet|
-          if facet_mode == "coordinates"
-            features.push(build_feature_from_coords(geofacet.value, geofacet.hits))
-          else
-            features.push(build_feature_from_geojson(geofacet.value, geofacet.hits))
-          end
-        end
-      when "show"
-        doc = @response_docs
-        return unless doc[geojson_field] || doc[coordinates_field]
-
-        if doc[geojson_field]
-          doc[geojson_field].uniq.each do |loc|
-            features.push(build_feature_from_geojson(loc))
-          end
-        elsif doc[coordinates_field]
-          doc[coordinates_field].uniq.each do |coords|
-            features.push(build_feature_from_coords(coords))
-          end
-        end
+      if @action == 'index' || @action == 'map'
+        build_index_features
+      elsif @action == 'show'
+        build_show_features
       end
-      features
+      @features
+    end
+
+    # build GeoJSON features array for index and map views
+    def build_index_features
+      @response_docs.each do |geofacet|
+        @features << if maps_config.facet_mode == 'coordinates'
+                       build_feature_from_coords(geofacet.value, geofacet.hits)
+                     else
+                       build_feature_from_geojson(geofacet.value, geofacet.hits)
+                     end
+      end
+    end
+
+    # build GeoJSON features array for show view
+    def build_show_features
+      doc = @response_docs
+      return unless doc[geojson_field] || doc[coordinates_field]
+
+      if doc[geojson_field]
+        build_features_from_geojson(doc[geojson_field])
+      elsif doc[coordinates_field]
+        build_features_from_coords(doc[coordinates_field])
+      end
+    end
+
+    def build_features_from_geojson(geojson_field_values)
+      return unless geojson_field_values
+
+      geojson_field_values.uniq.each do |loc|
+        @features << build_feature_from_geojson(loc)
+      end
+    end
+
+    def build_features_from_coords(coordinates_field_values)
+      return unless coordinates_field_values
+
+      coordinates_field_values.uniq.each do |coords|
+        @features << build_feature_from_coords(coords)
+      end
     end
 
     # build blacklight-maps GeoJSON feature from GeoJSON-formatted data
     # turn bboxes into points for index view so we don't get weird mix of boxes and markers
     def build_feature_from_geojson(loc, hits = nil)
-      geojson_hash = JSON.parse(loc).deep_symbolize_keys
-      if @action != "show" && geojson_hash[:bbox]
-        geojson_hash[:geometry][:coordinates] = Geometry::Point.new(Geometry::BoundingBox.new(geojson_hash[:bbox]).find_center).normalize_for_search
-        geojson_hash[:geometry][:type] = "Point"
-        geojson_hash.delete(:bbox)
+      geojson = JSON.parse(loc).deep_symbolize_keys
+      if @action != 'show' && geojson[:bbox]
+        geojson[:geometry][:coordinates] = Geometry::Point.new(Geometry::BoundingBox.new(geojson[:bbox]).find_center).normalize_for_search
+        geojson[:geometry][:type] = 'Point'
+        geojson.delete(:bbox)
       end
-      geojson_hash[:properties] ||= {}
-      geojson_hash[:properties][:hits] = hits.to_i if hits
-      geojson_hash[:properties][:popup] = render_leaflet_popup_content(geojson_hash, hits)
-      geojson_hash
+      geojson[:properties] ||= {}
+      geojson[:properties][:hits] = hits.to_i if hits
+      geojson[:properties][:popup] = render_leaflet_popup_content(geojson, hits)
+      geojson
     end
 
     # build blacklight-maps GeoJSON feature from coordinate data
     # turn bboxes into points for index view so we don't get weird mix of boxes and markers
     def build_feature_from_coords(coords, hits = nil)
-      geojson_hash = {type: "Feature", geometry: {}, properties: {}}
+      geojson = { type: 'Feature', properties: {} }
       if coords.scan(/[\s]/).length == 3 # bbox
-        if @action != "show"
-          geojson_hash[:geometry][:type] = "Point"
-          geojson_hash[:geometry][:coordinates] = Geometry::Point.new(Geometry::BoundingBox.from_lon_lat_string(coords).find_center).normalize_for_search
-        else
-          coords_array = coords.split(' ').map { |v| v.to_f }
-          geojson_hash[:bbox] = coords_array
-          geojson_hash[:geometry][:type] = "Polygon"
-          geojson_hash[:geometry][:coordinates] = [[[coords_array[0],coords_array[1]],
-                                                    [coords_array[2],coords_array[1]],
-                                                    [coords_array[2],coords_array[3]],
-                                                    [coords_array[0],coords_array[3]],
-                                                    [coords_array[0],coords_array[1]]]]
-        end
+        geojson.merge!(build_bbox_feature_from_coords(coords))
       elsif coords.match(/^[-]?[\d]*[\.]?[\d]*[ ,][-]?[\d]*[\.]?[\d]*$/) # point
-        geojson_hash[:geometry][:type] = "Point"
-        if coords.match(/,/)
-          coords_array = coords.split(',').reverse
-        else
-          coords_array = coords.split(' ')
-        end
-        geojson_hash[:geometry][:coordinates] = coords_array.map { |v| v.to_f }
+        geojson[:geometry] = build_coords_geometry(coords)
       else
         Rails.logger.error("This coordinate format is not yet supported: '#{coords}'")
       end
-      geojson_hash[:properties] = { popup: render_leaflet_popup_content(geojson_hash, hits) } if geojson_hash[:geometry][:coordinates]
-      geojson_hash[:properties][:hits] = hits.to_i if hits
-      geojson_hash
+      geojson[:properties] = { popup: render_leaflet_popup_content(geojson, hits) } if geojson[:geometry][:coordinates]
+      geojson[:properties][:hits] = hits.to_i if hits
+      geojson
+    end
+
+    def build_bbox_feature_from_coords(coords)
+      geojson = { geometry: {} }
+      if @action != 'show'
+        geojson[:geometry][:type] = 'Point'
+        geojson[:geometry][:coordinates] = Geometry::Point.new(Geometry::BoundingBox.from_lon_lat_string(coords).find_center).normalize_for_search
+      else
+        coords_array = coords.split(' ').map(&:to_f)
+        geojson[:bbox] = coords_array
+        geojson[:geometry][:type] = 'Polygon'
+        geojson[:geometry][:coordinates] = bbox_coords_for_geometry(coords_array)
+      end
+      geojson
+    end
+
+    def bbox_coords_for_geometry(coords_array)
+      [
+        [
+          [coords_array[0],coords_array[1]], [coords_array[2],coords_array[1]],
+          [coords_array[2],coords_array[3]], [coords_array[0],coords_array[3]],
+          [coords_array[0],coords_array[1]]
+        ]
+      ]
+    end
+
+    def build_coords_geometry(coords)
+      geometry = { type: 'Point' }
+      coords_array = if coords.match(/,/)
+                       coords.split(',').reverse
+                     else
+                       coords.split(' ')
+                     end
+      geometry[:coordinates] = coords_array.map { |v| v.to_f }
+      geometry
     end
 
     # Render to string the partial for each individual doc.
     # For placename searching, render catalog/map_placename_search partial,
-    #  full geojson hash is passed to the partial for easier local customization
+    #  pass the full geojson hash to the partial for easier local customization
     # For coordinate searches (or features with only coordinate data),
     #  render catalog/map_coordinate_search partial
-    def render_leaflet_popup_content(geojson_hash, hits=nil)
-      if search_mode == 'placename' && geojson_hash[:properties][placename_property.to_sym]
+    def render_leaflet_popup_content(geojson, hits=nil)
+      if maps_config.search_mode == 'placename' &&
+                                     geojson[:properties][maps_config.placename_property.to_sym]
         @controller.render_to_string partial: 'catalog/map_placename_search',
-                                     locals: { geojson_hash: geojson_hash, hits: hits }
+                                     locals: { geojson_hash: geojson, hits: hits }
       else
         @controller.render_to_string partial: 'catalog/map_spatial_search',
-                                     locals: { coordinates: geojson_hash[:bbox].presence || geojson_hash[:geometry][:coordinates],
+                                     locals: { coordinates: geojson[:bbox].presence || geojson[:geometry][:coordinates],
                                                hits: hits }
       end
     end
-
   end
-
 end

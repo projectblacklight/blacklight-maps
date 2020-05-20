@@ -43,31 +43,13 @@ module Blacklight
     end
 
     # create a link to a spatial search for a set of point coordinates
-    def link_to_point_search(point_coordinates)
+    def link_to_point_search(point_coords)
       new_params = params.except(:controller, :action, :view, :id, :spatial_search_type, :coordinates)
       new_params[:spatial_search_type] = 'point'
-      new_params[:coordinates] = "#{point_coordinates[1]},#{point_coordinates[0]}"
+      new_params[:coordinates] = "#{point_coords[1]},#{point_coords[0]}"
       new_params[:view] = default_document_index_view_type
       new_params.permit!
       link_to(t('blacklight.maps.interactions.point_search'), search_catalog_path(new_params))
-    end
-
-    # return the facet field containing geographic data
-    def map_facet_field
-      if blacklight_config.view.maps.facet_mode == "coordinates"
-        blacklight_config.view.maps.coordinates_facet_field
-      else
-        blacklight_config.view.maps.geojson_field
-      end
-    end
-
-    # return an array of Blacklight::SolrResponse::Facets::FacetItem items
-    def map_facet_values
-      if @response.aggregations[map_facet_field]
-        @response.aggregations[map_facet_field].items
-      else
-        []
-      end
     end
 
     # render the location name for the Leaflet popup
@@ -79,17 +61,20 @@ module Blacklight
 
     # render the map for #index and #map views
     def render_index_mapview
+      maps_config = blacklight_config.view.maps
+      map_facet_field = if maps_config.facet_mode == "coordinates"
+                          maps_config.coordinates_facet_field
+                        else
+                          maps_config.geojson_field
+                        end
+      map_facet_values = @response.aggregations[map_facet_field]&.items || []
       render partial: 'catalog/index_mapview',
              locals: { geojson_features: serialize_geojson(map_facet_values) }
     end
 
     # determine the type of spatial search to use based on coordinates (bbox or point)
-    def render_spatial_search_link coordinates
-      if coordinates.length == 4
-        link_to_bbox_search(coordinates)
-      else
-        link_to_point_search(coordinates)
-      end
+    def render_spatial_search_link(coords)
+      coords.length == 4 ? link_to_bbox_search(coords) : link_to_point_search(coords)
     end
 
     # pass the document or facet values to BlacklightMaps::GeojsonExport

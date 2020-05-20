@@ -10,7 +10,6 @@ module BlacklightMaps
     end
 
     def map
-      # (@response, @document_list) = search_results(params)
       (@response, @document_list) = search_service.search_results
       params[:view] = 'maps'
       respond_to do |format|

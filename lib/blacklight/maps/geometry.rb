@@ -1,14 +1,11 @@
 # frozen_string_literal: true
 
 module BlacklightMaps
-
   # Parent class of geospatial objects used in BlacklightMaps
   class Geometry
-
     # This class contains Bounding Box objects and methods for interacting with
     # them.
     class BoundingBox
-
       # points is an array containing longitude and latitude values which
       # relate to the southwest and northeast points of a bounding box
       # [west, south, east, north] ([swlng, swlat, nelng, nelat]).
@@ -24,10 +21,7 @@ module BlacklightMaps
         center = []
         center[0] = (@west + @east) / 2
         center[1] = (@south + @north) / 2
-
-        # Handle bounding boxes that cross the dateline
-        center[0] -= 180 if @west > @east
-
+        center[0] -= 180 if @west > @east # handle bboxes that cross the dateline
         center
       end
 
@@ -40,7 +34,6 @@ module BlacklightMaps
 
     # This class contains Point objects and methods for working with them
     class Point
-
       # points is an array corresponding to the longitude and latitude values
       # [long, lat]
       def initialize(points)
@@ -51,13 +44,9 @@ module BlacklightMaps
       # returns a string that can be used as the value of solr_parameters[:pt]
       # normalizes any long values >180 or <-180
       def normalize_for_search
-        case
-          when @long > 180
-            @long -= 360
-          when @long < -180
-            @long += 360
-        end
-        [@long,@lat]
+        @long -= 360 if @long > 180
+        @long += 360 if @long < -180
+        [@long, @lat]
       end
 
       # Creates a new point from from a coordinate string
@@ -65,8 +54,6 @@ module BlacklightMaps
       def self.from_lat_lon_string(points)
         new(points.split(',').reverse)
       end
-
     end
-
   end
 end
