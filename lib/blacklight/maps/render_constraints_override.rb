@@ -52,11 +52,11 @@ module BlacklightMaps
     end
 
     def spatial_constraint_label(params)
-      (params[:spatial_search_type] && params[:spatial_search_type] == 'bbox') ?
-          t('blacklight.search.filters.coordinates.bbox') :
-          t('blacklight.search.filters.coordinates.point')
+      if params[:spatial_search_type] && params[:spatial_search_type] == 'bbox'
+        t('blacklight.search.filters.coordinates.bbox')
+      else
+        t('blacklight.search.filters.coordinates.point')
+      end
     end
-
   end
-
 end

@@ -1,4 +1,140 @@
 ---
+- subtitle_tsim: 'guft va gū-yi Akbar Ganjī bā ʻAbd Allāh Nūrī : bih payvast-i matn-i istīz̤āḥ-i ʻAbd Allāh Nūrī dar Majlis-i panjum'
+  author_vern_ssim: "‏نورى، عبد الله"
+  subject_addl_ssim:
+    - Interviews
+    - Trials, litigation, etc
+    - Officials and employees Interviews
+    - Politics and government 1997-
+  title_tsim: Naqdī barā-yi tamām-i fuṣūl
+  subject_era_ssim:
+    - 1997-
+  id: 00313831
+  isbn_ssim:
+    - '9645625963'
+  subject_geo_ssim:
+    - Iran
+  subject_ssim:
+    - Nūrī, ʻAbd Allāh, 1949-
+    - Iran. Vizārat-i Kishvar
+  lc_alpha_ssim:
+    - DS
+  title_series_tsim:
+    - Farhang-i ʻumūmī
+    - "‏فرهنگ  عمومى"
+  subtitle_tsim:
+    - 'guft va gū-yi Akbar Ganjī bā ʻAbd Allāh Nūrī : bih payvast-i matn-i istīz̤āḥ-i
+    ʻAbd Allāh Nūrī dar Majlis-i panjum.'
+    - "‏گفت و گوى اکبر گنجى با عبد الله نورى : به پيوست  متن استيضاح عبد الله نورى در
+    مجلس پنجم"
+  lc_1letter_ssim:
+    - D - World History
+  author_tsim:
+    - Nūrī, ʻAbd Allāh,
+    - "‏نورى، عبد الله"
+  marc_ss: "<?xml version=\"1.0\" encoding=\"UTF-8\"?><collection xmlns=\"http://www.loc.gov/MARC21/slim\"><record><leader>01988cam
+    a2200421 a 4500</leader><controlfield tag=\"001\">   00313831 </controlfield><controlfield
+    tag=\"003\">DLC</controlfield><controlfield tag=\"005\">20090121100001.0</controlfield><controlfield
+    tag=\"008\">010611s2000    ir       b    001 0dper d</controlfield><datafield
+    tag=\"010\" ind1=\" \" ind2=\" \"><subfield code=\"a\">   00313831 </subfield></datafield><datafield
+    tag=\"020\" ind1=\" \" ind2=\" \"><subfield code=\"a\">9645625963</subfield></datafield><datafield
+    tag=\"035\" ind1=\" \" ind2=\" \"><subfield code=\"a\">(CStRLIN)DCLN01-B3014</subfield></datafield><datafield
+    tag=\"040\" ind1=\" \" ind2=\" \"><subfield code=\"a\">MH</subfield><subfield
+    code=\"c\">MH</subfield><subfield code=\"d\">CStRLIN</subfield><subfield code=\"d\">DLC-R</subfield></datafield><datafield
+    tag=\"042\" ind1=\" \" ind2=\" \"><subfield code=\"a\">lccopycat</subfield><subfield
+    code=\"a\">lcode</subfield></datafield><datafield tag=\"043\" ind1=\" \" ind2=\"
+    \"><subfield code=\"a\">a-ir---</subfield></datafield><datafield tag=\"050\" ind1=\"0\"
+    ind2=\"0\"><subfield code=\"a\">DS318.84.N87</subfield><subfield code=\"b\">N87
+    2000</subfield></datafield><datafield tag=\"066\" ind1=\" \" ind2=\" \"><subfield
+    code=\"c\">(3</subfield><subfield code=\"c\">(4</subfield></datafield><datafield
+    tag=\"100\" ind1=\"1\" ind2=\" \"><subfield code=\"6\">880-01</subfield><subfield
+    code=\"a\">Nūrī, ʻAbd Allāh,</subfield><subfield code=\"d\">1949-</subfield></datafield><datafield
+    tag=\"245\" ind1=\"1\" ind2=\"0\"><subfield code=\"6\">880-02</subfield><subfield
+    code=\"a\">Naqdī barā-yi tamām-i fuṣūl :</subfield><subfield code=\"b\">guft
+    va gū-yi Akbar Ganjī bā ʻAbd Allāh Nūrī : bih payvast-i matn-i istīz̤āḥ-i
+    ʻAbd Allāh Nūrī dar Majlis-i panjum.</subfield></datafield><datafield tag=\"246\"
+    ind1=\"1\" ind2=\"5\"><subfield code=\"a\">Critique for all seasons :</subfield><subfield
+    code=\"b\">Akbar Ganji's conversation with Abdullah Nuri</subfield></datafield><datafield
+    tag=\"250\" ind1=\" \" ind2=\" \"><subfield code=\"6\">880-03</subfield><subfield
+    code=\"a\">Chāp-i 1.</subfield></datafield><datafield tag=\"260\" ind1=\" \"
+    ind2=\" \"><subfield code=\"6\">880-04</subfield><subfield code=\"a\">Tihrān
+    :</subfield><subfield code=\"b\">Ṭarḥ-i Naw,</subfield><subfield code=\"c\">2000.</subfield></datafield><datafield
+    tag=\"300\" ind1=\" \" ind2=\" \"><subfield code=\"a\">245 p. ;</subfield><subfield
+    code=\"c\">22 cm.</subfield></datafield><datafield tag=\"440\" ind1=\" \" ind2=\"0\"><subfield
+    code=\"6\">880-05</subfield><subfield code=\"a\">Farhang-i ʻumūmī</subfield></datafield><datafield
+    tag=\"504\" ind1=\" \" ind2=\" \"><subfield code=\"a\">Includes bibliographical
+    references and index.</subfield></datafield><datafield tag=\"600\" ind1=\"1\"
+    ind2=\"0\"><subfield code=\"6\">880-06</subfield><subfield code=\"a\">Nūrī,
+    ʻAbd Allāh,</subfield><subfield code=\"d\">1949-</subfield><subfield code=\"v\">Interviews.</subfield></datafield><datafield
+    tag=\"610\" ind1=\"1\" ind2=\"0\"><subfield code=\"a\">Iran.</subfield><subfield
+    code=\"b\">Vizārat-i Kishvar</subfield><subfield code=\"x\">Officials and employees</subfield><subfield
+    code=\"v\">Interviews.</subfield></datafield><datafield tag=\"600\" ind1=\"1\"
+    ind2=\"0\"><subfield code=\"6\">880-07</subfield><subfield code=\"a\">Nūrī,
+    ʻAbd Allāh,</subfield><subfield code=\"d\">1949-</subfield><subfield code=\"v\">Trials,
+    litigation, etc.</subfield></datafield><datafield tag=\"651\" ind1=\" \" ind2=\"0\"><subfield
+    code=\"a\">Iran</subfield><subfield code=\"x\">Politics and government</subfield><subfield
+    code=\"y\">1997-</subfield></datafield><datafield tag=\"700\" ind1=\"1\" ind2=\"
+    \"><subfield code=\"6\">880-08</subfield><subfield code=\"a\">Ganjī, Akbar.</subfield></datafield><datafield
+    tag=\"880\" ind1=\"1\" ind2=\" \"><subfield code=\"6\">100-01/(3/r‏</subfield><subfield
+    code=\"a\">‏نورى، عبد الله.</subfield></datafield><datafield tag=\"880\" ind1=\"1\"
+    ind2=\"0\"><subfield code=\"6\">245-02/(3/r‏</subfield><subfield code=\"a\">‏نقدى
+    براى تمام فصول :‏</subfield><subfield code=\"b\">‏گفت و گوى اکبر گنجى با عبد الله
+    نورى : به پيوست  متن استيضاح عبد الله نورى در مجلس پنجم.</subfield></datafield><datafield
+    tag=\"880\" ind1=\" \" ind2=\" \"><subfield code=\"6\">250-03/(4/r‏</subfield><subfield
+    code=\"a\">‏چاپ 1.</subfield></datafield><datafield tag=\"880\" ind1=\" \" ind2=\"
+    \"><subfield code=\"6\">260-04/(3/r‏</subfield><subfield code=\"a\">‏تهران :‏</subfield><subfield
+    code=\"b\">‏طرح نو،‏</subfield><subfield code=\"c\">‏‪2000‬.</subfield></datafield><datafield
+    tag=\"880\" ind1=\" \" ind2=\"0\"><subfield code=\"6\">440-05/(3/r‏</subfield><subfield
+    code=\"a\">‏فرهنگ  عمومى</subfield></datafield><datafield tag=\"880\" ind1=\"1\"
+    ind2=\"4\"><subfield code=\"6\">600-06/(3/r‏</subfield><subfield code=\"a\">‏نورى،
+    عبد الله.</subfield></datafield><datafield tag=\"880\" ind1=\"1\" ind2=\"4\"><subfield
+    code=\"6\">600-07/(3/r‏</subfield><subfield code=\"a\">‏نورى، عبد الله.</subfield></datafield><datafield
+    tag=\"880\" ind1=\"1\" ind2=\" \"><subfield code=\"6\">700-08/(3/r‏</subfield><subfield
+    code=\"a\">‏گنجى، اكبر.</subfield></datafield></record></collection>"
+  published_ssim:
+    - Tihrān
+  author_tsim: Nūrī, ʻAbd Allāh, 1949-
+  title_vern_ssim: "‏نقدى براى تمام فصول :‏"
+  lc_callnum_ssim:
+    - DS318.84.N87 N87 2000
+  title_tsim:
+    - 'Naqdī barā-yi tamām-i fuṣūl :'
+    - "‏نقدى براى تمام فصول :‏"
+  pub_date_ssim:
+    - '2000'
+  pub_date_si: 2000
+  published_vern_ssim:
+    - "‏تهران :‏"
+  format: Book
+  subtitle_vern_ssim: "‏گفت و گوى اکبر گنجى با عبد الله نورى : به پيوست  متن استيضاح
+    عبد الله نورى در مجلس پنجم"
+  material_type_ssim:
+    - 245 p.
+  lc_b4cutter_ssim:
+    - DS318.84.N87
+  subject_tsim:
+    - Nūrī, ʻAbd Allāh, 1949-
+    - Iran. Vizārat-i Kishvar
+    - Iran
+    - "‏نورى، عبد الله"
+  title_si: 'naqdī barā-yi tamām-i fuṣūl :guft va gū-yi akbar ganjī bā ʻabd allāh nūrī : bih payvast-i matn-i istīz̤āḥ-i ʻabd allāh nūrī dar majlis-i
+    panjum'
+  author_si: Nūrī ʻAbd Allāh 1949 Naqdī barāyi tamāmi fuṣūl guft va gūyi Akbar Ganjī bā ʻAbd Allāh Nūrī  bih payvasti matni istīz̤āḥi ʻAbd Allāh Nūrī dar Majlisi panjum
+  title_addl_tsim:
+    - 'Naqdī barā-yi tamām-i fuṣūl : guft va gū-yi Akbar Ganjī bā ʻAbd Allāh Nūrī : bih payvast-i matn-i istīz̤āḥ-i ʻAbd Allāh Nūrī dar Majlis-i panjum.'
+    - 'Critique for all seasons : Akbar Ganji''s conversation with Abdullah Nuri'
+    - "‏نقدى براى تمام فصول :‏ ‏گفت و گوى اکبر گنجى با عبد الله نورى : به پيوست  متن استيضاح عبد الله نورى در مجلس پنجم"
+  author_addl_tsim:
+    - Ganjī, Akbar.
+    - "‏گنجى، اكبر"
+  language_ssim:
+    - Persian
+  timestamp: '2014-02-03T18:42:53.056Z'
+  geojson_ssim:
+    - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[53.688046,32.427908]},\"properties\":{\"placename\":\"Iran\"}}"
+  coordinates_srpt:
+    - 32.427908,53.688046
+    - ENVELOPE(44.0318907, 63.3333366, 39.7816755, 25.0594286)
 - lc_1letter_ssim:
   - P - Language & Literature
   author_tsim:
@@ -112,147 +248,6 @@
   language_ssim:
   - Urdu
   timestamp: '2014-02-03T18:42:53.056Z'
-- subtitle_tsim: 'guft va gū-yi Akbar Ganjī bā ʻAbd Allāh Nūrī : bih payvast-i
-    matn-i istīz̤āḥ-i ʻAbd Allāh Nūrī dar Majlis-i panjum'
-  author_vern_ssim: "‏نورى، عبد الله"
-  subject_addl_ssim:
-  - Interviews
-  - Trials, litigation, etc
-  - Officials and employees Interviews
-  - Politics and government 1997-
-  title_tsim: Naqdī barā-yi tamām-i fuṣūl
-  subject_era_ssim:
-  - 1997-
-  id: 00313831
-  isbn_ssim:
-  - '9645625963'
-  subject_geo_ssim:
-  - Iran
-  subject_ssim:
-  - Nūrī, ʻAbd Allāh, 1949-
-  - Iran. Vizārat-i Kishvar
-  lc_alpha_ssim:
-  - DS
-  title_series_tsim:
-  - Farhang-i ʻumūmī
-  - "‏فرهنگ  عمومى"
-  subtitle_tsim:
-  - 'guft va gū-yi Akbar Ganjī bā ʻAbd Allāh Nūrī : bih payvast-i matn-i istīz̤āḥ-i
-    ʻAbd Allāh Nūrī dar Majlis-i panjum.'
-  - "‏گفت و گوى اکبر گنجى با عبد الله نورى : به پيوست  متن استيضاح عبد الله نورى در
-    مجلس پنجم"
-  lc_1letter_ssim:
-  - D - World History
-  author_tsim:
-  - Nūrī, ʻAbd Allāh,
-  - "‏نورى، عبد الله"
-  marc_ss: "<?xml version=\"1.0\" encoding=\"UTF-8\"?><collection xmlns=\"http://www.loc.gov/MARC21/slim\"><record><leader>01988cam
-    a2200421 a 4500</leader><controlfield tag=\"001\">   00313831 </controlfield><controlfield
-    tag=\"003\">DLC</controlfield><controlfield tag=\"005\">20090121100001.0</controlfield><controlfield
-    tag=\"008\">010611s2000    ir       b    001 0dper d</controlfield><datafield
-    tag=\"010\" ind1=\" \" ind2=\" \"><subfield code=\"a\">   00313831 </subfield></datafield><datafield
-    tag=\"020\" ind1=\" \" ind2=\" \"><subfield code=\"a\">9645625963</subfield></datafield><datafield
-    tag=\"035\" ind1=\" \" ind2=\" \"><subfield code=\"a\">(CStRLIN)DCLN01-B3014</subfield></datafield><datafield
-    tag=\"040\" ind1=\" \" ind2=\" \"><subfield code=\"a\">MH</subfield><subfield
-    code=\"c\">MH</subfield><subfield code=\"d\">CStRLIN</subfield><subfield code=\"d\">DLC-R</subfield></datafield><datafield
-    tag=\"042\" ind1=\" \" ind2=\" \"><subfield code=\"a\">lccopycat</subfield><subfield
-    code=\"a\">lcode</subfield></datafield><datafield tag=\"043\" ind1=\" \" ind2=\"
-    \"><subfield code=\"a\">a-ir---</subfield></datafield><datafield tag=\"050\" ind1=\"0\"
-    ind2=\"0\"><subfield code=\"a\">DS318.84.N87</subfield><subfield code=\"b\">N87
-    2000</subfield></datafield><datafield tag=\"066\" ind1=\" \" ind2=\" \"><subfield
-    code=\"c\">(3</subfield><subfield code=\"c\">(4</subfield></datafield><datafield
-    tag=\"100\" ind1=\"1\" ind2=\" \"><subfield code=\"6\">880-01</subfield><subfield
-    code=\"a\">Nūrī, ʻAbd Allāh,</subfield><subfield code=\"d\">1949-</subfield></datafield><datafield
-    tag=\"245\" ind1=\"1\" ind2=\"0\"><subfield code=\"6\">880-02</subfield><subfield
-    code=\"a\">Naqdī barā-yi tamām-i fuṣūl :</subfield><subfield code=\"b\">guft
-    va gū-yi Akbar Ganjī bā ʻAbd Allāh Nūrī : bih payvast-i matn-i istīz̤āḥ-i
-    ʻAbd Allāh Nūrī dar Majlis-i panjum.</subfield></datafield><datafield tag=\"246\"
-    ind1=\"1\" ind2=\"5\"><subfield code=\"a\">Critique for all seasons :</subfield><subfield
-    code=\"b\">Akbar Ganji's conversation with Abdullah Nuri</subfield></datafield><datafield
-    tag=\"250\" ind1=\" \" ind2=\" \"><subfield code=\"6\">880-03</subfield><subfield
-    code=\"a\">Chāp-i 1.</subfield></datafield><datafield tag=\"260\" ind1=\" \"
-    ind2=\" \"><subfield code=\"6\">880-04</subfield><subfield code=\"a\">Tihrān
-    :</subfield><subfield code=\"b\">Ṭarḥ-i Naw,</subfield><subfield code=\"c\">2000.</subfield></datafield><datafield
-    tag=\"300\" ind1=\" \" ind2=\" \"><subfield code=\"a\">245 p. ;</subfield><subfield
-    code=\"c\">22 cm.</subfield></datafield><datafield tag=\"440\" ind1=\" \" ind2=\"0\"><subfield
-    code=\"6\">880-05</subfield><subfield code=\"a\">Farhang-i ʻumūmī</subfield></datafield><datafield
-    tag=\"504\" ind1=\" \" ind2=\" \"><subfield code=\"a\">Includes bibliographical
-    references and index.</subfield></datafield><datafield tag=\"600\" ind1=\"1\"
-    ind2=\"0\"><subfield code=\"6\">880-06</subfield><subfield code=\"a\">Nūrī,
-    ʻAbd Allāh,</subfield><subfield code=\"d\">1949-</subfield><subfield code=\"v\">Interviews.</subfield></datafield><datafield
-    tag=\"610\" ind1=\"1\" ind2=\"0\"><subfield code=\"a\">Iran.</subfield><subfield
-    code=\"b\">Vizārat-i Kishvar</subfield><subfield code=\"x\">Officials and employees</subfield><subfield
-    code=\"v\">Interviews.</subfield></datafield><datafield tag=\"600\" ind1=\"1\"
-    ind2=\"0\"><subfield code=\"6\">880-07</subfield><subfield code=\"a\">Nūrī,
-    ʻAbd Allāh,</subfield><subfield code=\"d\">1949-</subfield><subfield code=\"v\">Trials,
-    litigation, etc.</subfield></datafield><datafield tag=\"651\" ind1=\" \" ind2=\"0\"><subfield
-    code=\"a\">Iran</subfield><subfield code=\"x\">Politics and government</subfield><subfield
-    code=\"y\">1997-</subfield></datafield><datafield tag=\"700\" ind1=\"1\" ind2=\"
-    \"><subfield code=\"6\">880-08</subfield><subfield code=\"a\">Ganjī, Akbar.</subfield></datafield><datafield
-    tag=\"880\" ind1=\"1\" ind2=\" \"><subfield code=\"6\">100-01/(3/r‏</subfield><subfield
-    code=\"a\">‏نورى، عبد الله.</subfield></datafield><datafield tag=\"880\" ind1=\"1\"
-    ind2=\"0\"><subfield code=\"6\">245-02/(3/r‏</subfield><subfield code=\"a\">‏نقدى
-    براى تمام فصول :‏</subfield><subfield code=\"b\">‏گفت و گوى اکبر گنجى با عبد الله
-    نورى : به پيوست  متن استيضاح عبد الله نورى در مجلس پنجم.</subfield></datafield><datafield
-    tag=\"880\" ind1=\" \" ind2=\" \"><subfield code=\"6\">250-03/(4/r‏</subfield><subfield
-    code=\"a\">‏چاپ 1.</subfield></datafield><datafield tag=\"880\" ind1=\" \" ind2=\"
-    \"><subfield code=\"6\">260-04/(3/r‏</subfield><subfield code=\"a\">‏تهران :‏</subfield><subfield
-    code=\"b\">‏طرح نو،‏</subfield><subfield code=\"c\">‏‪2000‬.</subfield></datafield><datafield
-    tag=\"880\" ind1=\" \" ind2=\"0\"><subfield code=\"6\">440-05/(3/r‏</subfield><subfield
-    code=\"a\">‏فرهنگ  عمومى</subfield></datafield><datafield tag=\"880\" ind1=\"1\"
-    ind2=\"4\"><subfield code=\"6\">600-06/(3/r‏</subfield><subfield code=\"a\">‏نورى،
-    عبد الله.</subfield></datafield><datafield tag=\"880\" ind1=\"1\" ind2=\"4\"><subfield
-    code=\"6\">600-07/(3/r‏</subfield><subfield code=\"a\">‏نورى، عبد الله.</subfield></datafield><datafield
-    tag=\"880\" ind1=\"1\" ind2=\" \"><subfield code=\"6\">700-08/(3/r‏</subfield><subfield
-    code=\"a\">‏گنجى، اكبر.</subfield></datafield></record></collection>"
-  published_ssim:
-  - Tihrān
-  author_tsim: Nūrī, ʻAbd Allāh, 1949-
-  title_vern_ssim: "‏نقدى براى تمام فصول :‏"
-  lc_callnum_ssim:
-  - DS318.84.N87 N87 2000
-  title_tsim:
-  - 'Naqdī barā-yi tamām-i fuṣūl :'
-  - "‏نقدى براى تمام فصول :‏"
-  pub_date_ssim:
-  - '2000'
-  pub_date_si: 2000
-  published_vern_ssim:
-  - "‏تهران :‏"
-  format: Book
-  subtitle_vern_ssim: "‏گفت و گوى اکبر گنجى با عبد الله نورى : به پيوست  متن استيضاح
-    عبد الله نورى در مجلس پنجم"
-  material_type_ssim:
-  - 245 p.
-  lc_b4cutter_ssim:
-  - DS318.84.N87
-  subject_tsim:
-  - Nūrī, ʻAbd Allāh, 1949-
-  - Iran. Vizārat-i Kishvar
-  - Iran
-  - "‏نورى، عبد الله"
-  title_si: 'naqdī barā-yi tamām-i fuṣūl :guft va gū-yi akbar ganjī bā ʻabd
-    allāh nūrī : bih payvast-i matn-i istīz̤āḥ-i ʻabd allāh nūrī dar majlis-i
-    panjum'
-  author_si: Nūrī ʻAbd Allāh 1949 Naqdī barāyi tamāmi fuṣūl guft va gūyi
-    Akbar Ganjī bā ʻAbd Allāh Nūrī  bih payvasti matni istīz̤āḥi ʻAbd Allāh
-    Nūrī dar Majlisi panjum
-  title_addl_tsim:
-  - 'Naqdī barā-yi tamām-i fuṣūl : guft va gū-yi Akbar Ganjī bā ʻAbd Allāh
-    Nūrī : bih payvast-i matn-i istīz̤āḥ-i ʻAbd Allāh Nūrī dar Majlis-i panjum.'
-  - 'Critique for all seasons : Akbar Ganji''s conversation with Abdullah Nuri'
-  - "‏نقدى براى تمام فصول :‏ ‏گفت و گوى اکبر گنجى با عبد الله نورى : به پيوست  متن
-    استيضاح عبد الله نورى در مجلس پنجم"
-  author_addl_tsim:
-  - Ganjī, Akbar.
-  - "‏گنجى، اكبر"
-  language_ssim:
-  - Persian
-  timestamp: '2014-02-03T18:42:53.056Z'
-  geojson_ssim: "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[53.688046,32.427908]},\"properties\":{\"placename\":\"Iran\"}}"
-  coordinates_srpt:
-  - 32.427908,53.688046
-  - ENVELOPE(44.0318907, 63.3333366, 39.7816755, 25.0594286)
 - author_tsim:
   - Yoshida, Hajime,
   - "吉田一"
@@ -334,7 +329,8 @@
   language_ssim:
   - Japanese
   timestamp: '2014-02-03T18:42:53.056Z'
-  geojson_ssim: "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[138.252924,36.204824]},\"properties\":{\"placename\":\"Japan\"}}"
+  geojson_ssim:
+  - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[138.252924,36.204824]},\"properties\":{\"placename\":\"Japan\"}}"
   coordinates_srpt:
   - 36.204824,138.252924
   - ENVELOPE(122.9338302, 153.9874305, 45.5227719, 24.0460446)
@@ -407,7 +403,8 @@
   language_ssim:
   - Russian
   timestamp: '2014-02-03T18:42:53.056Z'
-  geojson_ssim: "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[66.923684,48.019573]},\"properties\":{\"placename\":\"Kazakhstan\"}}"
+  geojson_ssim:
+  - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[66.923684,48.019573]},\"properties\":{\"placename\":\"Kazakhstan\"}}"
   coordinates_srpt:
   - 48.019573,66.923684
   - ENVELOPE(46.4936719, 87.315415, 55.441984, 40.568584)
@@ -572,7 +569,8 @@
   language_ssim:
   - Korean
   timestamp: '2014-02-03T18:42:53.056Z'
-  geojson_ssim: "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[127.766922,35.907757]},\"properties\":{\"placename\":\"Korea\"}}"
+  geojson_ssim:
+  - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[127.766922,35.907757]},\"properties\":{\"placename\":\"Korea\"}}"
   coordinates_srpt:
   - ENVELOPE(124.608139, 130.9232178, 38.6169312, 33.1061096)
   - 35.907757,127.766922
@@ -1106,7 +1104,8 @@
   language_ssim:
   - Korean
   timestamp: '2014-02-03T18:42:53.056Z'
-  geojson_ssim: "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[127.766922,35.907757]},\"properties\":{\"placename\":\"Korea (North)\"}}"
+  geojson_ssim:
+  - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[127.766922,35.907757]},\"properties\":{\"placename\":\"Korea (North)\"}}"
   coordinates_srpt: 35.907757,127.766922
 - subtitle_tsim: ṿe-hu perush yafeh u-menupeh ʻal Shulḥan ʻarukh Oraḥ ḥayim
     asher ḥiber Yosef Ḳaro ... ʻim ḥidushe dinim she-hishmiṭ ha-gaʼon ... ṿe-himtsiʼam
@@ -1480,7 +1479,8 @@
   language_ssim:
   - Persian
   timestamp: '2014-02-03T18:42:53.056Z'
-  geojson_ssim: "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[53.688046,32.427908]},\"properties\":{\"placename\":\"Iran\"}}"
+  geojson_ssim:
+  - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[53.688046,32.427908]},\"properties\":{\"placename\":\"Iran\"}}"
   coordinates_srpt:
   - 32.427908,53.688046
   - ENVELOPE(44.0318907, 63.3333366, 39.7816755, 25.0594286)
@@ -2458,7 +2458,8 @@
   language_ssim:
   - Tibetan
   timestamp: '2014-02-03T18:42:53.056Z'
-  geojson_ssim: "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[91.117212,29.646923]},\"properties\":{\"placename\":\"Tibet\"}}"
+  geojson_ssim:
+  - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[91.117212,29.646923]},\"properties\":{\"placename\":\"Tibet\"}}"
   coordinates_srpt: 29.646923,91.117212
 - marc_ss: "<?xml version=\"1.0\" encoding=\"UTF-8\"?><collection xmlns=\"http://www.loc.gov/MARC21/slim\"><record><leader>01127cam
     a22002895a 4500</leader><controlfield tag=\"001\">  2008308478</controlfield><controlfield
@@ -2648,7 +2649,8 @@
   language_ssim:
   - Japanese
   timestamp: '2014-02-03T18:42:53.056Z'
-  geojson_ssim: "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[138.252924,36.204824]},\"properties\":{\"placename\":\"Japan\"}}"
+  geojson_ssim:
+  - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[138.252924,36.204824]},\"properties\":{\"placename\":\"Japan\"}}"
   coordinates_srpt: 36.204824,138.252924
 - author_vern_ssim: "林行止"
   subject_addl_ssim:
@@ -2760,3 +2762,103 @@
   coordinates_srpt:
   - ENVELOPE(113.835078, 114.4069561, 22.561968, 22.1533884)
   - 22.396428,114.109497
+- subject_addl_ssim:
+    - 1990-
+    - 2005-2015
+    - Economic conditions 1997-
+    - Politics and government 1997-
+  title_tsim: Test item with bounding box only
+  subject_era_ssim:
+    - 1990-
+    - 2005-2015
+    - 1997-
+  id: '2009373514'
+  isbn_ssim:
+    - '9789573908678'
+    - '9573908670'
+  subject_geo_ssim:
+    - Economic history
+    - World politics
+    - Hong Kong (China)
+  lc_alpha_ssim:
+    - HC
+  title_series_tsim:
+    - Lin Xingzhi zuo pin ji ; 51
+  author_tsim:
+    - Lin, Xingzhi.
+  lc_1letter_ssim:
+    - H - Social Sciences
+  marc_ss: "<?xml version=\"1.0\" encoding=\"UTF-8\"?><collection xmlns=\"http://www.loc.gov/MARC21/slim\"><record><leader>01213nam
+    a22003614a 4500</leader><controlfield tag=\"001\">  2009373513</controlfield><controlfield
+    tag=\"003\">DLC</controlfield><controlfield tag=\"005\">20090121153231.0</controlfield><controlfield
+    tag=\"008\">090114s2008    ch            000 0 chi d</controlfield><datafield
+    tag=\"010\" ind1=\" \" ind2=\" \"><subfield code=\"a\">  2009373513</subfield></datafield><datafield
+    tag=\"020\" ind1=\" \" ind2=\" \"><subfield code=\"a\">9789573908678</subfield></datafield><datafield
+    tag=\"020\" ind1=\" \" ind2=\" \"><subfield code=\"a\">9573908670</subfield></datafield><datafield
+    tag=\"035\" ind1=\" \" ind2=\" \"><subfield code=\"a\">(OCoLC)ocn268619391</subfield></datafield><datafield
+    tag=\"040\" ind1=\" \" ind2=\" \"><subfield code=\"a\">HUA</subfield><subfield
+    code=\"c\">HUA</subfield><subfield code=\"d\">HKP</subfield><subfield code=\"d\">DLC</subfield></datafield><datafield
+    tag=\"042\" ind1=\" \" ind2=\" \"><subfield code=\"a\">lccopycat</subfield></datafield><datafield
+    tag=\"043\" ind1=\" \" ind2=\" \"><subfield code=\"a\">a-cc-hk</subfield></datafield><datafield
+    tag=\"050\" ind1=\"0\" ind2=\"0\"><subfield code=\"a\">HC59.15</subfield><subfield
+    code=\"b\">.L533 2008</subfield></datafield><datafield tag=\"066\" ind1=\" \"
+    ind2=\" \"><subfield code=\"c\">$1</subfield></datafield><datafield tag=\"100\"
+    ind1=\"1\" ind2=\" \"><subfield code=\"6\">880-01</subfield><subfield code=\"a\">Lin,
+    Xingzhi.</subfield></datafield><datafield tag=\"245\" ind1=\"1\" ind2=\"0\"><subfield
+    code=\"6\">880-02</subfield><subfield code=\"a\">Ci an zhou bian /</subfield><subfield
+    code=\"c\">Lin Xingzhi zhu.</subfield></datafield><datafield tag=\"250\" ind1=\"
+    \" ind2=\" \"><subfield code=\"6\">880-03</subfield><subfield code=\"a\">Chu ban.</subfield></datafield><datafield
+    tag=\"260\" ind1=\" \" ind2=\" \"><subfield code=\"6\">880-04</subfield><subfield
+    code=\"a\">Taibei Xian Banqiao Shi :</subfield><subfield code=\"b\">Yuan jing
+    chu ban shi ye you xian gong si,</subfield><subfield code=\"c\">2008.</subfield></datafield><datafield
+    tag=\"300\" ind1=\" \" ind2=\" \"><subfield code=\"a\">5, 300 p. ;</subfield><subfield
+    code=\"c\">21 cm.</subfield></datafield><datafield tag=\"490\" ind1=\"0\" ind2=\"
+    \"><subfield code=\"6\">880-05</subfield><subfield code=\"a\">Lin Xingzhi zuo
+    pin ji ;</subfield><subfield code=\"v\">51</subfield></datafield><datafield tag=\"651\"
+    ind1=\" \" ind2=\"0\"><subfield code=\"a\">Economic history</subfield><subfield
+    code=\"y\">1990-</subfield></datafield><datafield tag=\"651\" ind1=\" \" ind2=\"0\"><subfield
+    code=\"a\">World politics</subfield><subfield code=\"y\">2005-2015.</subfield></datafield><datafield
+    tag=\"651\" ind1=\" \" ind2=\"0\"><subfield code=\"a\">Hong Kong (China)</subfield><subfield
+    code=\"x\">Economic conditions</subfield><subfield code=\"y\">1997-</subfield></datafield><datafield
+    tag=\"651\" ind1=\" \" ind2=\"0\"><subfield code=\"a\">Hong Kong (China)</subfield><subfield
+    code=\"x\">Politics and government</subfield><subfield code=\"y\">1997-</subfield></datafield><datafield
+    tag=\"880\" ind1=\"1\" ind2=\" \"><subfield code=\"6\">100-01/$1</subfield><subfield
+    code=\"a\">林行止.</subfield></datafield><datafield tag=\"880\" ind1=\"1\" ind2=\"0\"><subfield
+    code=\"6\">245-02/$1</subfield><subfield code=\"a\">次按驟變 /</subfield><subfield
+    code=\"c\">林行止著.</subfield></datafield><datafield tag=\"880\" ind1=\" \" ind2=\"
+    \"><subfield code=\"6\">250-03/$1</subfield><subfield code=\"a\">初版.</subfield></datafield><datafield
+    tag=\"880\" ind1=\" \" ind2=\" \"><subfield code=\"6\">260-04/$1</subfield><subfield
+    code=\"a\">臺北縣板橋市 :</subfield><subfield code=\"b\">遠景出版事業有限公司,</subfield><subfield
+    code=\"c\">2008.</subfield></datafield><datafield tag=\"880\" ind1=\"0\" ind2=\"
+    \"><subfield code=\"6\">490-05/$1</subfield><subfield code=\"a\">林行止作品集 ;</subfield><subfield
+    code=\"v\">51</subfield></datafield></record></collection>"
+  published_ssim:
+    - Taibei Xian Banqiao Shi
+  author_tsim: Lin, Xingzhi
+  lc_callnum_ssim:
+    - HC59.15 .L533 2008
+  title_tsim:
+    - Test item with bounding box only /
+  pub_date_ssim:
+    - '2008'
+  pub_date_si: 2008
+  format: Book
+  lc_b4cutter_ssim:
+    - HC59.15
+  material_type_ssim:
+    - 5, 300 p.
+  subject_tsim:
+    - Economic history
+    - World politics
+    - Hong Kong (China)
+  title_si: test item with bounding box only
+  author_si: Lin Xingzhi Ci an zhou bian
+  title_addl_tsim:
+    - Ci an zhou bian /
+  language_ssim:
+    - Chinese
+  timestamp: '2014-02-03T18:42:53.056Z'
+  geojson_ssim:
+    - "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[115.1, 20.1], [118.1, 20.1], [118.1, 21.1], [115.1, 21.1], [115.1, 20.1]]]},\"bbox\":[115.1, 20.1, 118.1, 21.1]}"
+  coordinates_srpt:
+    - ENVELOPE(115.1, 118.1, 21.1, 20.1)

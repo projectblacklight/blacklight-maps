@@ -46,9 +46,9 @@ module BlacklightMaps
     # build GeoJSON features array
     # determine how to build GeoJSON feature based on config and controller#action
     def build_geojson_features
-      if @action == 'index' || @action == 'map'
+      if @action == :index || @action == :map
         build_index_features
-      elsif @action == 'show'
+      elsif @action == :show
         build_show_features
       end
       @features
@@ -97,8 +97,9 @@ module BlacklightMaps
     # turn bboxes into points for index view so we don't get weird mix of boxes and markers
     def build_feature_from_geojson(loc, hits = nil)
       geojson = JSON.parse(loc).deep_symbolize_keys
-      if @action != 'show' && geojson[:bbox]
-        geojson[:geometry][:coordinates] = Geometry::Point.new(Geometry::BoundingBox.new(geojson[:bbox]).find_center).normalize_for_search
+      if @action != :show && geojson[:bbox]
+        bbox = Geometry::BoundingBox.new(geojson[:bbox])
+        geojson[:geometry][:coordinates] = Geometry::Point.new(bbox.find_center).normalize_for_search
         geojson[:geometry][:type] = 'Point'
         geojson.delete(:bbox)
       end
@@ -112,10 +113,10 @@ module BlacklightMaps
     # turn bboxes into points for index view so we don't get weird mix of boxes and markers
     def build_feature_from_coords(coords, hits = nil)
       geojson = { type: 'Feature', properties: {} }
-      if coords.scan(/[\s]/).length == 3 # bbox
+      if coords =~ /ENVELOPE/ # bbox
         geojson.merge!(build_bbox_feature_from_coords(coords))
       elsif coords.match(/^[-]?[\d]*[\.]?[\d]*[ ,][-]?[\d]*[\.]?[\d]*$/) # point
-        geojson[:geometry] = build_coords_geometry(coords)
+        geojson[:geometry] = build_point_geometry(coords)
       else
         Rails.logger.error("This coordinate format is not yet supported: '#{coords}'")
       end
@@ -126,36 +127,23 @@ module BlacklightMaps
 
     def build_bbox_feature_from_coords(coords)
       geojson = { geometry: {} }
-      if @action != 'show'
+      bbox = Geometry::BoundingBox.from_wkt_envelope(coords)
+      if @action != :show
         geojson[:geometry][:type] = 'Point'
-        geojson[:geometry][:coordinates] = Geometry::Point.new(Geometry::BoundingBox.from_lon_lat_string(coords).find_center).normalize_for_search
+        geojson[:geometry][:coordinates] = Geometry::Point.new(bbox.find_center).normalize_for_search
       else
-        coords_array = coords.split(' ').map(&:to_f)
+        coords_array = bbox.to_a
         geojson[:bbox] = coords_array
         geojson[:geometry][:type] = 'Polygon'
-        geojson[:geometry][:coordinates] = bbox_coords_for_geometry(coords_array)
+        geojson[:geometry][:coordinates] = bbox.geojson_geometry_array
       end
       geojson
     end
 
-    def bbox_coords_for_geometry(coords_array)
-      [
-        [
-          [coords_array[0],coords_array[1]], [coords_array[2],coords_array[1]],
-          [coords_array[2],coords_array[3]], [coords_array[0],coords_array[3]],
-          [coords_array[0],coords_array[1]]
-        ]
-      ]
-    end
-
-    def build_coords_geometry(coords)
+    def build_point_geometry(coords)
       geometry = { type: 'Point' }
-      coords_array = if coords.match(/,/)
-                       coords.split(',').reverse
-                     else
-                       coords.split(' ')
-                     end
-      geometry[:coordinates] = coords_array.map { |v| v.to_f }
+      coords_array = coords.match(/,/) ? coords.split(',').reverse : coords.split(' ')
+      geometry[:coordinates] = coords_array.map(&:to_f)
       geometry
     end
 
@@ -164,15 +152,15 @@ module BlacklightMaps
     #  pass the full geojson hash to the partial for easier local customization
     # For coordinate searches (or features with only coordinate data),
     #  render catalog/map_coordinate_search partial
-    def render_leaflet_popup_content(geojson, hits=nil)
+    def render_leaflet_popup_content(geojson, hits = nil)
       if maps_config.search_mode == 'placename' &&
                                      geojson[:properties][maps_config.placename_property.to_sym]
-        @controller.render_to_string partial: 'catalog/map_placename_search',
-                                     locals: { geojson_hash: geojson, hits: hits }
+        @controller.render_to_string(partial: 'catalog/map_placename_search',
+                                     locals: { geojson_hash: geojson, hits: hits })
       else
-        @controller.render_to_string partial: 'catalog/map_spatial_search',
+        @controller.render_to_string(partial: 'catalog/map_spatial_search',
                                      locals: { coordinates: geojson[:bbox].presence || geojson[:geometry][:coordinates],
-                                               hits: hits }
+                                               hits: hits })
       end
     end
   end

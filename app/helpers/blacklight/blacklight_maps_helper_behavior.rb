@@ -80,7 +80,7 @@ module Blacklight
     # pass the document or facet values to BlacklightMaps::GeojsonExport
     def serialize_geojson(documents, options = {})
       export = BlacklightMaps::GeojsonExport.new(controller,
-                                                 controller.action_name,
+                                                 action_name.to_sym,
                                                  documents,
                                                  options)
       export.to_geojson

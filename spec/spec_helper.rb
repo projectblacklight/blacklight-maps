@@ -1,36 +1,36 @@
+# frozen_string_literal: true
+
+# testing environent:
 ENV["RAILS_ENV"] ||= 'test'
 
-require 'engine_cart'
+require 'simplecov'
 require 'coveralls'
 Coveralls.wear!('rails')
+
+SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+SimpleCov.start do
+  add_filter '/spec/'
+end
+
+# engine_cart:
+require 'bundler/setup'
+require 'engine_cart'
 EngineCart.load_application!
-
-require 'capybara/poltergeist'
-Capybara.javascript_driver = :poltergeist
-
-Capybara.register_driver :poltergeist do |app|
-  options = {}
-
-  options[:timeout] = 120 if RUBY_PLATFORM == "java"
-
-  Capybara::Poltergeist::Driver.new(app, options)
-end
-
-if ENV["COVERAGE"] or ENV["CI"]
-  require 'simplecov'
-
-  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
-  SimpleCov.start do
-    add_filter "/spec/"
-  end
-end
 
 require 'blacklight/maps'
 
 require 'rspec/rails'
 require 'capybara/rspec'
+require 'selenium-webdriver'
+require 'webdrivers'
 
+#Capybara.javascript_driver = :selenium_chrome_headless
 
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
+  config.fixture_path = "#{Blacklight::Maps.root}/spec/fixtures"
+
+  config.before(:each, type: :system, js: true) do
+    driven_by :selenium, using: :headless_chrome, screen_size: [1024, 768]
+  end
 end
