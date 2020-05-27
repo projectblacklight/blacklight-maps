@@ -13,7 +13,7 @@ module BlacklightMaps
       if blacklight_params[:spatial_search_type] && blacklight_params[:coordinates]
         solr_parameters[:fq] ||= []
         if blacklight_params[:spatial_search_type] == 'bbox'
-          solr_parameters[:fq] << blacklight_config.view.maps.coordinates_field + ":" + blacklight_params[:coordinates]
+          solr_parameters[:fq] << "#{blacklight_config.view.maps.coordinates_field}:#{blacklight_params[:coordinates]}"
         else
           solr_parameters[:fq] << "{!geofilt sfield=#{blacklight_config.view.maps.coordinates_field}}"
           solr_parameters[:pt] = blacklight_params[:coordinates]
@@ -22,6 +22,5 @@ module BlacklightMaps
       end
       solr_parameters
     end
-
   end
 end

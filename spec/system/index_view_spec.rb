@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe 'catalog#index map view', js: true do
-  before(:each) do
+  before do
     CatalogController.blacklight_config = Blacklight::Configuration.new
     CatalogController.configure_blacklight do |config|
       # use geojson facet for blacklight-maps catalog#index map view specs
@@ -43,19 +43,19 @@ describe 'catalog#index map view', js: true do
 
   describe 'data attributes' do
     let(:maxzoom) { CatalogController.blacklight_config.view.maps.maxzoom }
+    let(:tileurl) { CatalogController.blacklight_config.view.maps.tileurl }
+
     it 'has maxzoom value from config' do
       expect(page).to have_selector("#blacklight-index-map[data-maxzoom='#{maxzoom}']")
     end
 
-    let(:tileurl) { CatalogController.blacklight_config.view.maps.tileurl }
     it 'has tileurl value from config' do
       expect(page).to have_selector("#blacklight-index-map[data-tileurl='#{tileurl}']")
     end
-
   end
 
   describe 'marker clusters' do
-    before(:each) do
+    before do
       3.times do # zoom out to create cluster
         find('a.leaflet-control-zoom-out').click
         sleep(1) # give Leaflet time to combine clusters or spec can fail

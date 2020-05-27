@@ -3,13 +3,15 @@
 require 'spec_helper'
 
 describe BlacklightMaps::RenderConstraintsOverride do
-  class BlacklightMapsControllerTestClass < CatalogController
-    attr_accessor :params
+  let(:controller_test_class) do
+    Class.new(CatalogController) do
+      attr_accessor :params
+    end
   end
-  let(:fake_controller) { BlacklightMapsControllerTestClass.new }
+  let(:fake_controller) { controller_test_class.new }
 
-  before(:each) do
-    fake_controller.extend(BlacklightMaps::RenderConstraintsOverride)
+  before do
+    fake_controller.extend(described_class)
     fake_controller.params = { coordinates: '35.86166,104.195397', spatial_search_type: 'point' }
   end
 
@@ -48,7 +50,7 @@ describe BlacklightMaps::RenderConstraintsOverride do
     end
 
     describe 'render_spatial_query' do
-      before(:each) do
+      before do
         # have to create a request or call to 'url _for' returns an error
         fake_controller.request = ActionDispatch::Request.new(params: { controller: 'catalog',
                                                                         action: 'index' })

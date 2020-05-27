@@ -5,7 +5,6 @@ require 'blacklight'
 module Blacklight
   module Maps
     class Engine < Rails::Engine
-
       # Set some default configurations
       initializer 'blacklight-maps.default_config' do |_app|
         Blacklight::Configuration.default_values[:view].maps.geojson_field = 'geojson_ssim'

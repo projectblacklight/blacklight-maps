@@ -11,7 +11,7 @@ describe 'catalog#show view', js: true do
   end
 
   describe 'item with point feature' do
-    before(:each) { visit solr_document_path('00314247') }
+    before { visit solr_document_path('00314247') }
 
     it 'displays the maplet' do
       expect(page).to have_selector('#blacklight-show-map-container')
@@ -32,7 +32,7 @@ describe 'catalog#show view', js: true do
   end
 
   describe 'item with point and bbox system' do
-    before(:each) { visit solr_document_path('2008308175') }
+    before { visit solr_document_path('2008308175') }
 
     it 'shows the correct mapped item count' do
       expect(page).to have_selector('.mapped-count .badge', text: '2')
@@ -45,7 +45,7 @@ describe 'catalog#show view', js: true do
 
     describe 'click bbox path' do
       before do
-        0.upto(4) { find('a.leaflet-control-zoom-in').click } #so bbox not covered by point
+        0.upto(4) { find('a.leaflet-control-zoom-in').click } # so bbox not covered by point
         find('.leaflet-overlay-pane svg').click
       end
 
@@ -57,7 +57,7 @@ describe 'catalog#show view', js: true do
   end
 
   describe 'item with bbox feature' do
-    before(:each) do
+    before do
       CatalogController.configure_blacklight do |config|
         # set zoom config so we can test whether setMapBounds() is correct
         config.view.maps.maxzoom = 8

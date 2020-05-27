@@ -5,8 +5,8 @@ module BlacklightMaps
     extend ActiveSupport::Concern
 
     included do
-      self.send(:include, BlacklightMaps::RenderConstraintsOverride)
-      self.send(:helper, BlacklightMaps::RenderConstraintsOverride)
+      send(:include, BlacklightMaps::RenderConstraintsOverride)
+      send(:helper, BlacklightMaps::RenderConstraintsOverride)
     end
 
     def map

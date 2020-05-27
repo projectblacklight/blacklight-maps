@@ -5,14 +5,13 @@
 # to affect constraints rendering
 module BlacklightMaps
   module RenderConstraintsOverride
-
     # BlacklightMaps override: update to look for spatial query params
     def has_search_parameters?
       has_spatial_parameters? || super
     end
 
     def has_spatial_parameters?
-      !params[:coordinates].blank?
+      params[:coordinates].present?
     end
 
     # BlacklightMaps override: check for coordinate parameters
@@ -34,8 +33,10 @@ module BlacklightMaps
     ##
     # Render the search query constraint
     def render_search_to_s_coord(params)
-      return "".html_safe if params[:coordinates].blank?
-      render_search_to_s_element(spatial_constraint_label(params), render_filter_value(params[:coordinates]) )
+      return ''.html_safe if params[:coordinates].blank?
+
+      render_search_to_s_element(spatial_constraint_label(params),
+                                 render_filter_value(params[:coordinates]))
     end
 
     # Render the spatial query constraints
@@ -45,10 +46,10 @@ module BlacklightMaps
 
       render_constraint_element(spatial_constraint_label(localized_params),
                                 localized_params[:coordinates],
-                                :classes => ['coordinates'],
-                                :remove => remove_constraint_url(localized_params.merge(:coordinates=>nil,
-                                                                                        :spatial_search_type=>nil,
-                                                                                        :action=>'index')))
+                                classes: ['coordinates'],
+                                remove: remove_constraint_url(localized_params.merge(coordinates: nil,
+                                                                                     spatial_search_type: nil,
+                                                                                     action: 'index')))
     end
 
     def spatial_constraint_label(params)

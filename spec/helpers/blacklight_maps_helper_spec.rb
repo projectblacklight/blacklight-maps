@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe BlacklightMapsHelper do
@@ -19,7 +18,7 @@ describe BlacklightMapsHelper do
   end
   let(:bbox) { [78.3955448, 26.8548157, 99.116241, 36.4833345] }
 
-  before(:each) do
+  before do
     mock_controller.request = ActionDispatch::TestRequest.create
     allow(helper).to receive_messages(controller: mock_controller, action_name: 'index')
     allow(helper).to receive_messages(blacklight_config: blacklight_config)
@@ -32,20 +31,23 @@ describe BlacklightMapsHelper do
   describe 'blacklight_map_tag' do
     context 'with default values' do
       subject { helper.blacklight_map_tag('blacklight-map') }
-      it { should have_selector 'div#blacklight-map' }
-      it { should have_selector "div[data-maxzoom='#{maps_config.maxzoom}']" }
-      it { should have_selector "div[data-tileurl='#{maps_config.tileurl}']" }
-      it { should have_selector "div[data-mapattribution='#{maps_config.mapattribution}']" }
+
+      it { is_expected.to have_selector 'div#blacklight-map' }
+      it { is_expected.to have_selector "div[data-maxzoom='#{maps_config.maxzoom}']" }
+      it { is_expected.to have_selector "div[data-tileurl='#{maps_config.tileurl}']" }
+      it { is_expected.to have_selector "div[data-mapattribution='#{maps_config.mapattribution}']" }
     end
 
     context 'with custom values' do
-      subject { helper.blacklight_map_tag('blacklight-map', data: {maxzoom: 6, tileurl: 'http://example.com/', mapattribution: 'hello world' }) }
-      it { should have_selector "div[data-maxzoom='6'][data-tileurl='http://example.com/'][data-mapattribution='hello world']" }
+      subject { helper.blacklight_map_tag('blacklight-map', data: { maxzoom: 6, tileurl: 'http://example.com/', mapattribution: 'hello world' }) }
+
+      it { is_expected.to have_selector "div[data-maxzoom='6'][data-tileurl='http://example.com/'][data-mapattribution='hello world']" }
     end
 
     context 'when a block is provided' do
       subject { helper.blacklight_map_tag('foo') { content_tag(:span, 'bar') } }
-      it { should have_selector('div > span', text: 'bar') }
+
+      it { is_expected.to have_selector('div > span', text: 'bar') }
     end
   end
 
@@ -74,13 +76,9 @@ describe BlacklightMapsHelper do
 
   describe 'link_to_placename_field' do
     subject { helper.link_to_placename_field(query_term, maps_config.placename_field) }
-    it 'creates a link to the placename field' do
-      expect(subject).to include("catalog?f%5B#{maps_config.placename_field}%5D%5B%5D=Tibet")
-    end
 
-    it 'includes the default_document_index_view_type in the params' do
-      expect(subject).to include('view=list')
-    end
+    it { is_expected.to include("catalog?f%5B#{maps_config.placename_field}%5D%5B%5D=Tibet") }
+    it { is_expected.to include('view=list') }
 
     it 'creates a link to the placename field using the display value' do
       expect(helper.link_to_placename_field(query_term, maps_config.placename_field, 'foo')).to include('">foo</a>')
@@ -105,7 +103,7 @@ describe BlacklightMapsHelper do
   end
 
   describe 'render_index_mapview' do
-    before(:each) { helper.instance_variable_set(:@response, response) }
+    before { helper.instance_variable_set(:@response, response) }
 
     it 'renders the "catalog/index_mapview" partial' do
       expect(helper.render_index_mapview).to include("$('#blacklight-index-map').blacklight_leaflet_map")

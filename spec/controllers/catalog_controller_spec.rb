@@ -8,11 +8,12 @@ describe CatalogController do
   # test setting configuration defaults in Blacklight::Maps::Engine here
   describe 'maps config' do
     let(:maps_config) { described_class.blacklight_config.view.maps }
+
     it 'sets the defaults in blacklight_config' do
       %i[geojson_field placename_property coordinates_field search_mode spatial_query_dist
-       placename_field coordinates_facet_field facet_mode tileurl mapattribution maxzoom
-       show_initial_zoom].each do |config_method|
-        expect(maps_config.send(config_method)).to_not be_blank
+         placename_field coordinates_facet_field facet_mode tileurl mapattribution maxzoom
+         show_initial_zoom].each do |config_method|
+        expect(maps_config.send(config_method)).not_to be_blank
       end
     end
   end

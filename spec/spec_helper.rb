@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # testing environent:
-ENV["RAILS_ENV"] ||= 'test'
+ENV['RAILS_ENV'] ||= 'test'
 
 require 'simplecov'
 require 'coveralls'
@@ -23,8 +23,6 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'selenium-webdriver'
 require 'webdrivers'
-
-#Capybara.javascript_driver = :selenium_chrome_headless
 
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!

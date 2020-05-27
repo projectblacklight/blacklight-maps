@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe 'catalog#map view', js: true do
-  before(:each) do
+  before do
     CatalogController.blacklight_config = Blacklight::Configuration.new
     CatalogController.configure_blacklight do |config|
       # use coordinates_facet facet for blacklight-maps catalog#map view specs
@@ -25,9 +25,7 @@ describe 'catalog#map view', js: true do
   end
 
   describe 'marker popups' do
-    before(:each) do
-      #0.upto(1) { find('a.leaflet-control-zoom-in').click } # zoom in
-      #save_screenshot # TODO: specs below fail without this, figure out why
+    before do
       2.times do # zoom out to create cluster
         find('a.leaflet-control-zoom-in').click
         sleep(1) # give Leaflet time to split clusters or spec can fail
