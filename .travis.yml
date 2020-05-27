@@ -8,20 +8,23 @@ addons:
 before_install:
   - google-chrome-stable --headless --disable-gpu --no-sandbox --remote-debugging-port=9222 http://localhost &
 
-global_env:
-  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
-  - ENGINE_CART_RAILS_OPTIONS='--skip-git --skip-listen --skip-spring --skip-keeps --skip-action-cable --skip-coffee --skip-test'
+env:
+  global:
+    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+    - ENGINE_CART_RAILS_OPTIONS='--skip-git --skip-listen --skip-spring --skip-keeps --skip-action-cable --skip-coffee --skip-test'
 
 matrix:
   include:
     - rvm: 2.7.0
-      env: "RAILS_VERSION=6.0.2.1"
+      env: "RAILS_VERSION=6.0.2.2"
     - rvm: 2.6.5
-      env: "RAILS_VERSION=6.0.0 ENGINE_CART_RAILS_OPTIONS=\"--skip-webpack-install\""
+      env: "RAILS_VERSION=6.0.2.2"
     - rvm: 2.6.5
-      env: "RAILS_VERSION=5.2.3"
+      env: "RAILS_VERSION=5.2.4.2"
     - rvm: 2.5.7
-      env: "RAILS_VERSION=5.2.3 BLACKLIGHT_API_TEST=true ENGINE_CART_RAILS_OPTIONS=\"--api --skip-git --skip-bundle --skip-listen --skip-spring --skip-yarn --skip-keeps --skip-action-cable --skip-coffee --skip-test\""
-fast_finish: true
+      env: "RAILS_VERSION=5.2.4.2 BLACKLIGHT_API_TEST=true ENGINE_CART_RAILS_OPTIONS=\"--api --skip-git --skip-bundle --skip-listen --skip-spring --skip-yarn --skip-keeps --skip-action-cable --skip-coffee --skip-test\""
+    - rvm: 2.4.9
+      env: "RAILS_VERSION=5.2.4.2"
+  fast_finish: true
 
 jdk: openjdk11
