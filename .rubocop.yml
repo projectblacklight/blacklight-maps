@@ -66,6 +66,10 @@ RSpec/DescribeClass:
   Exclude:
     - 'spec/system/*'
 
+RSpec/FilePath:
+  Exclude:
+    - 'spec/lib/blacklight/maps/*'
+
 RSpec/MessageSpies:
   EnforcedStyle: receive
 

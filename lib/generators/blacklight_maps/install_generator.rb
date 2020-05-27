@@ -21,9 +21,8 @@ module BlacklightMaps
 
       marker = '//= require blacklight/blacklight'
       insert_into_file 'app/assets/javascripts/application.js', after: marker do
-        "\n//" \
-        '// Required by BlacklightMaps' \
-        '//= require blacklight-maps'
+        "\n// Required by BlacklightMaps" \
+        "\n//= require blacklight-maps"
       end
       append_to_file 'config/initializers/assets.rb',
                      "\nRails.application.config.assets.paths << Rails.root.join('vendor', 'assets', 'images')\n"
