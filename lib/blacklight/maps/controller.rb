@@ -5,8 +5,7 @@ module BlacklightMaps
     extend ActiveSupport::Concern
 
     included do
-      send(:include, BlacklightMaps::RenderConstraintsOverride)
-      send(:helper, BlacklightMaps::RenderConstraintsOverride)
+      helper BlacklightMaps::RenderConstraintsOverride
     end
 
     def map
@@ -15,6 +14,14 @@ module BlacklightMaps
       respond_to do |format|
         format.html
       end
+    end
+
+    ##
+    # BlacklightMaps override: update to look for spatial query params
+    # Check if any search parameters have been set
+    # @return [Boolean]
+    def has_search_parameters?
+      params[:coordinates].present? || super
     end
   end
 end
