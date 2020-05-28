@@ -5,13 +5,9 @@
 # to affect constraints rendering
 module BlacklightMaps
   module RenderConstraintsOverride
-    # BlacklightMaps override: update to look for spatial query params
-    #def has_search_parameters?
-    #  has_spatial_parameters? || super
-    #end
-
+    # @param search_state [Blacklight::SearchState]
+    # @return [Boolean]
     def has_spatial_parameters?(search_state)
-      #params[:coordinates].present?
       search_state.params[:coordinates].present?
     end
 
