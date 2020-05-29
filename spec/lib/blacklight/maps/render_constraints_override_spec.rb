@@ -10,10 +10,6 @@ describe BlacklightMaps::RenderConstraintsOverride, type: :helper do
     Blacklight::SearchState.new(test_params, blacklight_config, mock_controller)
   end
 
-  before do
-    allow(helper).to receive_messages(convert_to_search_state: test_search_state)
-  end
-
   describe 'has_search_parameters?' do
     before { mock_controller.params = test_params }
 
@@ -30,17 +26,19 @@ describe BlacklightMaps::RenderConstraintsOverride, type: :helper do
 
   describe 'query_has_constraints?' do
     it 'returns true if there are coordinate params' do
-      expect(helper.query_has_constraints?(test_params)).to be_truthy
+      expect(helper.query_has_constraints?(test_search_state)).to be_truthy
     end
   end
 
   describe 'spatial_constraint_label' do
+    let(:bbox_params) { { spatial_search_type: 'bbox' } }
+
     it 'returns the point label' do
       expect(helper.spatial_constraint_label(test_search_state)).to eq(I18n.t('blacklight.search.filters.coordinates.point'))
     end
 
     it 'returns the bbox label' do
-      expect(helper.spatial_constraint_label({ spatial_search_type: 'bbox' })).to eq(I18n.t('blacklight.search.filters.coordinates.bbox'))
+      expect(helper.spatial_constraint_label(bbox_params)).to eq(I18n.t('blacklight.search.filters.coordinates.bbox'))
     end
   end
 
@@ -55,7 +53,7 @@ describe BlacklightMaps::RenderConstraintsOverride, type: :helper do
       end
 
       it 'removes the spatial params' do
-        expect(helper.remove_spatial_params(test_search_state)).to_not have_content('spatial_search_type')
+        expect(helper.remove_spatial_params(test_search_state)).not_to have_content('spatial_search_type')
       end
     end
 
