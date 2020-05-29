@@ -1,0 +1,21 @@
+sq:
+  blacklight:
+
+    maps:
+      interactions:
+        bbox_search: 'Shikoni artikujt që kryqëzohen me këtë kuti kufizuese'
+        placename_search: 'Shikoni artikujt nga ky vendndodhje'
+        item: 'artikull'
+        point_search: 'Shikoni artikujt nga ky vendndodhje'
+        search_ctrl_cue: 'Kërkoni për të gjithë artikujt brenda dritares aktuale të hartës'
+      title: 'Hartë'
+      leader_html: "Klikoni në një shënues për të kërkuar artikuj nga ai vend, ose përdorni &#128269; butoni për të kërkuar të gjitha artikujt brenda dritares aktuale të hartës."
+
+    search:
+      filters:
+        coordinates:
+          bbox: 'Kuti kufizuese'
+          point: 'Koordinon'
+      view:
+        maps: 'Hartë'
+

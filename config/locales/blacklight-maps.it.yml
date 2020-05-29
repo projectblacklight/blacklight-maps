@@ -3,18 +3,18 @@ it:
 
     maps:
       interactions:
-        bbox_search: 'View items that intersect with this bounding box'
-        placename_search: 'View items from this location'
-        item: 'item'
-        point_search: 'View items from this location'
-        search_ctrl_cue: 'Search for all items within the current map window'
+        bbox_search: 'Visualizza gli elementi che si intersecano con questo rettangolo di selezione'
+        placename_search: 'Visualizza articoli da questa posizione'
+        item: 'articolo'
+        point_search: 'Visualizza articoli da questa posizione'
+        search_ctrl_cue: 'Cerca tutti gli elementi nella finestra della mappa corrente'
       title: 'Mappa'
-      leader: 'Click on a marker to search for items from that location.'
+      leader: 'Fai clic su un marcatore per cercare elementi da quella posizione oppure usa &#128269; per cercare tutti gli elementi nella finestra della mappa corrente.'
 
     search:
       filters:
         coordinates:
-          bbox: 'Bounding Box'
-          point: 'Coordinates'
+          bbox: 'Rettangolo di selezione'
+          point: 'Coordinate'
       view:
         maps: 'Mappa'
