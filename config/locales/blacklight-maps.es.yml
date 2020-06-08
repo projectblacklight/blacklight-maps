@@ -9,7 +9,7 @@ es:
         point_search: 'Ver elementos desde esta ubicación'
         search_ctrl_cue: 'Buscar todos los elementos dentro de la ventana del mapa actual'
       title: 'Mapa'
-      leader_html: "Click on a marker to search for items from that location, or use the &#128269; button to search for all items within the current map window."
+      leader_html: "Haga clic en un marcador para buscar elementos desde esa ubicación, o use el &#128269; botón para buscar todos los elementos dentro de la ventana del mapa actual."
 
     search:
       filters:

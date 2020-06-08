@@ -1,8 +1,6 @@
 @import 'leaflet';
 @import 'MarkerCluster';
 @import 'MarkerCluster.Default';
-//@import 'leaflet.markercluster';
-//@import 'leaflet.markercluster.default';
 
 body.blacklight-catalog-map {
 
@@ -14,10 +12,6 @@ body.blacklight-catalog-map {
     display:none;
   }
 
-}
-// TODO: I think below is no longer needed?
-.view-icon-maps {
-  &:before { content: "\e135"; } 
 }
 
 #sortAndPerPage {
