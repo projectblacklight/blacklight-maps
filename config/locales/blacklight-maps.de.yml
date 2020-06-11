@@ -1,0 +1,21 @@
+de:
+  blacklight:
+
+    maps:
+      interactions:
+        bbox_search: 'Zeigen Sie Elemente an, die sich mit diesem Begrenzungsrahmen überschneiden'
+        placename_search: 'Zeigen Sie Elemente von diesem Speicherort aus an'
+        item: 'Artikel'
+        point_search: 'Zeigen Sie Elemente von diesem Speicherort aus an'
+        search_ctrl_cue: 'Suchen Sie nach allen Elementen im aktuellen Kartenfenster'
+      title: 'Karte'
+      leader_html: "Klicken Sie auf eine Markierung, um nach Elementen von diesem Ort aus zu suchen, oder verwenden Sie die &#128269; Schaltfläche, um nach allen Elementen im aktuellen Kartenfenster zu suchen."
+
+    search:
+      filters:
+        coordinates:
+          bbox: 'Begrenzungsrahmen'
+          point: 'Koordinaten'
+      view:
+        maps: 'Karte'
+

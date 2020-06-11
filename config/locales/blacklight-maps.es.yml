@@ -1,0 +1,21 @@
+es:
+  blacklight:
+
+    maps:
+      interactions:
+        bbox_search: 'Ver elementos que se cruzan con este cuadro delimitador'
+        placename_search: 'Ver elementos desde esta ubicación'
+        item: 'articulo'
+        point_search: 'Ver elementos desde esta ubicación'
+        search_ctrl_cue: 'Buscar todos los elementos dentro de la ventana del mapa actual'
+      title: 'Mapa'
+      leader_html: "Haga clic en un marcador para buscar elementos desde esa ubicación, o use el &#128269; botón para buscar todos los elementos dentro de la ventana del mapa actual."
+
+    search:
+      filters:
+        coordinates:
+          bbox: 'Cuadro delimitador'
+          point: 'Coordenadas'
+      view:
+        maps: 'Mapa'
+

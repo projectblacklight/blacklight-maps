@@ -1,0 +1,21 @@
+hu:
+  blacklight:
+
+    maps:
+      interactions:
+        bbox_search: 'Tekintse meg azokat az elemeket, amelyek keresztezik ezt a határolódobozt'
+        placename_search: 'Tekintse meg az ezen a helyen található elemeket'
+        item: 'tétel'
+        point_search: 'Tekintse meg az ezen a helyen található elemeket'
+        search_ctrl_cue: 'Az összes elem keresése az aktuális térkép ablakban'
+      title: 'Térkép'
+      leader_html: "Kattintson a jelölőre az adott helyről elemek kereséséhez, vagy használja a &#128269; gombot az összes elem kereséséhez az aktuális térkép ablakban."
+
+    search:
+      filters:
+        coordinates:
+          bbox: 'Határoló doboz'
+          point: 'Koordináták'
+      view:
+        maps: 'Térkép'
+

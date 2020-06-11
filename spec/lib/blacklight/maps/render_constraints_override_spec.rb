@@ -1,95 +1,68 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-describe BlacklightMaps::RenderConstraintsOverride do
-
-  class BlacklightMapsControllerTestClass < CatalogController
-    attr_accessor :params
+describe BlacklightMaps::RenderConstraintsOverride, type: :helper do
+  let(:mock_controller) { CatalogController.new }
+  let(:blacklight_config) { Blacklight::Configuration.new }
+  let(:test_params) { { coordinates: '35.86166,104.195397', spatial_search_type: 'point' } }
+  let(:test_search_state) do
+    Blacklight::SearchState.new(test_params, blacklight_config, mock_controller)
   end
 
-  before(:each) do
-    @fake_controller = BlacklightMapsControllerTestClass.new
-    @fake_controller.extend(BlacklightMaps::RenderConstraintsOverride)
-    @fake_controller.params = { coordinates: "35.86166,104.195397", spatial_search_type: "point" }
+  describe 'has_search_parameters?' do
+    before { mock_controller.params = test_params }
+
+    it 'returns true if coordinate params are present' do
+      expect(mock_controller.has_search_parameters?).to be_truthy
+    end
   end
 
-  describe "testing for spatial parameters" do
-
-    describe "has_spatial_parameters?" do
-
-      it "should be true if coordinate params are present" do
-        expect(@fake_controller.has_spatial_parameters?).to be true
-      end
-
+  describe 'has_spatial_parameters?' do
+    it 'returns true if coordinate params are present' do
+      expect(helper.has_spatial_parameters?(test_search_state)).to be_truthy
     end
-
-    describe "has_search_parameters?" do
-
-      it "should be true if coordinate params are present" do
-        expect(@fake_controller.has_search_parameters?).to be true
-      end
-
-    end
-
   end
 
-  describe "render spatial constraints" do
-
-    before do
-      @test_params = @fake_controller.params
+  describe 'query_has_constraints?' do
+    it 'returns true if there are coordinate params' do
+      expect(helper.query_has_constraints?(test_search_state)).to be_truthy
     end
-
-    describe "query_has_constraints?" do
-
-      it "should be true if there are coordinate params" do
-        expect(@fake_controller.query_has_constraints?).to be true
-      end
-
-    end
-
-    describe "spatial_constraint_label" do
-
-      it "should return the point label" do
-        expect(@fake_controller.spatial_constraint_label(@test_params)).to eq(I18n.t('blacklight.search.filters.coordinates.point'))
-      end
-
-      it "should return the bbox label" do
-        @test_params = { spatial_search_type: "bbox" }
-        expect(@fake_controller.spatial_constraint_label(@test_params)).to eq(I18n.t('blacklight.search.filters.coordinates.bbox'))
-      end
-
-    end
-
-    describe "render_spatial_query" do
-
-      before :each do
-        # have to create a request or call to 'url _for' returns an error
-        @fake_controller.request = ActionDispatch::Request.new(params:{controller: 'catalog', action: 'index'})
-        @fake_controller.request.path_parameters[:controller] = 'catalog'
-      end
-
-      # TODO: can't get these specs to pass, getting error:
-      # NoMethodError: undefined method `render_constraint_element'
-
-      it "should render the coordinates" #do
-        #expect(@fake_controller.render_spatial_query(@test_params)).to have_content(@fake_controller.params[:coordinates])
-      #end
-
-      it "should remove spatial params in the 'remove' link" #do
-        #expect(@fake_controller.render_spatial_query(@test_params)).to_not have_content("spatial_search_type")
-      #end
-
-    end
-
-    describe "render_search_to_s_coord" do
-
-      it "should return render_search_to_s_element when coordinates are present" do
-        expect(@fake_controller).to receive(:render_search_to_s_element)
-        expect(@fake_controller).to receive(:render_filter_value)
-        @fake_controller.render_search_to_s_coord(@test_params)
-      end
-
-    end
-
   end
 
+  describe 'spatial_constraint_label' do
+    let(:bbox_params) { { spatial_search_type: 'bbox' } }
+
+    it 'returns the point label' do
+      expect(helper.spatial_constraint_label(test_search_state)).to eq(I18n.t('blacklight.search.filters.coordinates.point'))
+    end
+
+    it 'returns the bbox label' do
+      expect(helper.spatial_constraint_label(bbox_params)).to eq(I18n.t('blacklight.search.filters.coordinates.bbox'))
+    end
+  end
+
+  describe 'render spatial constraints' do
+    describe 'render_spatial_query' do
+      before do
+        allow(helper).to receive_messages(search_action_path: search_catalog_path)
+      end
+
+      it 'renders the coordinates' do
+        expect(helper.render_spatial_query(test_search_state)).to have_content(test_params[:coordinates])
+      end
+
+      it 'removes the spatial params' do
+        expect(helper.remove_spatial_params(test_search_state)).not_to have_content('spatial_search_type')
+      end
+    end
+
+    describe 'render_search_to_s_coord' do
+      it 'returns render_search_to_s_element when coordinates are present' do
+        expect(helper).to receive(:render_search_to_s_element)
+        expect(helper).to receive(:render_filter_value)
+        helper.render_search_to_s_coord(test_params)
+      end
+    end
+  end
 end

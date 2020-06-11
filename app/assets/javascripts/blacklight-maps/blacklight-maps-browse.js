@@ -5,8 +5,8 @@
 
     // Configure default options and those passed via the constructor options
     var options = $.extend({
-      tileurl : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      mapattribution : 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+      tileurl : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      mapattribution : 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors, <a' + ' href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>',
       initialzoom: 2,
       singlemarkermode: true,
       searchcontrol: false,
@@ -21,7 +21,7 @@
     // Extend options from data-attributes
     $.extend(options, this.data());
 
-    var mapped_items = '<span class="mapped-count"><span class="badge">' + geojson_docs.features.length + '</span> location' + (geojson_docs.features.length !== 1 ? 's' : '') + ' mapped</span>';
+    var mapped_items = '<span class="mapped-count"><span class="badge badge-secondary">' + geojson_docs.features.length + '</span>' + ' location' + (geojson_docs.features.length !== 1 ? 's' : '') + ' mapped</span>';
 
     var mapped_caveat = '<span class="mapped-caveat">Only items with location data are shown below</span>';
 
@@ -31,12 +31,12 @@
 
     // Update page links with number of mapped items, disable sort, per_page, pagination
     if (sortAndPerPage.length) { // catalog#index and #map view
-      var page_links = sortAndPerPage.find('.page_links');
-      var result_count = page_links.find('.page_entries').find('strong').last().html();
-      page_links.html('<span class="page_entries"><strong>' + result_count + '</strong> items found</span>' + mapped_items + mapped_caveat);
+      var page_links = sortAndPerPage.find('.page-links');
+      var result_count = page_links.find('.page-entries').find('strong').last().html();
+      page_links.html('<span class="page-entries"><strong>' + result_count + '</strong> items found</span>' + mapped_items + mapped_caveat);
       sortAndPerPage.find('.dropdown-toggle').hide();
     } else { // catalog#show view
-      $(this.selector).before(mapped_items);
+        $(this).before(mapped_items);
     }
 
     // determine whether to use item location or result count in cluster icon display
@@ -119,7 +119,6 @@
           var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
           this.link = L.DomUtil.create('a', 'leaflet-bar-part search-control', container);
           this.link.title = options.searchctrlcue;
-          this.icon = L.DomUtil.create('i', 'glyphicon glyphicon-search', this.link);
 
           L.DomEvent.addListener(this.link, 'click', _search);
 

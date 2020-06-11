@@ -1,0 +1,21 @@
+pt-BR:
+  blacklight:
+
+    maps:
+      interactions:
+        bbox_search: 'Exibir itens que se cruzam com esta caixa delimitadora'
+        placename_search: 'Ver itens deste local'
+        item: 'item'
+        point_search: 'Ver itens deste local'
+        search_ctrl_cue: 'Pesquise todos os itens na janela atual do mapa'
+      title: 'Mapa'
+      leader_html: "Clique em um marcador para procurar itens desse local ou use o &#128269; para procurar todos os itens na janela atual do mapa."
+
+    search:
+      filters:
+        coordinates:
+          bbox: 'Caixa delimitadora'
+          point: 'Coordenadas'
+      view:
+        maps: 'Mapa'
+

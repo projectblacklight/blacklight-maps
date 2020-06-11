@@ -1,6 +1,6 @@
 @import 'leaflet';
-@import 'leaflet.markercluster';
-@import 'leaflet.markercluster.default';
+@import 'MarkerCluster';
+@import 'MarkerCluster.Default';
 
 body.blacklight-catalog-map {
 
@@ -14,21 +14,17 @@ body.blacklight-catalog-map {
 
 }
 
-.view-icon-maps {
-  &:before { content: "\e135"; } 
-}
-
 #sortAndPerPage {
 
-  .page_links {
+  .page-links {
 
     .mapped-count {
-      margin-left: 7px;
+      margin-left: 10px;
       color: dimgray;
     }
 
     .mapped-caveat {
-      margin-left: 7px;
+      margin-left: 10px;
       font-size: 12px;
       color: darkgray;
     }
@@ -45,7 +41,7 @@ body.blacklight-catalog-map {
 
     & ~ div.record-padding {
 
-      div.pagination {
+      nav.pagination {
         display: none;
       }
 
@@ -65,6 +61,7 @@ body.blacklight-catalog-map {
 
 a.leaflet-bar-part.search-control {
   cursor: pointer;
+  &:before { content: "\1F50D"; }
 }
 
 /* Portrait tablet to landscape and desktop */

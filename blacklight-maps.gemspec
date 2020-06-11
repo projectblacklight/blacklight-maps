@@ -1,33 +1,34 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+# frozen_string_literal: true
+
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'blacklight/maps/version'
 
-Gem::Specification.new do |spec|
-  spec.name          = "blacklight-maps"
-  spec.version       = Blacklight::Maps::VERSION
-  spec.authors       = ["Chris Beer", "Jack Reed", "Eben English"]
-  spec.email         = ["cabeer@stanford.edu", "pjreed@stanford.edu", "eenglish@bpl.org"]
-  spec.summary       = %q{Maps for Blacklight}
-  spec.homepage      = "https://github.com/projectblacklight/blacklight-maps"
-  spec.license       = "Apache-2.0"
+Gem::Specification.new do |s|
+  s.name          = 'blacklight-maps'
+  s.version       = Blacklight::Maps::VERSION
+  s.authors       = ['Chris Beer', 'Jack Reed', 'Eben English']
+  s.email         = %w[cabeer@stanford.edu pjreed@stanford.edu eenglish@bpl.org]
+  s.summary       = 'Maps for Blacklight'
+  s.description   = 'Blacklight plugin providing map views for records with geographic data.'
+  s.homepage      = 'https://github.com/projectblacklight/blacklight-maps'
+  s.license       = 'Apache-2.0'
 
-  spec.files         = `git ls-files -z`.split("\x0")
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
-  spec.require_paths = ["lib"]
+  s.files         = `git ls-files -z`.split("\x0")
+  s.test_files    = s.files.grep(%r{^(test|spec|features)/})
+  s.bindir        = 'exe'
+  s.executables   = s.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  s.require_paths = ['lib']
 
-  spec.add_dependency "rails", "< 6"
-  spec.add_dependency "blacklight", ">= 6.1.0", "< 7.0.0"
-  spec.add_dependency "bootstrap-sass", "~> 3.2"
-  spec.add_dependency "leaflet-rails", "0.7.7"
-  spec.add_dependency "leaflet-markercluster-rails"
+  s.add_dependency 'blacklight', '>= 7.8.0', '< 8'
+  s.add_dependency 'rails', '>= 5.1', '< 7'
 
-  spec.add_development_dependency "bundler", "~> 1.5"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "rspec-rails", "~> 3.0"
-  spec.add_development_dependency "jettywrapper"
-  spec.add_development_dependency "engine_cart", "~> 0.4.0"
-  spec.add_development_dependency "capybara"
-  spec.add_development_dependency "poltergeist", ">= 1.5.0"
+  s.add_development_dependency 'capybara'
+  s.add_development_dependency 'engine_cart', '~> 2.1'
+  s.add_development_dependency 'rspec-rails', '~> 3.0'
+  s.add_development_dependency 'rubocop', '~> 0.63.0'
+  s.add_development_dependency 'rubocop-rspec', '~> 1.8'
+  s.add_development_dependency 'selenium-webdriver', '>= 3.13.1'
+  s.add_development_dependency 'solr_wrapper', '~> 2.0'
+  s.add_development_dependency 'webdrivers', '~> 3.0'
 end

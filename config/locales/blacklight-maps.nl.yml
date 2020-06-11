@@ -1,0 +1,21 @@
+nl:
+  blacklight:
+
+    maps:
+      interactions:
+        bbox_search: 'Bekijk items die kruisen met dit selectiekader'
+        placename_search: 'Bekijk items van deze locatie'
+        item: 'item'
+        point_search: 'Bekijk items van deze locatie'
+        search_ctrl_cue: 'Zoek naar alle items in het huidige kaartvenster'
+      title: 'Kaart'
+      leader_html: "Klik op een markering om naar items op die locatie te zoeken of gebruik de &#128269; knop om te zoeken naar alle items in het huidige kaartvenster."
+
+    search:
+      filters:
+        coordinates:
+          bbox: 'Begrenzende doos'
+          point: 'Coördinaten'
+      view:
+        maps: 'Kaart'
+

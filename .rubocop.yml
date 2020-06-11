@@ -1,0 +1,99 @@
+require: rubocop-rspec
+
+AllCops:
+  DisplayCopNames: true
+  TargetRubyVersion: 2.3
+  Exclude:
+    - "lib/generators/blacklight_maps/templates/**/*"
+    - "blacklight-maps.gemspec"
+
+# engine_cart block includes conditional, not duplication
+Bundler/DuplicatedGem:
+  Exclude:
+    - 'Gemfile'
+
+# engine_cart block is following default Rails order
+Bundler/OrderedGems:
+  Exclude:
+    - 'Gemfile'
+
+Layout/IndentationConsistency:
+  EnforcedStyle: normal
+
+Metrics/AbcSize:
+  Max: 20
+  Exclude:
+    - 'lib/blacklight/maps/maps_search_builder.rb'
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
+
+Metrics/ClassLength:
+  Exclude:
+    - 'lib/blacklight/maps/export.rb'
+
+Metrics/LineLength:
+  Max: 200
+  Exclude:
+    - 'lib/blacklight/maps/engine.rb'
+    - 'spec/**/*'
+
+Metrics/MethodLength:
+  Max: 15
+
+Naming/HeredocDelimiterNaming:
+  Enabled: false
+
+Naming/PredicateName:
+  NamePrefixBlacklist:
+    - is_
+
+Rails:
+  Enabled: true
+
+Rails/OutputSafety:
+  Enabled: false
+
+RSpec/AnyInstance:
+  Exclude:
+    - 'spec/system/initial_view_spec.rb'
+
+RSpec/BeforeAfterAll:
+  Enabled: false
+
+RSpec/DescribeClass:
+  Exclude:
+    - 'spec/system/*'
+
+RSpec/FilePath:
+  Exclude:
+    - 'spec/lib/blacklight/maps/*'
+
+RSpec/MessageSpies:
+  EnforcedStyle: receive
+
+RSpec/MultipleExpectations:
+  Max: 4
+
+RSpec/NestedGroups:
+  Max: 5
+
+RSpec/PredicateMatcher:
+  Exclude:
+    - 'spec/lib/blacklight/maps/render_constraints_override_spec.rb'
+
+# https://github.com/rubocop-hq/rubocop/issues/6439
+Style/AccessModifierDeclarations:
+  Enabled: false
+
+Style/BracesAroundHashParameters:
+  Exclude:
+    - 'spec/lib/blacklight/maps/export_spec.rb'
+
+Style/Documentation:
+  Enabled: false
+
+Style/SignalException:
+  Exclude:
+    - 'spec/**/*'
