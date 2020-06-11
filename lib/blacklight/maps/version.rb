@@ -2,6 +2,6 @@
 
 module Blacklight
   module Maps
-    VERSION = '0.5.2'
+    VERSION = '1.1.0'
   end
 end
