@@ -37,6 +37,11 @@ module BlacklightMaps
         center
       end
 
+      # Returns 2d array of latitude and longitude values for bounding box
+      def to_latlng
+        return [[@south, @west], [@north, @east]]
+      end
+
       # Creates a new bounding box from from a string of points
       # "-100 -50 100 50" (south west north east)
       def self.from_lon_lat_string(points)
