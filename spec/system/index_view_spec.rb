@@ -8,6 +8,7 @@ describe 'catalog#index map view', js: true do
     CatalogController.configure_blacklight do |config|
       # use geojson facet for blacklight-maps catalog#index map view specs
       config.add_facet_field 'geojson_ssim', limit: -2, label: 'GeoJSON', show: false
+      config.add_facet_field 'subject_geo_ssim', label: 'Region'
       config.add_facet_fields_to_solr_request!
     end
     visit search_catalog_path q: 'korea', view: 'maps'
