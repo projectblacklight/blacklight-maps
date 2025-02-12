@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 gemspec
 
 group :development, :test do
-  gem 'coveralls', require: false
+  gem 'coveralls_reborn', require: false
 end
 
 gem 'engine_cart'
@@ -34,7 +34,7 @@ else
   end
 
   case ENV['RAILS_VERSION']
-  when /^5.[12]/, /^6.0/
+  when /^5.[12]/, /^6.0/, /^7.0/
     gem 'sass-rails', '~> 5.0'
   when /^4.2/
     gem 'responders', '~> 2.0'

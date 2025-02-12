@@ -6,7 +6,7 @@ describe BlacklightMaps::GeojsonExport do
   let(:controller) { CatalogController.new }
   let(:action) { :index }
   let(:response_docs) do
-    YAML.safe_load(File.open(File.join(fixture_path, 'sample_solr_documents.yml')))
+    YAML.safe_load(File.open(File.join(RSpec.configuration.fixture_paths.first, 'sample_solr_documents.yml')))
   end
   let(:export) { described_class.new(controller, action, response_docs, foo: 'bar') }
 

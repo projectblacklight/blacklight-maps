@@ -23,7 +23,9 @@ module Blacklight
 
       # Add our helpers
       initializer 'blacklight-maps.helpers' do |_app|
-        ActionView::Base.send :include, BlacklightMapsHelper
+        config.after_initialize do
+          ActionView::Base.send :include, BlacklightMapsHelper
+        end
       end
 
       # This makes our rake tasks visible.

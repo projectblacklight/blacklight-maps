@@ -21,14 +21,13 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_dependency 'blacklight', '>= 7.8.0', '< 8'
-  s.add_dependency 'rails', '>= 5.1', '< 7'
+  s.add_dependency 'rails', '>= 5.1', '< 8'
 
   s.add_development_dependency 'capybara'
-  s.add_development_dependency 'engine_cart', '~> 2.1'
-  s.add_development_dependency 'rspec-rails', '~> 3.0'
-  s.add_development_dependency 'rubocop', '~> 0.63.0'
-  s.add_development_dependency 'rubocop-rspec', '~> 1.8'
+  s.add_development_dependency 'engine_cart', '~> 2.6'
+  s.add_development_dependency 'rspec-rails', '~> 7.1'
+  s.add_development_dependency 'rubocop', '~> 1.71.2'
+  s.add_development_dependency 'rubocop-rspec', '~> 3.4'
   s.add_development_dependency 'selenium-webdriver', '>= 3.13.1'
-  s.add_development_dependency 'solr_wrapper', '~> 2.0'
-  s.add_development_dependency 'webdrivers', '~> 3.0'
+  s.add_development_dependency 'solr_wrapper', '~> 4.1'
 end
