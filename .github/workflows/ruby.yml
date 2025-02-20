@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: test (ruby ${{ matrix.ruby }} / rails ${{ matrix.rails_version }} / blacklight ${{ matrix.blacklight_version }} ${{ matrix.additional_name }})
+    strategy:
+      matrix:
+        ruby: ["3.2", "3.3", "3.4"]
+        rails_version: ["7.1.5.1", "7.2.2"]
+        blacklight_version: ["~> 7.0"]
+        additional_engine_cart_rails_options: [""]
+        additional_name: [""]
+        include:
+          - ruby: "3.1"
+            rails_version: "7.0.8.7"
+    env:
+      RAILS_VERSION: ${{ matrix.rails_version }}
+      BLACKLIGHT_VERSION: ${{ matrix.blacklight_version }}
+      ENGINE_CART_RAILS_OPTIONS: "--skip-action-cable ${{ matrix.additional_engine_cart_rails_options }}"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Ruby ${{ matrix.ruby }}
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - name: Install dependencies with Rails ${{ matrix.rails_version }}
+        run: bundle install
+      - name: Run tests
+        run: bundle exec rake
