@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec-rails', '~> 7.1'
   s.add_development_dependency 'rubocop', '~> 1.72.2'
   s.add_development_dependency 'rubocop-rspec', '~> 3.4'
+  s.add_development_dependency "rubocop-rails", '~> 2.30'
   s.add_development_dependency 'selenium-webdriver', '~> 4.0'
   s.add_development_dependency 'solr_wrapper', '~> 4.1'
 end
