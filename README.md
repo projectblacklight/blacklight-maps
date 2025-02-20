@@ -1,6 +1,6 @@
 # Blacklight::Maps
 
-[![Build Status](https://travis-ci.org/projectblacklight/blacklight-maps.png?branch=master)](https://travis-ci.org/projectblacklight/blacklight-maps) | [![Coverage Status](https://coveralls.io/repos/projectblacklight/blacklight-maps/badge.svg?branch=master)](https://coveralls.io/r/projectblacklight/blacklight-maps?branch=master)
+![CI](https://github.com/projectblacklight/blacklight-maps/workflows/CI/badge.svg) | [![Coverage Status](https://coveralls.io/repos/projectblacklight/blacklight-maps/badge.svg?branch=master)](https://coveralls.io/r/projectblacklight/blacklight-maps?branch=master)
 
 Provides map views for Blacklight for items with geospatial coordinate (latitude/longitude) metadata.
 

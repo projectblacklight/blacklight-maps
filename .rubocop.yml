@@ -1,8 +1,10 @@
-require: rubocop-rspec
+plugins:
+  - rubocop-rspec
+  - rubocop-rails
 
 AllCops:
   DisplayCopNames: true
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 3.4
   Exclude:
     - "lib/generators/blacklight_maps/templates/**/*"
     - "blacklight-maps.gemspec"
@@ -33,7 +35,7 @@ Metrics/ClassLength:
   Exclude:
     - 'lib/blacklight/maps/export.rb'
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 200
   Exclude:
     - 'lib/blacklight/maps/engine.rb'
@@ -46,11 +48,14 @@ Naming/HeredocDelimiterNaming:
   Enabled: false
 
 Naming/PredicateName:
-  NamePrefixBlacklist:
+  ForbiddenPrefixes:
     - is_
 
 Rails:
   Enabled: true
+
+Rails/HelperInstanceVariable:
+  Enabled: false
 
 Rails/OutputSafety:
   Enabled: false
@@ -66,7 +71,7 @@ RSpec/DescribeClass:
   Exclude:
     - 'spec/system/*'
 
-RSpec/FilePath:
+RSpec/SpecFilePathFormat:
   Exclude:
     - 'spec/lib/blacklight/maps/*'
 
@@ -75,6 +80,9 @@ RSpec/MessageSpies:
 
 RSpec/MultipleExpectations:
   Max: 4
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 10
 
 RSpec/NestedGroups:
   Max: 5
@@ -86,10 +94,6 @@ RSpec/PredicateMatcher:
 # https://github.com/rubocop-hq/rubocop/issues/6439
 Style/AccessModifierDeclarations:
   Enabled: false
-
-Style/BracesAroundHashParameters:
-  Exclude:
-    - 'spec/lib/blacklight/maps/export_spec.rb'
 
 Style/Documentation:
   Enabled: false

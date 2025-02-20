@@ -22,13 +22,12 @@ require 'blacklight/maps'
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'selenium-webdriver'
-require 'webdrivers'
 
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
-  config.fixture_path = "#{Blacklight::Maps.root}/spec/fixtures"
+  config.fixture_paths = ["#{Blacklight::Maps.root}/spec/fixtures"]
 
-  config.before(:each, type: :system, js: true) do
+  config.before(:each, :js, type: :system) do
     driven_by :selenium, using: :headless_chrome, screen_size: [1024, 768]
   end
 end

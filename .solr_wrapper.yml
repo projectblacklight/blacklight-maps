@@ -5,3 +5,4 @@
 collection:
   dir: ./.internal_test_app/solr/conf/
   name: blacklight-core
+version: 9.6.1

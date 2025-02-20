@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'catalog#show view', js: true do
+describe 'catalog#show view', :js do
   before(:all) do
     CatalogController.blacklight_config = Blacklight::Configuration.new
     CatalogController.configure_blacklight do |config|

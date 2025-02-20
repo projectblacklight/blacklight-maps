@@ -94,6 +94,7 @@ module BlacklightMaps
     # turn bboxes into points for index view so we don't get weird mix of boxes and markers
     # @param loc [Hash]
     # @param hits [Integer]
+    # rubocop:disable Metrics/AbcSize
     def build_feature_from_geojson(loc, hits = nil)
       geojson = JSON.parse(loc).deep_symbolize_keys
       if @action != :show && geojson[:bbox]
@@ -107,6 +108,7 @@ module BlacklightMaps
       geojson[:properties][:popup] = render_leaflet_popup_content(geojson, hits)
       geojson
     end
+    # rubocop:enable Metrics/AbcSize
 
     # build GeoJSON feature from incoming raw coordinate data
     # turn bboxes into points for index view so we don't get weird mix of boxes and markers
@@ -116,7 +118,7 @@ module BlacklightMaps
       geojson = { type: 'Feature', properties: {} }
       if coords =~ /ENVELOPE/ # bbox
         geojson.merge!(build_bbox_feature_from_coords(coords))
-      elsif coords =~ /^[-]?[\d]*[\.]?[\d]*[ ,][-]?[\d]*[\.]?[\d]*$/ # point
+      elsif coords =~ /^-?\d*\.?\d*[ ,]-?\d*\.?\d*$/ # point
         geojson[:geometry] = build_point_geometry(coords)
       else
         Rails.logger.error("This coordinate format is not yet supported: '#{coords}'")
