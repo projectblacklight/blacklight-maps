@@ -17,9 +17,6 @@ jobs:
         blacklight_version: ["~> 7.0"]
         additional_engine_cart_rails_options: [""]
         additional_name: [""]
-        include:
-          - ruby: "3.1"
-            rails_version: "7.0.8.7"
     env:
       RAILS_VERSION: ${{ matrix.rails_version }}
       BLACKLIGHT_VERSION: ${{ matrix.blacklight_version }}
