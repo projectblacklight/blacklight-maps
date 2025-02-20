@@ -46,7 +46,7 @@ module BlacklightMaps
       # Creates a new bounding box from from a Solr WKT Envelope string
       # "ENVELOPE(34.26, 35.89, 33.33, 29.47)" (minX, maxX, maxY, minY)
       def self.from_wkt_envelope(envelope)
-        coords = envelope.gsub(/[[A-Z]\(\)]/, '')&.split(', ')
+        coords = envelope.gsub(/[[A-Z]()]/, '')&.split(', ')
         new([coords[0], coords[3], coords[1], coords[2]])
       end
 

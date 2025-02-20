@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'catalog#index map view', js: true do
+describe 'catalog#index map view', :js do
   before do
     CatalogController.blacklight_config = Blacklight::Configuration.new
     CatalogController.configure_blacklight do |config|

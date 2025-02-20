@@ -24,7 +24,7 @@ module Blacklight
       # Add our helpers
       initializer 'blacklight-maps.helpers' do |_app|
         config.after_initialize do
-          ActionView::Base.send :include, BlacklightMapsHelper
+          ActionView::Base.include BlacklightMapsHelper
         end
       end
 

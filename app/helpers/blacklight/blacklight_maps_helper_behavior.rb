@@ -12,7 +12,7 @@ module Blacklight
         mapattribution: maps_config.mapattribution
       }
       options = { id: id, data: default_data }.deep_merge(tag_options)
-      block_given? ? content_tag(:div, options, &block) : tag(:div, options)
+      block_given? ? content_tag(:div, options, &block) : tag.div(**options)
     end
 
     # return the placename value to be used as a link
