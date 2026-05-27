@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_dependency 'blacklight', '>= 7.35.0', '< 8'
-  s.add_dependency 'rails', '>= 7.1', '< 8'
+  s.add_dependency 'rails', '>= 7.1', '< 9'
 
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'engine_cart', '~> 2.6'
