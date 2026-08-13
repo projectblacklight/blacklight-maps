@@ -13,9 +13,15 @@ Map results view for search results (coordinate data as facet):
 Maplet widget in item detail view:
 ![Screen shot](docs/blacklight-maps_show-view.png)
 
-## Installation
+## Requirements
 
-(See [Blacklight Version Compatibility](#blacklight-compatibility) below to make sure you're using a version of the gem that works with the version of Blacklight you're using.)
+blacklight-maps 2.x requires:
+- Blacklight 8.x
+    - See [Blacklight Version Compatibility](#blacklight-compatibility) below to make sure you're using a version of the gem that works with the version of Blacklight you're using.
+- Rails 8.x
+- Propshaft asset pipeline with importmap-rails or a package.json-based bundler like jsbundling-rails for JavaScript. Sprockets is no longer supported.
+
+## Installation
 
 Add this line to your application's Gemfile:
 
@@ -32,6 +38,8 @@ Or install it yourself as:
 Run Blacklight-Maps generator:
     
     $ rails g blacklight_maps:install
+
+The install generator handles CSS setup automatically for apps using [cssbundling-rails](https://github.com/rails/cssbundling-rails) with Bootstrap (`rails new --css bootstrap`). Apps using dartsass-rails or other CSS pipelines will need to add the Leaflet CDN stylesheets and the `blacklight_maps` stylesheet import manually.
 
 ## Usage
 
@@ -114,7 +122,7 @@ Blacklight-Maps expects you to provide these configuration options:
 
 In addition, you must add the geospatial facet field to the list of facet fields in `app/controllers/catalog_controller.rb`, for example:
 ```ruby
-config.add_facet_field 'geojson_ssim', :limit => -2, :label => 'Coordinates', :show => false
+config.add_facet_field 'geojson_ssim', limit: -1, label: 'Coordinates', show: false
 ```
 
 #### Optional
@@ -145,7 +153,7 @@ All of these options can easily be configured in `CatalogController.rb` in the `
     config.view.maps.maxzoom = 18
     config.view.maps.show_initial_zoom = 5
 
-    config.add_facet_field 'geojson', :limit => -2, :label => 'Coordinates', :show => false
+    config.add_facet_field 'geojson', limit: -1, label: 'Coordinates', show: false
 ...
 
 ```
@@ -174,7 +182,7 @@ However, the catalog#show maplet widget must be included manually, via one of tw
 
 ### Customization
 
-The ```blacklight_map_tag``` helper takes an options hash as one of its arguments that can be used to provide customization options for the Leaflet map functionality via data attributes. (See ```app/views/catalog/index_map``` for an example.) The available options include:
+The ```blacklight_map_tag``` helper accepts additional data attributes for customizing Leaflet map behavior. These correspond to [Stimulus values](https://stimulus.hotwired.dev/reference/values) on the `blacklight-maps-leaflet` controller. (See ```app/views/catalog/_index_mapview.html.erb``` for an example.) The available options include:
 
 Option | Type | Default | Description
 ------ | ---- | ------- | -----------
@@ -196,6 +204,7 @@ The table below indicates which versions of Blacklight Maps are compatible with 
 
 Blacklight Maps version | works with Blacklight version
 ----------------------- | ---------------------
+2.0.* | >=8.0, < 9
 1.2.* | >= 7.35.0, < 8
 1.1.* | >= 7.8.0, < 8
 0.5.* | >= 6.1.0, < 7

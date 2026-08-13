@@ -153,17 +153,18 @@ describe BlacklightMaps::GeojsonExport do
     end
 
     describe 'coordinates search_mode' do
-      before do
-        CatalogController.configure_blacklight do |config|
-          config.view.maps.search_mode = 'coordinates'
-        end
-      end
-
       let(:spatial_popup) do
         export.send(:render_leaflet_popup_content,
                     { type: 'Feature',
                       geometry: { type: 'Point', coordinates: [104.195397, 35.86166] },
                       properties: { hits: 1 } })
+      end
+      let(:blacklight_config) do
+        controller.blacklight_config.deep_copy.tap { |config| config.view.maps.search_mode = 'coordinates' }
+      end
+
+      before do
+        allow(controller).to receive(:blacklight_config).and_return(blacklight_config)
       end
 
       it 'renders the map_spatial_search partial' do

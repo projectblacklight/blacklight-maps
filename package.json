@@ -1,0 +1,16 @@
+{
+  "name": "blacklight-maps",
+  "version": "2.0.0",
+  "description": "Blacklight plugin providing map views for records with geographic data.",
+  "homepage": "https://github.com/projectblacklight/blacklight-maps",
+  "license": "Apache-2.0",
+  "exports": {
+    ".": "./app/javascript/blacklight-maps/index.js",
+    "./*": "./app/javascript/blacklight-maps/*.js"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "leaflet": "^1.9.4",
+    "leaflet.markercluster": "^1.5.3"
+  }
+}

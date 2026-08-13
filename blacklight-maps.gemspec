@@ -20,12 +20,14 @@ Gem::Specification.new do |s|
   s.executables   = s.files.grep(%r{^exe/}) { |f| File.basename(f) }
   s.require_paths = ['lib']
 
-  s.add_dependency 'blacklight', '>= 7.35.0', '< 8'
-  s.add_dependency 'rails', '>= 7.1', '< 8'
+  s.add_dependency 'blacklight', '~> 8.0'
+  s.add_dependency 'rails', '~> 8.0'
+  s.add_dependency 'stimulus-rails', '~> 1.3'
 
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'engine_cart', '~> 2.6'
-  s.add_development_dependency 'rspec-rails', '~> 7.1'
+  s.add_development_dependency 'rspec-rails', '~> 8.0'
+  # TODO: Bump rubocop?
   s.add_development_dependency 'rubocop', '~> 1.72.2'
   s.add_development_dependency 'rubocop-rspec', '~> 3.4'
   s.add_development_dependency "rubocop-rails", '~> 2.30'

@@ -7,9 +7,10 @@ module Blacklight
     def blacklight_map_tag(id, tag_options = {}, &block)
       maps_config = blacklight_config.view.maps
       default_data = {
-        maxzoom: maps_config.maxzoom,
-        tileurl: maps_config.tileurl,
-        mapattribution: maps_config.mapattribution
+        controller: 'blacklight-maps-leaflet',
+        'blacklight-maps-leaflet-maxzoom-value': maps_config.maxzoom,
+        'blacklight-maps-leaflet-tileurl-value': maps_config.tileurl,
+        'blacklight-maps-leaflet-mapattribution-value': maps_config.mapattribution
       }
       options = { id: id, data: default_data }.deep_merge(tag_options)
       block_given? ? content_tag(:div, options, &block) : tag.div(**options)
@@ -40,7 +41,7 @@ module Blacklight
       new_params = if params[:f] && params[:f][field]&.include?(field_value)
                      search_state.params
                    else
-                     search_state.add_facet_params(field, field_value)
+                     search_state.filter(field).add(field_value).params
                    end
       new_params[:view] = default_document_index_view_type
       new_params.except!(:id, :spatial_search_type, :coordinates, :controller, :action)

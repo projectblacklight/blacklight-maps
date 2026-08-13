@@ -1,7 +1,3 @@
-@import 'leaflet';
-@import 'MarkerCluster';
-@import 'MarkerCluster.Default';
-
 body.blacklight-catalog-map {
 
   #map_leader_text {
@@ -38,15 +34,12 @@ body.blacklight-catalog-map {
   #blacklight-index-map {
     height: 550px;
     margin: 10px 0;
+  }
 
-    & ~ div.record-padding {
-
-      nav.pagination {
-        display: none;
-      }
-
+  &.map ~ div.record-padding {
+    nav.paginate-section {
+      display: none;
     }
-
   }
 
 }
@@ -83,4 +76,3 @@ a.leaflet-bar-part.search-control {
   }
 
 }
-

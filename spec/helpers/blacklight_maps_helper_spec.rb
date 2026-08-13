@@ -10,7 +10,7 @@ describe BlacklightMapsHelper do
   let(:search_service) do
     Blacklight::SearchService.new(config: blacklight_config, user_params: { q: query_term })
   end
-  let(:response) { search_service.search_results[0] }
+  let(:response) { search_service.search_results }
   let(:docs) { response.aggregations[maps_config.geojson_field].items }
   let(:coords) { [91.117212, 29.646923] }
   let(:geojson_hash) do
@@ -24,7 +24,7 @@ describe BlacklightMapsHelper do
     allow(helper).to receive_messages(blacklight_config: blacklight_config)
     allow(helper).to receive_messages(blacklight_configuration_context: Blacklight::Configuration::Context.new(mock_controller))
     allow(helper).to receive(:search_state).and_return Blacklight::SearchState.new({}, blacklight_config, mock_controller)
-    blacklight_config.add_facet_field 'geojson_ssim', limit: -2, label: 'GeoJSON', show: false
+    blacklight_config.add_facet_field 'geojson_ssim', limit: -1, label: 'GeoJSON', show: false
     blacklight_config.add_facet_fields_to_solr_request!
   end
 
@@ -33,15 +33,21 @@ describe BlacklightMapsHelper do
       subject { helper.blacklight_map_tag('blacklight-map') }
 
       it { is_expected.to have_selector 'div#blacklight-map' }
-      it { is_expected.to have_selector "div[data-maxzoom='#{maps_config.maxzoom}']" }
-      it { is_expected.to have_selector "div[data-tileurl='#{maps_config.tileurl}']" }
-      it { is_expected.to have_selector "div[data-mapattribution='#{maps_config.mapattribution}']" }
+      it { is_expected.to have_selector "div[data-controller='blacklight-maps-leaflet']" }
+      it { is_expected.to have_selector "div[data-blacklight-maps-leaflet-maxzoom-value='#{maps_config.maxzoom}']" }
+      it { is_expected.to have_selector "div[data-blacklight-maps-leaflet-tileurl-value='#{maps_config.tileurl}']" }
+      it { is_expected.to have_selector "div[data-blacklight-maps-leaflet-mapattribution-value='#{maps_config.mapattribution}']" }
     end
 
     context 'with custom values' do
-      subject { helper.blacklight_map_tag('blacklight-map', data: { maxzoom: 6, tileurl: 'http://example.com/', mapattribution: 'hello world' }) }
+      subject do
+        helper.blacklight_map_tag('blacklight-map',
+                                  data: { 'blacklight-maps-leaflet-maxzoom-value': 6,
+                                          'blacklight-maps-leaflet-tileurl-value': 'http://example.com/',
+                                          'blacklight-maps-leaflet-mapattribution-value': 'hello world' })
+      end
 
-      it { is_expected.to have_selector "div[data-maxzoom='6'][data-tileurl='http://example.com/'][data-mapattribution='hello world']" }
+      it { is_expected.to have_selector "div[data-blacklight-maps-leaflet-maxzoom-value='6'][data-blacklight-maps-leaflet-tileurl-value='http://example.com/'][data-blacklight-maps-leaflet-mapattribution-value='hello world']" }
     end
 
     context 'when a block is provided' do
@@ -106,7 +112,8 @@ describe BlacklightMapsHelper do
     before { helper.instance_variable_set(:@response, response) }
 
     it 'renders the "catalog/index_mapview" partial' do
-      expect(helper.render_index_mapview).to include("$('#blacklight-index-map').blacklight_leaflet_map")
+      expect(helper.render_index_mapview).to include('id="blacklight-index-map"')
+      expect(helper.render_index_mapview).to include('data-controller="blacklight-maps-leaflet"')
     end
   end
 

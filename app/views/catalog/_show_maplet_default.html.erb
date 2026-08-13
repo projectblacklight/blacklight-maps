@@ -2,8 +2,10 @@
 <% if @document[blacklight_config.view.maps.geojson_field.to_sym] || @document[blacklight_config.view.maps.coordinates_field.to_sym] %>
   <div id="blacklight-show-map-container">
     <%= blacklight_map_tag('blacklight-show-map',
-                           {data:{initialzoom:blacklight_config.view.maps.show_initial_zoom,
-                                  singlemarkermode:false}}) %>
-    <%= javascript_tag "$('#blacklight-show-map').blacklight_leaflet_map(#{serialize_geojson(@document)});" %>
+                           data: {
+                             'blacklight-maps-leaflet-geojson-value': serialize_geojson(@document),
+                             'blacklight-maps-leaflet-initialzoom-value': blacklight_config.view.maps.show_initial_zoom,
+                             'blacklight-maps-leaflet-singlemarkermode-value': false
+                           }) %>
   </div>
 <% end %>

@@ -5,20 +5,34 @@ require 'blacklight'
 module Blacklight
   module Maps
     class Engine < Rails::Engine
-      # Set some default configurations
+      # Adds the gem's JS to the asset paths so Propshaft can serve it, and
+      # registers config/importmap.rb with importmap-rails.
+      initializer 'blacklight_maps.importmap', before: 'importmap' do |app|
+        app.config.assets.paths << Engine.root.join('app/javascript')
+        if app.config.respond_to?(:importmap)
+          app.config.importmap.paths << Engine.root.join('config/importmap.rb')
+          app.config.importmap.cache_sweepers << Engine.root.join('app/javascript')
+        end
+      end
+
+      # Set some default configurations.
+      # Uses default_configuration block so our defaults run after BL8 initializes :view.
       initializer 'blacklight-maps.default_config' do |_app|
-        Blacklight::Configuration.default_values[:view].maps.geojson_field = 'geojson_ssim'
-        Blacklight::Configuration.default_values[:view].maps.placename_property = 'placename'
-        Blacklight::Configuration.default_values[:view].maps.coordinates_field = 'coordinates_srpt'
-        Blacklight::Configuration.default_values[:view].maps.search_mode = 'placename' # or 'coordinates'
-        Blacklight::Configuration.default_values[:view].maps.spatial_query_dist = 0.5
-        Blacklight::Configuration.default_values[:view].maps.placename_field = 'subject_geo_ssim'
-        Blacklight::Configuration.default_values[:view].maps.coordinates_facet_field = 'coordinates_ssim'
-        Blacklight::Configuration.default_values[:view].maps.facet_mode = 'geojson' # or 'coordinates'
-        Blacklight::Configuration.default_values[:view].maps.tileurl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-        Blacklight::Configuration.default_values[:view].maps.mapattribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
-        Blacklight::Configuration.default_values[:view].maps.maxzoom = 18
-        Blacklight::Configuration.default_values[:view].maps.show_initial_zoom = 5
+        Blacklight::Configuration.default_configuration do
+          maps = Blacklight::Configuration.default_values[:view].maps
+          maps.geojson_field = 'geojson_ssim'
+          maps.placename_property = 'placename'
+          maps.coordinates_field = 'coordinates_srpt'
+          maps.search_mode = 'placename' # or 'coordinates'
+          maps.spatial_query_dist = 0.5
+          maps.placename_field = 'subject_geo_ssim'
+          maps.coordinates_facet_field = 'coordinates_ssim'
+          maps.facet_mode = 'geojson' # or 'coordinates'
+          maps.tileurl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+          maps.mapattribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+          maps.maxzoom = 18
+          maps.show_initial_zoom = 5
+        end
       end
 
       # Add our helpers

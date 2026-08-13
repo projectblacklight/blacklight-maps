@@ -15,24 +15,57 @@ module BlacklightMaps
       generate 'blacklight:install'
     end
 
-    def assets
-      copy_file 'blacklight_maps.css.scss', 'app/assets/stylesheets/blacklight_maps.css.scss'
-      return if IO.read('app/assets/javascripts/application.js').include?('blacklight-maps')
+    # Add the npm package whenever there is a package.json, regardless of JS delivery mode.
+    # Importmap apps need it so the SCSS @import resolves via node_modules.
+    # Jsbundling apps need it for both JS bundling and CSS.
+    def add_npm_package
+      return unless File.exist?('package.json')
 
-      marker = '//= require blacklight/blacklight'
-      insert_into_file 'app/assets/javascripts/application.js', after: marker do
-        "\n// Required by BlacklightMaps" \
-        "\n//= require blacklight-maps"
+      if ENV['CI'] || test_app?
+        run "yarn add file:#{Blacklight::Maps::Engine.root}"
+      else
+        run "yarn add blacklight-maps@#{BlacklightMaps::VERSION}"
       end
-      append_to_file 'config/initializers/assets.rb',
-                     "\nRails.application.config.assets.paths << Rails.root.join('vendor', 'assets', 'images')\n"
     end
 
-    def inject_search_builder
-      inject_into_file 'app/models/search_builder.rb',
-                       after: /include Blacklight::Solr::SearchBuilderBehavior.*$/ do
-        "\n  include BlacklightMaps::MapsSearchBuilderBehavior\n"
+    def add_javascript
+      if using_importmaps?
+        # importmap pins are registered automatically by the engine initializer
+      elsif using_jsbundling?
+        # package already added in add_npm_package
+      else
+        say_status('warning', 'Could not detect importmap-rails or a package.json. Add BlacklightMaps JS manually.', :yellow)
+        return
       end
+
+      append_to_file 'app/javascript/application.js' do
+        <<~JS
+
+          import BlacklightMaps from "blacklight-maps"
+          new BlacklightMaps().connect()
+        JS
+      end
+      say_status('info', 'Added BlacklightMaps import to app/javascript/application.js', :green)
+    end
+
+    def add_stylesheet
+      main_css = %w[
+        app/assets/stylesheets/application.bootstrap.scss
+        app/assets/stylesheets/application.scss
+        app/assets/stylesheets/application.css
+      ].find { |f| File.exist?(f) }
+
+      return say_status('warning', 'Could not find main stylesheet. Add Leaflet CSS and blacklight-maps styles manually.', :yellow) unless main_css
+
+      prepend_to_file(main_css, leaflet_url_imports) unless File.read(main_css).include?('leaflet.css')
+      append_to_file(main_css) { blacklight_maps_import } unless File.read(main_css).include?('blacklight-maps')
+    end
+
+    def build_assets
+      return unless File.exist?('package.json')
+
+      run 'yarn build:css'
+      run 'yarn build' if using_jsbundling?
     end
 
     def install_catalog_controller_mixin
@@ -42,15 +75,17 @@ module BlacklightMaps
       end
     end
 
-    def install_search_history_controller
-      target_file = 'app/controllers/search_history_controller.rb'
-      if File.exist?(target_file)
-        inject_into_file target_file,
-                         after: /include Blacklight::SearchHistory/ do
-          "\n  helper BlacklightMaps::RenderConstraintsOverride\n"
-        end
-      else
-        copy_file 'search_history_controller.rb', target_file
+    def add_coordinates_facet_field
+      inject_into_file 'app/controllers/catalog_controller.rb',
+                       after: /configure_blacklight do \|config\|.*$/ do
+        "\n" \
+        "    config.add_facet_field :coordinates,\n" \
+        "                           filter_class: BlacklightMaps::CoordinatesFilterField,\n" \
+        "                           filter_query_builder: BlacklightMaps::SpatialFilterQuery,\n" \
+        "                           item_presenter: BlacklightMaps::SpatialItemPresenter,\n" \
+        "                           show: false,\n" \
+        "                           include_in_request: false,\n" \
+        "                           label: 'Spatial Search'\n"
       end
     end
 
@@ -63,6 +98,34 @@ module BlacklightMaps
                        after: %r{<copyField source="title_tsim" dest="title_spell"/>} do
         "\n  <copyField source=\"coordinates_srpt\" dest=\"coordinates_ssim\" />\n"
       end
+    end
+
+    private
+
+    def using_importmaps?
+      defined?(Importmap) && File.exist?('config/importmap.rb')
+    end
+
+    def using_jsbundling?
+      File.exist?('package.json') && !using_importmaps?
+    end
+
+    def leaflet_url_imports
+      <<~CSS
+        @import url("https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css");
+        @import url("https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.css");
+        @import url("https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css");
+      CSS
+    end
+
+    def blacklight_maps_import
+      <<~CSS
+        @import "blacklight-maps/app/assets/stylesheets/blacklight_maps/blacklight-maps";
+      CSS
+    end
+
+    def test_app?
+      Rails.application.class.name == 'Internal::Application' # rubocop:disable Style/ClassEqualityComparison
     end
   end
 end

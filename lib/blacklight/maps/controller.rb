@@ -4,12 +4,8 @@ module BlacklightMaps
   module Controller
     extend ActiveSupport::Concern
 
-    included do
-      helper BlacklightMaps::RenderConstraintsOverride
-    end
-
     def map
-      (@response, @document_list) = search_service.search_results
+      @response = search_service.search_results
       params[:view] = 'maps'
       respond_to do |format|
         format.html

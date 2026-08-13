@@ -5,10 +5,8 @@ namespace :blacklight_maps do
     desc 'Put sample data into solr'
     task seed: [:environment] do
       require 'yaml'
-      docs = YAML.safe_load(File.open(File.join(Blacklight::Maps.root,
-                                                'spec',
-                                                'fixtures',
-                                                'sample_solr_documents.yml')))
+      gem_path = Gem::Specification.find_by_name('blacklight-maps').gem_dir
+      docs = YAML.safe_load(File.read(File.join(gem_path, 'spec', 'fixtures', 'sample_solr_documents.yml')))
       conn = Blacklight.default_index.connection
       conn.add docs
       conn.commit

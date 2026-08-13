@@ -43,6 +43,8 @@ Layout/LineLength:
 
 Metrics/MethodLength:
   Max: 15
+  Exclude:
+    - "Rakefile"
 
 Naming/HeredocDelimiterNaming:
   Enabled: false

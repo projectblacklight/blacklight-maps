@@ -3,10 +3,16 @@
 require 'spec_helper'
 
 describe 'catalog#show view', :js do
-  before(:all) do
-    CatalogController.blacklight_config = Blacklight::Configuration.new
-    CatalogController.configure_blacklight do |config|
-      config.show.partials << :show_maplet # add maplet to show view partials
+  around do |example|
+    original_config = CatalogController.blacklight_config
+    begin
+      CatalogController.blacklight_config = original_config.deep_copy
+      CatalogController.configure_blacklight do |config|
+        config.show.partials << :show_maplet # add maplet to show view partials
+      end
+      example.run
+    ensure
+      CatalogController.blacklight_config = original_config
     end
   end
 
