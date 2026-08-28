@@ -53,4 +53,8 @@ describe BlacklightMaps::Geometry do
       expect(unparseable_point.normalize_for_search).to eq([175.804603, 35.86166])
     end
   end
+
+  it "should return 2d array of latitude longitude" do
+    expect(bbox_dateline.to_latlng).to eq([[30, 165], [-20, -172]])
+  end
 end
